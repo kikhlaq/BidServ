@@ -21,23 +21,29 @@
                  fetchSize="#{bindings.PostVO1.rangeSize}" id="lv1">
       <af:listItem id="li1">
         <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
-          <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1">
+          <af:gridRow height="60px" id="gr1">
             <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
               <af:panelGroupLayout id="pgl2" layout="vertical">
-                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1"/>
-                <af:image source="/com/bidServ/resource/images/stars.jpg" id="i2" styleClass="stars"/>
+                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
               </af:panelGroupLayout>
             </af:gridCell>
             <af:gridCell width="70%" id="gc2">
               <af:panelGroupLayout id="pgl4" layout="vertical">
                 <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
                 <af:outputText value="#{item.PostDescription}" id="ot1"/>
+                <f:facet name="separator">
+                  <af:spacer height="3" id="s3"/>
+                </f:facet>
               </af:panelGroupLayout>
             </af:gridCell>
             <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc3" halign="center" valign="middle">
               <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
-                <af:outputText value="#{item.DaysLeft}" id="ot2"/>
+                <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                 <af:button text="#{item.PostStatusCode}" id="b1" disabled="true"/>
+                <f:facet name="separator">
+                  <af:spacer height="3" id="s4"/>
+                </f:facet>
               </af:panelGroupLayout>
             </af:gridCell>
           </af:gridRow>

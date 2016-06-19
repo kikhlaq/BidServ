@@ -34,7 +34,10 @@
       </trans-unit>
       <trans-unit id="priConnections">
         <source>Primary Connections</source>
-      </trans-unit>      
+      </trans-unit>   
+      <trans-unit id="daysLeft">
+        <source>day(s) left</source>
+      </trans-unit>        
     </body>
   </file>
 </xliff>

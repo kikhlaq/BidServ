@@ -119,18 +119,44 @@ af|button:disabled{
     background-image: none;
     color:white;
     border-radius: 5px;
+    min-height:0px; 
 }
 
+af|button:disabled::link {
+    padding: 0px 8px 2px 8px; 
+    background-color:#18BC9C;
+}
+
+@agent webkit and (version: 537.*) {
+af|button:disabled::link {
+    padding: 2px 8px 0px 8px; 
+    background-color:#18BC9C;
+}
+}
+af|button:disabled::text{
+    font-size: 11px;
+}
 
 .stars {
-  position: absolute;
-    clip: rect(10px,64px,20px,0px);
+    /*position: absolute;
+    clip: rect(10px,64px,20px,0px);*/
+    width: 50px;
   
 }
 
 .postLink{
     color:#18BC9C;
-    font-size: medium;
+    font-family: sans-serif;
+    font-size: 15px;
     font-weight: bold;
     text-decoration: underline ;
 }
+
+.adv{
+    height: 600px;
+}
+
+.image{
+    width:50px;
+}
+

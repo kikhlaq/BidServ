@@ -149,7 +149,7 @@
     ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
     SQLType="NUMERIC"
-    Expression="(EXPIRY_DATE-sysdate())"
+    Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
     IsQueriable="false"/>
   <ResourceBundle>
     <PropertiesBundle
