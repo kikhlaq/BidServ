@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+  <file source-language="en" original="Bundle" datatype="x-oracle-adf">
+    <body>
+      <trans-unit id="myProfile">
+        <source>My Profile</source>
+      </trans-unit>
+      <trans-unit id="memberPosts">
+        <source>Member Posts</source>
+      </trans-unit>
+      <trans-unit id="myPosts">
+        <source>My Posts</source>
+      </trans-unit>
+      <trans-unit id="myBids">
+        <source>My Bids</source>
+      </trans-unit>
+      <trans-unit id="bidServ">
+        <source>bidServ</source>
+      </trans-unit>
+      <trans-unit id="olympicPaints">
+        <source>Olympic Paints</source>
+      </trans-unit>
+      <trans-unit id="logout">
+        <source>Logout</source>
+      </trans-unit>
+      <trans-unit id="dashboard">
+        <source>Dashboard</source>
+      </trans-unit>
+      <trans-unit id="supplierNetwork">
+        <source>Supplier Network</source>
+      </trans-unit>
+      <trans-unit id="secConnections">
+        <source>Secondary Connections</source>
+      </trans-unit>
+      <trans-unit id="priConnections">
+        <source>Primary Connections</source>
+      </trans-unit>      
+    </body>
+  </file>
+</xliff>

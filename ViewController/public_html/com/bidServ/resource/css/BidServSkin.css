@@ -1,0 +1,136 @@
+@charset "UTF-8";
+/**ADFFaces_Skin_File / DO NOT REMOVE**/
+@namespace af "http://xmlns.oracle.com/adf/faces/rich";
+@namespace dvt "http://xmlns.oracle.com/dss/adf/faces";
+
+.banner{
+    padding-top:15px;
+    padding-bottom: 15px;
+    width:100%;
+    background-color: #2C3E50;
+}
+
+.bannerLink{
+    color:white;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.globalLink{
+    color:white;
+    font-size: medium;
+}
+
+af|panelTabbed {
+    background-color: #999999; 
+}
+
+af|panelTabbed::tab:disabled  {
+    width: 40px; 
+    
+}
+
+af|panelHeader::title-text0 {
+    color: white; 
+    margin: 0px; 
+}
+
+af|panelHeader::title0 {
+    background-color: #999999; 
+    padding-left: 30px;
+}
+
+af|panelBox::content {
+    padding: 20px; 
+}
+
+
+af|panelTabbed::tab:selected af|panelTabbed::tab-content {
+    border-right: none; 
+    border-left: none; 
+}
+
+.headerCell{
+    background-color: #2C3E50;
+    color:white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height:50px;
+    
+}
+
+.dataCell{
+    border:1px solid black;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    
+}
+
+.postCell{
+    background-color: #69D3BF;
+    color:white;
+    padding:20px;
+    border-radius: 5px;
+}
+
+.bidCell{
+    background-color: #7BBCE8;
+    color:white;
+    padding:20px;
+    border-radius: 5px;
+}
+
+.contactCell{
+    background-color: #BAC4C5;
+    color:white;
+    padding:20px;
+    border-radius: 5px;
+}
+
+.creditCell{
+    background-color: #76828D;
+    color:white;
+    padding:20px;
+    border-radius: 5px;
+}
+
+af|panelTabbed::body {
+    border: none; 
+    border-radius: 0px; 
+    background-color: #FBFBFB; 
+}
+
+af|document {
+    background-image: none; 
+    background-color: #FBFBFB; 
+}
+
+af|panelTabbed::footer-center{
+    background-image: none;
+    background-color: #FBFBFB;
+}
+
+af|listItem {
+    background-color: #FBFBFB; 
+}
+
+af|button:disabled{
+    background-color: #18BC9C;
+    background-image: none;
+    color:white;
+    border-radius: 5px;
+}
+
+
+.stars {
+  position: absolute;
+    clip: rect(10px,64px,20px,0px);
+  
+}
+
+.postLink{
+    color:#18BC9C;
+    font-size: medium;
+    font-weight: bold;
+    text-decoration: underline ;
+}

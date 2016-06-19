@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <c:set var="viewcontrollerBundle1" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
+    <c:set var="viewcontrollerBundle" value="#{adfBundle['viewcontroller.com.bidServ.ui.page.ShellBundle']}"/>
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <f:view>
+        <af:document title="Shell" id="d1">
+            <af:form id="f1">
+                <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="AFStretchWidth">
+                    <af:panelGroupLayout id="pgl2" layout="vertical"
+                                         styleClass="banner" valign="middle">
+                        <trh:tableLayout id="tl1" width="100%">
+                            <trh:rowLayout id="rl1" width="100%" valign="middle">
+                                <trh:cellFormat id="cf1" width="15%"/>
+                                <trh:cellFormat id="cf2" width="35%" halign="start" valign="middle">
+                                    <af:panelGroupLayout id="pgl10" layout="horizontal">
+                                        <af:image source="/com/bidServ/resource/images/bid.png" id="i1"/>
+                                        <af:link text="#{viewcontrollerBundle1.bidServ}" id="l3"
+                                                 styleClass="bannerLink"/>
+                                        <af:outputText value="|" id="ot2" styleClass="bannerLink"/>
+                                        <af:link text="#{viewcontrollerBundle1.olympicPaints}" id="l4"
+                                                 styleClass="bannerLink"/>
+                                        <f:facet name="separator">
+                                            <af:spacer width="5" id="s4"/>
+                                        </f:facet>
+                                    </af:panelGroupLayout>
+                                </trh:cellFormat>
+                                <trh:cellFormat id="cf3" width="35%" halign="right">
+                                    <af:panelGroupLayout id="pgl3">
+                                        <f:facet name="separator">
+                                            <af:spacer width="30" id="s1"/>
+                                        </f:facet>
+                                        <af:link text="My Profile" id="l1" styleClass="globalLink"/>
+                                        <af:link text="Logout" id="l2" styleClass="globalLink"/>
+                                    </af:panelGroupLayout>
+                                </trh:cellFormat>
+                                <trh:cellFormat id="cf4" width="15%"/>
+                            </trh:rowLayout>
+                        </trh:tableLayout>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl5" layout="horizontal" styleClass="AFStretchWidth" valign="top">
+                        <af:panelTabbed position="above" id="pt2" inlineStyle="width:250px;">
+                            <af:showDetailItem id="tab4" disclosed="true" displayIndex="-1" disabled="true"
+                                               inlineStyle="background-color:white;">
+                                <trh:tableLayout id="tl3" width="100%">
+                                    <trh:rowLayout id="rl6">
+                                        <trh:cellFormat id="cf9" width="100%" styleClass="headerCell" halign="center">
+                                            <af:panelGroupLayout id="pgl6" layout="vertical">
+                                                <af:outputText value="#{viewcontrollerBundle1.dashboard}" id="ot1"
+                                                               inlineStyle="font-size:large;"/>
+                                            </af:panelGroupLayout>
+                                        </trh:cellFormat>
+                                    </trh:rowLayout>
+                                    <trh:rowLayout id="rl5">
+                                        <trh:cellFormat id="cf8" width="100%" halign="center" styleClass="dataCell">
+                                            <trh:tableLayout id="tl2" width="60%" cellSpacing="20">
+                                                <trh:rowLayout id="rl3">
+                                                    <trh:cellFormat id="cf6" halign="center" styleClass="postCell"
+                                                                    width="100%">
+                                                        <af:panelGroupLayout id="pgl7" layout="vertical">
+                                                            <af:outputFormatted value="3" id="of2"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Posts" id="of3"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s2"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl4">
+                                                    <trh:cellFormat id="cf7" styleClass="bidCell" halign="center">
+                                                        <af:panelGroupLayout id="pgl8" layout="vertical">
+                                                            <af:outputFormatted value="2" id="of8"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Bids" id="of4"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s3"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl2" inlineStyle="padding-bottom:20px;">
+                                                    <trh:cellFormat id="cf5" height="50" halign="center"
+                                                                    styleClass="contactCell" width="100%">
+                                                        <af:panelGroupLayout id="pgl9" layout="vertical">
+                                                            <af:outputFormatted value="13" id="of9"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Contacts" id="of10"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s6"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl7">
+                                                    <trh:cellFormat id="cf10" halign="center" width="100%"
+                                                                    styleClass="creditCell">
+                                                        <af:panelGroupLayout id="pg20" layout="vertical">
+                                                            <af:outputFormatted value="154" id="of11"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Credits" id="of12"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s7"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                            </trh:tableLayout>
+                                        </trh:cellFormat>
+                                    </trh:rowLayout>
+                                </trh:tableLayout>
+                            </af:showDetailItem>
+                        </af:panelTabbed>
+                        <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth">
+                            <af:showDetailItem id="sdi1" disabled="true" styleClass="deadPadItem"/>
+                            <af:showDetailItem id="tab1" text="#{viewcontrollerBundle1.memberPosts}" disclosed="true">
+                                <af:panelGroupLayout id="pgl4" layout="vertical">
+                                    
+                                    <af:region value="#{bindings.MainTF1.regionModel}" id="r1"/>
+                                </af:panelGroupLayout>
+                            </af:showDetailItem>
+                            <af:showDetailItem id="tab2" text="#{viewcontrollerBundle1.myPosts}"/>
+                            <af:showDetailItem id="tab3" text="#{viewcontrollerBundle1.myBids}"/>
+                        </af:panelTabbed>
+                    </af:panelGroupLayout>
+                </af:panelGroupLayout>
+            </af:form>
+        </af:document>
+    </f:view>
+</jsp:root>

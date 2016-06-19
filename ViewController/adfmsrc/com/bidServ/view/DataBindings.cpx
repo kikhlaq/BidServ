@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.8.41" id="DataBindings"
+             SeparateXMLFiles="false" Package="com.bidServ.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/com/bidServ/ui/page/MemberPost.jsff" usageId="com_bidServ_view_MemberPostPageDef"/>
+    <page path="/com/bidServ/ui/page/Shell.jspx" usageId="com_bidServ_view_ShellPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
+    <page id="com_bidServ_view_ShellPageDef" path="com.bidServ.ui.page.ShellPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="BidServAMDataControl" Package="com.bidServ.model.applicationModule"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="BidServAMLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

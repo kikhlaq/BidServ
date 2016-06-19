@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="MainTF">
+    <default-activity>router1</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>flow</name>
+      <value>#{pageFlowScope.flow}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <router id="router1">
+      <case id="__2">
+        <expression>#{pageFlowScope.flow == 'memberPost' ? true : false}</expression>
+        <outcome>memberPosts</outcome>
+      </case>
+      <case id="__3">
+        <expression>#{pageFlowScope.flow == 'myPosts' ? true : false}</expression>
+        <outcome>outcome2</outcome>
+      </case>
+      <default-outcome>memberPosts</default-outcome>
+    </router>
+    <view id="MemberPost">
+      <page>/com/bidServ/ui/page/MemberPost.jsff</page>
+    </view>
+    <control-flow-rule id="__4">
+      <from-activity-id>router1</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>memberPosts</from-outcome>
+        <to-activity-id>MemberPost</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

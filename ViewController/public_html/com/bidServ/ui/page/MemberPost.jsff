@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <c:set var="viewcontrollerBundle" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
+  <af:panelGroupLayout id="pgl1" styleClass="AFStretchWidth" layout="vertical">
+    <af:navigationPane hint="tabs" id="np1">
+                                        <af:commandNavigationItem id="ni1"
+                                                                  text="#{viewcontrollerBundle.supplierNetwork}" selected="true"/>
+                                        <af:commandNavigationItem id="ni2"
+                                                                  text="#{viewcontrollerBundle.secConnections}"/>
+                                        <af:commandNavigationItem id="ni3"
+                                                                  text="#{viewcontrollerBundle.priConnections}"/>
+                                    </af:navigationPane>
+    <af:group id="g1">
+      <af:inputText label="Search box" id="it1" simple="true" styleClass="AFStretchWidth"/>
+      <af:spacer width="10" id="s2"/>
+      <af:button text="Search" id="b2"/>
+    </af:group>
+    <af:listView value="#{bindings.PostVO1.collectionModel}" var="item"
+                 emptyText="#{bindings.PostVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                 fetchSize="#{bindings.PostVO1.rangeSize}" id="lv1">
+      <af:listItem id="li1">
+        <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
+          <af:gridRow marginTop="5px" height="auto" marginBottom="5px" id="gr1">
+            <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
+              <af:panelGroupLayout id="pgl2" layout="vertical">
+                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1"/>
+                <af:image source="/com/bidServ/resource/images/stars.jpg" id="i2" styleClass="stars"/>
+              </af:panelGroupLayout>
+            </af:gridCell>
+            <af:gridCell width="70%" id="gc2">
+              <af:panelGroupLayout id="pgl4" layout="vertical">
+                <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
+                <af:outputText value="#{item.PostDescription}" id="ot1"/>
+              </af:panelGroupLayout>
+            </af:gridCell>
+            <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc3" halign="center" valign="middle">
+              <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
+                <af:outputText value="#{item.DaysLeft}" id="ot2"/>
+                <af:button text="#{item.PostStatusCode}" id="b1" disabled="true"/>
+              </af:panelGroupLayout>
+            </af:gridCell>
+          </af:gridRow>
+        </af:panelGridLayout>
+      </af:listItem>
+    </af:listView>
+    <f:facet name="separator">
+      <af:spacer height="10" id="s1"/>
+    </f:facet>
+  </af:panelGroupLayout>
+</jsp:root>
