@@ -14,6 +14,9 @@
       <trans-unit id="myBids">
         <source>My Bids</source>
       </trans-unit>
+      <trans-unit id="newPost">
+        <source>New Post</source>
+      </trans-unit>
       <trans-unit id="bidServ">
         <source>bidServ</source>
       </trans-unit>
