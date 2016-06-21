@@ -19,6 +19,10 @@
         ResId="com.bidServ.model.view.PostVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="keyword"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>
@@ -151,6 +155,147 @@
     SQLType="NUMERIC"
     Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
     IsQueriable="false"/>
+  <ViewCriteria
+    Name="EntireNetworkVC"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="VisibilityCode"
+        ViewAttribute="VisibilityCode"
+        Operator="="
+        Conjunction="AND"
+        Value="'ENTIRE_NETWORK'"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="PrimaryConVc"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="VisibilityCode"
+        ViewAttribute="VisibilityCode"
+        Operator="="
+        Conjunction="AND"
+        Value="'PRIMARY'"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="SecondaryConVC"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="VisibilityCode"
+        ViewAttribute="VisibilityCode"
+        Operator="="
+        Conjunction="AND"
+        Value="'SECONDARY'"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="SearchVC"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="PostDescription"
+        ViewAttribute="PostDescription"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Value=":keyword"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.bidServ.model.ModelBundle"/>

@@ -133,6 +133,11 @@ af|button:disabled::link {
     background-color:#18BC9C;
 }
 }
+
+af|button:disabled:hover{
+    color:white;
+}
+
 af|button:disabled::text{
     font-size: 11px;
 }

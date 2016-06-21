@@ -5,7 +5,7 @@
     <c:set var="viewcontrollerBundle1" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
     <c:set var="viewcontrollerBundle" value="#{adfBundle['viewcontroller.com.bidServ.ui.page.ShellBundle']}"/>
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
-    <f:view>
+    <f:view> 
         <af:document title="Shell" id="d1">
             <af:form id="f1">
                 <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="AFStretchWidth">

@@ -6,7 +6,11 @@
   Name="BidServAM"
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
-  ClearCacheOnRollback="true">
+  ClearCacheOnRollback="true"
+  ComponentClass="com.bidServ.model.applicationModule.BidServAMImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <ViewUsage
     Name="PostVO1"
     ViewObjectName="com.bidServ.model.view.PostVO"/>
