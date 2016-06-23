@@ -9,10 +9,16 @@
   <pageMap>
     <page path="/com/bidServ/ui/page/MemberPost.jsff" usageId="com_bidServ_view_MemberPostPageDef"/>
     <page path="/com/bidServ/ui/page/Shell.jspx" usageId="com_bidServ_view_ShellPageDef"/>
+    <page path="/com/bidServ/ui/page/CreateNewPost.jsff" usageId="com_bidServ_view_CreateNewPostPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost@Create"
+          usageId="com_bidServ_view_createPostTF_createPost_CreatePageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
     <page id="com_bidServ_view_ShellPageDef" path="com.bidServ.ui.page.ShellPageDef"/>
+    <page id="com_bidServ_view_CreateNewPostPageDef" path="com.bidServ.ui.page.CreateNewPostPageDef"/>
+    <page id="com_bidServ_view_createPostTF_createPost_CreatePageDef"
+          path="com.bidServ.ui.flow.createPostTF_createPost_CreatePageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="BidServAMDataControl" Package="com.bidServ.model.applicationModule"
