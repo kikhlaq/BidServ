@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.1.20" id="CreateNewPostPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="createPostVO" RangeSize="25" DataControl="BidServAMDataControl" id="createPostVOIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="createPostVOIterator" id="BasePrice">
+      <AttrNames>
+        <Item Value="BasePrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="ChangeLog">
+      <AttrNames>
+        <Item Value="ChangeLog"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="CompanyId">
+      <AttrNames>
+        <Item Value="CompanyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="DeliveryDate">
+      <AttrNames>
+        <Item Value="DeliveryDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="ExpiryDate">
+      <AttrNames>
+        <Item Value="ExpiryDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="Language">
+      <AttrNames>
+        <Item Value="Language"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="ModifiedByUser">
+      <AttrNames>
+        <Item Value="ModifiedByUser"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="ModifiedDate">
+      <AttrNames>
+        <Item Value="ModifiedDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="NegotiableFlag">
+      <AttrNames>
+        <Item Value="NegotiableFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="ObjectVersionNumber">
+      <AttrNames>
+        <Item Value="ObjectVersionNumber"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="PostDescription">
+      <AttrNames>
+        <Item Value="PostDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="PostId">
+      <AttrNames>
+        <Item Value="PostId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="PostStatusCode">
+      <AttrNames>
+        <Item Value="PostStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="PostType">
+      <AttrNames>
+        <Item Value="PostType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="Product">
+      <AttrNames>
+        <Item Value="Product"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="Quantity">
+      <AttrNames>
+        <Item Value="Quantity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="Uom">
+      <AttrNames>
+        <Item Value="Uom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="VisibilityCode">
+      <AttrNames>
+        <Item Value="VisibilityCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="createPostVOIterator" id="DaysLeft">
+      <AttrNames>
+        <Item Value="DaysLeft"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
