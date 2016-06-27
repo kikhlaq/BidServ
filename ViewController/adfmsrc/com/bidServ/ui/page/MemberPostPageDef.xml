@@ -4,11 +4,13 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <iterator Binds="PostVO1" RangeSize="25" DataControl="BidServAMDataControl" id="PostVO1Iterator"/>
+    <iterator Binds="SupplierNetworkVO" RangeSize="25" DataControl="BidServAMDataControl" id="SupplierNetworkVOIterator"/>
+    <iterator Binds="SecondaryConnVO" RangeSize="25" DataControl="BidServAMDataControl" id="SecondaryConnVOIterator"/>
+    <iterator Binds="PrimaryConnVO" RangeSize="25" DataControl="BidServAMDataControl" id="PrimaryConnVOIterator"/>
   </executables>
   <bindings>
-    <tree IterBinding="PostVO1Iterator" id="PostVO1">
-      <nodeDefinition DefName="com.bidServ.model.view.PostVO" Name="PostVO10">
+    <tree IterBinding="SupplierNetworkVOIterator" id="SupplierNetworkVO">
+      <nodeDefinition DefName="com.bidServ.model.view.post.EntireNetworkPostVO" Name="SupplierNetworkVO0">
         <AttrNames>
           <Item Value="BasePrice"/>
           <Item Value="ChangeLog"/>
@@ -33,5 +35,63 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <tree IterBinding="SecondaryConnVOIterator" id="SecondaryConnVO">
+      <nodeDefinition DefName="com.bidServ.model.view.post.SecondaryConnPostVO" Name="SecondaryConnVO0">
+        <AttrNames>
+          <Item Value="BasePrice"/>
+          <Item Value="ChangeLog"/>
+          <Item Value="CompanyId"/>
+          <Item Value="DeliveryDate"/>
+          <Item Value="ExpiryDate"/>
+          <Item Value="Language"/>
+          <Item Value="ModifiedByUser"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NegotiableFlag"/>
+          <Item Value="ObjectVersionNumber"/>
+          <Item Value="PostDescription"/>
+          <Item Value="PostId"/>
+          <Item Value="PostStatusCode"/>
+          <Item Value="PostType"/>
+          <Item Value="Product"/>
+          <Item Value="Quantity"/>
+          <Item Value="Uom"/>
+          <Item Value="UserId"/>
+          <Item Value="VisibilityCode"/>
+          <Item Value="DaysLeft"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="PrimaryConnVOIterator" id="PrimaryConnVO">
+      <nodeDefinition DefName="com.bidServ.model.view.post.PrimaryConnPostVO" Name="PrimaryConnVO0">
+        <AttrNames>
+          <Item Value="BasePrice"/>
+          <Item Value="ChangeLog"/>
+          <Item Value="CompanyId"/>
+          <Item Value="DeliveryDate"/>
+          <Item Value="ExpiryDate"/>
+          <Item Value="Language"/>
+          <Item Value="ModifiedByUser"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NegotiableFlag"/>
+          <Item Value="ObjectVersionNumber"/>
+          <Item Value="PostDescription"/>
+          <Item Value="PostId"/>
+          <Item Value="PostStatusCode"/>
+          <Item Value="PostType"/>
+          <Item Value="Product"/>
+          <Item Value="Quantity"/>
+          <Item Value="Uom"/>
+          <Item Value="UserId"/>
+          <Item Value="VisibilityCode"/>
+          <Item Value="DaysLeft"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="searchPost" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchPost"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="voName" NDValue="E" NDType="java.lang.String"/>
+      <NamedData NDName="keyword" NDValue="#{requestScope.keyword}" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

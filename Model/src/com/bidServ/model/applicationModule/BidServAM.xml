@@ -7,11 +7,60 @@
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   ClearCacheOnRollback="true"
-  ComponentClass="com.bidServ.model.applicationModule.BidServAMImpl">
+  ComponentClass="com.bidServ.model.applicationModule.BidServAMImpl"
+  ComponentInterface="com.bidServ.model.applicationModule.common.BidServAM">
   <DesignTime>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
   <ViewUsage
-    Name="PostVO1"
-    ViewObjectName="com.bidServ.model.view.PostVO"/>
+    Name="SupplierNetworkVO"
+    ViewObjectName="com.bidServ.model.view.post.EntireNetworkPostVO">
+    <ViewCriteriaUsage
+      Name="EntireNetworkVC"
+      FullName="com.bidServ.model.view.post.EntireNetworkPostVO.EntireNetworkVC"/>
+  </ViewUsage>
+  <ViewUsage
+    Name="SecondaryConnVO"
+    ViewObjectName="com.bidServ.model.view.post.SecondaryConnPostVO">
+    <ViewCriteriaUsage
+      Name="SecondaryConnPostVOCriteria"
+      FullName="com.bidServ.model.view.post.SecondaryConnPostVO.SecondaryConnPostVOCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="bindCompId">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[201]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
+  <ViewUsage
+    Name="PrimaryConnVO"
+    ViewObjectName="com.bidServ.model.view.post.PrimaryConnPostVO">
+    <ViewCriteriaUsage
+      Name="PrimaryPostCriteria"
+      FullName="com.bidServ.model.view.post.PrimaryConnPostVO.PrimaryPostCriteria"/>
+    <ParameterMap>
+      <PIMap Variable="bindCompId">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[201]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
+  <ClientInterface
+    Name="__clientInterface">
+    <Method
+      Name="searchPost"
+      MethodName="searchPost">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="voName"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="keyword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
 </AppModule>

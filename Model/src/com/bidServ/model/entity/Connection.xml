@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="Connection"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="Connections"
+  AliasName="Connection"
+  BindingStyle="JDBC">
+  <Attribute
+    Name="ConnectionId"
+    IsNotNull="true"
+    ColumnName="CONNECTION_ID"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Connections"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="SourceCompanyId"
+    ColumnName="SOURCE_COMPANY_ID"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Connections">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DestCompanyId"
+    ColumnName="DEST_COMPANY_ID"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Connections">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ConnectionStatusCode"
+    Precision="20"
+    ColumnName="CONNECTION_STATUS_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Connections">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedByUser"
+    ColumnName="MODIFIED_BY_USER"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Connections">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ModifiedDate"
+    ColumnName="MODIFIED_DATE"
+    SQLType="DATE"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="Connections"/>
+  <AccessorAttribute
+    Name="Post"
+    Association="com.bidServ.model.entity.association.PostToPrimaryConnection"
+    AssociationEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.Post"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.PrimaryConnection"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="DestCompanyIdConnection"
+    Association="com.bidServ.model.entity.association.PrimaryToSecondaryConnection"
+    AssociationEnd="com.bidServ.model.entity.association.PrimaryToSecondaryConnection.DestCompanyIdConnection"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PrimaryToSecondaryConnection.SourceCompanyIdConnection"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="SourceCompanyIdConnection"
+    Association="com.bidServ.model.entity.association.PrimaryToSecondaryConnection"
+    AssociationEnd="com.bidServ.model.entity.association.PrimaryToSecondaryConnection.SourceCompanyIdConnection"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PrimaryToSecondaryConnection.DestCompanyIdConnection"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="Primary1"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRIMARY"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.Connection.ConnectionId"/>
+    </AttrArray>
+  </Key>
+</Entity>

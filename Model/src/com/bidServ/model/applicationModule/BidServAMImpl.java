@@ -1,5 +1,10 @@
 package com.bidServ.model.applicationModule;
 
+
+import com.bidServ.model.applicationModule.common.BidServAM;
+
+import com.bidServ.model.view.post.EntireNetworkPostVOImpl;
+
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -8,7 +13,7 @@ import oracle.jbo.server.ViewObjectImpl;
 // ---    Custom code may be added to this class.
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
-public class BidServAMImpl extends ApplicationModuleImpl {
+public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
     /**
      * This is the default constructor (do not remove).
      */
@@ -16,17 +21,39 @@ public class BidServAMImpl extends ApplicationModuleImpl {
     }
 
     /**
-     * Container's getter for PostVO1.
-     * @return PostVO1
+     * Container's getter for SupplierNetworkVO.
+     * @return SupplierNetworkVO
      */
-    public ViewObjectImpl getPostVO1() {
-        return (ViewObjectImpl) findViewObject("PostVO1");
+    public EntireNetworkPostVOImpl getSupplierNetworkVO() {
+        return (EntireNetworkPostVOImpl) findViewObject("SupplierNetworkVO");
+    }
+
+    /**
+     * Container's getter for SupplierNetworkVO.
+     * @return SupplierNetworkVO
+     */
+    public ViewObjectImpl getSecondaryConnVO() {
+        return (ViewObjectImpl) findViewObject("SecondaryConnVO");
+    }
+
+    /**
+     * Container's getter for PostVO2.
+     * @return PostVO2
+     */
+    public ViewObjectImpl getPrimaryConnVO() {
+        return (ViewObjectImpl) findViewObject("PrimaryConnVO");
     }
     
-    public void executeMemberPost(String vcName){
-        ViewObjectImpl postVO = getPostVO1();
-        postVO.applyViewCriteria(null);
-        postVO.setApplyViewCriteriaName(vcName);
+    public void searchPost(String voName, String keyword){
+        if(voName.equals("E")){
+            if (keyword == null || keyword.length()==0){
+                getSupplierNetworkVO().removeApplyViewCriteriaName("SearchVC");
+            }else{
+                getSupplierNetworkVO().setApplyViewCriteriaName("SearchVC",true);
+                getSupplierNetworkVO().setNamedWhereClauseParam("keyword", keyword);
+            }
+             getSupplierNetworkVO().executeQuery();
+         }
     }
 }
 

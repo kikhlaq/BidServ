@@ -3,7 +3,7 @@
 <!---->
 <ViewObject
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="PostVO"
+  Name="EntireNetworkPostVO"
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   SelectListFlags="1"
@@ -12,17 +12,25 @@
   BindingStyle="JDBC"
   CustomQuery="false"
   SelectAllAttributes="false"
-  PageIterMode="Full">
+  PageIterMode="Full"
+  ComponentClass="com.bidServ.model.view.post.EntireNetworkPostVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+  </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
-        ResId="com.bidServ.model.view.PostVO_LABEL"/>
+        ResId="com.bidServ.model.view.post.EntireNetworkPostVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
   <Variable
     Name="keyword"
     Kind="viewcriteria"
-    Type="java.lang.String"/>
+    Type="java.lang.String">
+            <AttrArray Name="ExtendedDataInts">
+      <Item Value="0"/>
+    </AttrArray>
+    </Variable>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>
@@ -157,7 +165,7 @@
     IsQueriable="false"/>
   <ViewCriteria
     Name="EntireNetworkVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
+    ViewObjectName="com.bidServ.model.view.post.EntireNetworkPostVO"
     Conjunction="AND">
     <Properties Name="_Props">
       <CustomProperties>
@@ -191,78 +199,8 @@
     </ViewCriteriaRow>
   </ViewCriteria>
   <ViewCriteria
-    Name="PrimaryConVc"
-    ViewObjectName="com.bidServ.model.view.PostVO"
-    Conjunction="AND">
-    <Properties Name="_Props">
-      <CustomProperties>
-        <Property
-          Name="autoExecute"
-          Value="false"/>
-        <Property
-          Name="mode"
-          Value="Basic"/>
-        <Property
-          Name="allowConjunctionOverride"
-          Value="true"/>
-        <Property
-          Name="showInList"
-          Value="true"/>
-        <Property
-          Name="displayOperators"
-          Value="InAdvancedMode"/>
-      </CustomProperties>
-    </Properties>
-    <ViewCriteriaRow
-      Name="PostVOCriteria_row_0"
-      UpperColumns="1">
-      <ViewCriteriaItem
-        Name="VisibilityCode"
-        ViewAttribute="VisibilityCode"
-        Operator="="
-        Conjunction="AND"
-        Value="'PRIMARY'"
-        Required="Optional"/>
-    </ViewCriteriaRow>
-  </ViewCriteria>
-  <ViewCriteria
-    Name="SecondaryConVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
-    Conjunction="AND">
-    <Properties Name="_Props">
-      <CustomProperties>
-        <Property
-          Name="autoExecute"
-          Value="false"/>
-        <Property
-          Name="mode"
-          Value="Basic"/>
-        <Property
-          Name="allowConjunctionOverride"
-          Value="true"/>
-        <Property
-          Name="showInList"
-          Value="true"/>
-        <Property
-          Name="displayOperators"
-          Value="InAdvancedMode"/>
-      </CustomProperties>
-    </Properties>
-    <ViewCriteriaRow
-      Name="PostVOCriteria_row_0"
-      UpperColumns="1">
-      <ViewCriteriaItem
-        Name="VisibilityCode"
-        ViewAttribute="VisibilityCode"
-        Operator="="
-        Conjunction="AND"
-        Value="'SECONDARY'"
-        Required="Optional"/>
-    </ViewCriteriaRow>
-  </ViewCriteria>
-  <ViewCriteria
     Name="SearchVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
+    ViewObjectName="com.bidServ.model.view.post.EntireNetworkPostVO"
     Conjunction="AND">
     <Properties Name="_Props">
       <CustomProperties>

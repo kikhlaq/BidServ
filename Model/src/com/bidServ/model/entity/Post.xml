@@ -216,6 +216,13 @@
     Type="java.sql.Blob"
     ColumnType="BLOB"
     TableName="mysql.posts"/>
+  <AccessorAttribute
+    Name="PrimaryConnection"
+    Association="com.bidServ.model.entity.association.PostToPrimaryConnection"
+    AssociationEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.PrimaryConnection"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.Post"
+    Type="oracle.jbo.server.EntityImpl"
+    IsUpdateable="true"/>
   <Key
     Name="Primary1"
     PrimaryKey="true">

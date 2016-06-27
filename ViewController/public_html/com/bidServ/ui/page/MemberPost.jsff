@@ -3,55 +3,167 @@
                 xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
   <c:set var="viewcontrollerBundle" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
   <af:panelGroupLayout id="pgl1" styleClass="AFStretchWidth" layout="vertical">
-    <af:navigationPane hint="tabs" id="np1">
+    <af:navigationPane hint="tabs" id="np1" partialTriggers="ni1 ni2 ni3">
                                         <af:commandNavigationItem id="ni1"
-                                                                  text="#{viewcontrollerBundle.supplierNetwork}" selected="true"/>
+                                                                  text="#{viewcontrollerBundle.supplierNetwork}"
+                                                                  selected="#{pageFlowScope.selectedTab == 'supplierNetwork' || pageFlowScope.selectedTab == null}"
+                                                                  partialSubmit="true">
+        <af:setPropertyListener from="#{'supplierNetwork'}" to="#{pageFlowScope.selectedTab}" type="action"/>
+      </af:commandNavigationItem>
                                         <af:commandNavigationItem id="ni2"
-                                                                  text="#{viewcontrollerBundle.secConnections}"/>
+                                                                  text="#{viewcontrollerBundle.secConnections}"
+                                                                  partialSubmit="true"
+                                                                  selected="#{pageFlowScope.selectedTab == 'secondaryConn'}">
+        <af:setPropertyListener from="#{'secondaryConn'}" to="#{pageFlowScope.selectedTab}" type="action"/>
+      </af:commandNavigationItem>
                                         <af:commandNavigationItem id="ni3"
-                                                                  text="#{viewcontrollerBundle.priConnections}"/>
+                                                                  text="#{viewcontrollerBundle.priConnections}"
+                                                                  partialSubmit="true"
+                                                                  selected="#{pageFlowScope.selectedTab == 'primaryConn'}">
+        <af:setPropertyListener from="#{'primaryConn'}" to="#{pageFlowScope.selectedTab}" type="action"/>
+      </af:commandNavigationItem>
                                     </af:navigationPane>
-    <af:group id="g1">
-      <af:inputText label="Search box" id="it1" simple="true" styleClass="AFStretchWidth"/>
-      <af:spacer width="10" id="s2"/>
-      <af:button text="Search" id="b2"/>
-    </af:group>
-    <af:listView value="#{bindings.PostVO1.collectionModel}" var="item"
-                 emptyText="#{bindings.PostVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                 fetchSize="#{bindings.PostVO1.rangeSize}" id="lv1">
-      <af:listItem id="li1">
-        <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
-          <af:gridRow height="60px" id="gr1">
-            <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
-              <af:panelGroupLayout id="pgl2" layout="vertical">
-                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
-                <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
-              </af:panelGroupLayout>
-            </af:gridCell>
-            <af:gridCell width="70%" id="gc2">
-              <af:panelGroupLayout id="pgl4" layout="vertical">
-                <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
-                <af:outputText value="#{item.PostDescription}" id="ot1"/>
-                <f:facet name="separator">
-                  <af:spacer height="3" id="s3"/>
-                </f:facet>
-              </af:panelGroupLayout>
-            </af:gridCell>
-            <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc3" halign="center" valign="middle">
-              <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
-                <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
-                <af:button text="#{item.PostStatusCode}" id="b1" disabled="true"/>
-                <f:facet name="separator">
-                  <af:spacer height="3" id="s4"/>
-                </f:facet>
-              </af:panelGroupLayout>
-            </af:gridCell>
-          </af:gridRow>
-        </af:panelGridLayout>
-      </af:listItem>
-    </af:listView>
+    <af:panelGroupLayout id="suppNetPG" layout="vertical"
+                         partialTriggers="np1:ni1 np1:ni2 np1:ni3"
+                         visible="#{pageFlowScope.selectedTab == 'supplierNetwork' || pageFlowScope.selectedTab == null}">
+      <af:group id="g1">
+        <af:inputText label="Search box" id="it1" simple="true" styleClass="AFStretchWidth"
+                      value="#{requestScope.keyword}"/>
+        <af:spacer width="10" id="s2"/>
+        <af:button text="Search" id="b2" actionListener="#{bindings.searchPost.execute}"/>
+      </af:group>
+      <af:listView value="#{bindings.SupplierNetworkVO.collectionModel}" var="item"
+                   emptyText="#{bindings.SupplierNetworkVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="#{bindings.SupplierNetworkVO.rangeSize}" id="lv1" partialTriggers="::b2">
+        <af:listItem id="li1">
+          <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr1">
+              <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
+                <af:panelGroupLayout id="pgl2" layout="vertical">
+                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                  <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="70%" id="gc2">
+                <af:panelGroupLayout id="pgl4" layout="vertical">
+                  <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
+                  <af:outputText value="#{item.PostDescription}" id="ot1"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s3"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc3" halign="center" valign="middle">
+                <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
+                  <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
+                  <af:button text="#{item.PostStatusCode}" id="b1" disabled="true"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s4"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+      <f:facet name="separator">
+        <af:spacer height="10" id="s5"/>
+      </f:facet>
+    </af:panelGroupLayout>
     <f:facet name="separator">
       <af:spacer height="10" id="s1"/>
     </f:facet>
+    <af:panelGroupLayout id="secConPG" layout="vertical"
+                         partialTriggers="np1:ni1 np1:ni2 np1:ni3"
+                         visible="#{pageFlowScope.selectedTab == 'secondaryConn'}">
+      <af:group id="g11">
+        <af:inputText label="Search box" id="it11" simple="true" styleClass="AFStretchWidth"/>
+        <af:spacer width="10" id="s21"/>
+        <af:button text="Search" id="b21"/>
+      </af:group>
+      <af:listView value="#{bindings.SecondaryConnVO.collectionModel}" var="item"
+                   emptyText="#{bindings.SecondaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="#{bindings.SecondaryConnVO.rangeSize}" id="lv11">
+        <af:listItem id="li11">
+          <af:panelGridLayout id="pgl31" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr11">
+              <af:gridCell width="10%" id="gc11" valign="middle" halign="center">
+                <af:panelGroupLayout id="pgl21" layout="vertical">
+                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i11" styleClass="image"/>
+                  <af:image source="/com/bidServ/resource/images/2.png" id="i21" styleClass="stars"/>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="70%" id="gc21">
+                <af:panelGroupLayout id="pgl41" layout="vertical">
+                  <af:link text="#{item.Product}" id="l11" styleClass="postLink"/>
+                  <af:outputText value="#{item.PostDescription}" id="ot11"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s31"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc31" halign="center" valign="middle">
+                <af:panelGroupLayout id="pgl51" layout="vertical" halign="center">
+                  <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot21"/>
+                  <af:button text="#{item.PostStatusCode}" id="b11" disabled="true"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s41"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+      <f:facet name="separator">
+        <af:spacer height="10" id="s6"/>
+      </f:facet>
+    </af:panelGroupLayout>
+    <af:panelGroupLayout id="primConPG" layout="vertical"
+                         partialTriggers="np1:ni1 np1:ni2 np1:ni3"
+                         visible="#{pageFlowScope.selectedTab == 'primaryConn'}">
+      <af:group id="g111">
+        <af:inputText label="Search box" id="it111" simple="true" styleClass="AFStretchWidth"/>
+        <af:spacer width="10" id="s211"/>
+        <af:button text="Search" id="b211"/>
+      </af:group>
+      <af:listView value="#{bindings.PrimaryConnVO.collectionModel}" var="item"
+                   emptyText="#{bindings.PrimaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="#{bindings.PrimaryConnVO.rangeSize}" id="lv111">
+        <af:listItem id="li211">
+          <af:panelGridLayout id="pgl311" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr111">
+              <af:gridCell width="10%" id="gc111" valign="middle" halign="center">
+                <af:panelGroupLayout id="pgl211" layout="vertical">
+                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i111" styleClass="image"/>
+                  <af:image source="/com/bidServ/resource/images/2.png" id="i211" styleClass="stars"/>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="70%" id="gc211">
+                <af:panelGroupLayout id="pgl411" layout="vertical">
+                  <af:link text="#{item.Product}" id="l111" styleClass="postLink"/>
+                  <af:outputText value="#{item.PostDescription}" id="ot111"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s311"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc311" halign="center" valign="middle">
+                <af:panelGroupLayout id="pgl511" layout="vertical" halign="center">
+                  <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot211"/>
+                  <af:button text="#{item.PostStatusCode}" id="b111" disabled="true"/>
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s411"/>
+                  </f:facet>
+                </af:panelGroupLayout>
+              </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+      <f:facet name="separator">
+        <af:spacer height="10" id="s7"/>
+      </f:facet>
+    </af:panelGroupLayout>
   </af:panelGroupLayout>
 </jsp:root>
