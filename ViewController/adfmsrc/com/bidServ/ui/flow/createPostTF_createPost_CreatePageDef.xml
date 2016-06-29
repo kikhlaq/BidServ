@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.1.20"
+                id="createPostTF_createPost_CreatePageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="createPostVO" RangeSize="25" DataControl="BidServAMDataControl" id="createPostVOIterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="createPostVOIterator" id="Create" RequiresUpdateModel="true" Action="createInsertRow"
+            InstanceName="BidServAMDataControl.createPostVO" DataControl="BidServAMDataControl"/>
+  </bindings>
+</pageDefinition>

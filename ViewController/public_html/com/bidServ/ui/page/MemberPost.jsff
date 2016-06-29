@@ -28,9 +28,13 @@
                          visible="#{pageFlowScope.selectedTab == 'supplierNetwork' || pageFlowScope.selectedTab == null}">
       <af:group id="g1">
         <af:inputText label="Search box" id="it1" simple="true" styleClass="AFStretchWidth"
-                      value="#{requestScope.keyword}"/>
+                      value="#{pageFlowScope.entireNetworkKeyword}" placeholder="#{viewcontrollerBundle.keywordSearch}"/>
         <af:spacer width="10" id="s2"/>
-        <af:button text="Search" id="b2" actionListener="#{bindings.searchPost.execute}"/>
+        <af:button text="Search" id="b2" actionListener="#{bindings.searchPost.execute}">
+          <af:setPropertyListener from="#{pageFlowScope.entireNetworkKeyword}" to="#{requestScope.keyword}"
+                                  type="action"/>
+          <af:setPropertyListener to="#{requestScope.voName}" from="#{'E'}" type="action"/>
+        </af:button>
       </af:group>
       <af:listView value="#{bindings.SupplierNetworkVO.collectionModel}" var="item"
                    emptyText="#{bindings.SupplierNetworkVO.viewable ? 'No data to display.' : 'Access Denied.'}"
@@ -56,7 +60,9 @@
               <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc3" halign="center" valign="middle">
                 <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
-                  <af:button text="#{item.PostStatusCode}" id="b1" disabled="true"/>
+                  <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
+                    <af:outputText value="#{item.PostStatusCode}" id="ot3"/>
+                  </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s4"/>
                   </f:facet>
@@ -77,13 +83,17 @@
                          partialTriggers="np1:ni1 np1:ni2 np1:ni3"
                          visible="#{pageFlowScope.selectedTab == 'secondaryConn'}">
       <af:group id="g11">
-        <af:inputText label="Search box" id="it11" simple="true" styleClass="AFStretchWidth"/>
+        <af:inputText label="Search box" id="it11" simple="true" styleClass="AFStretchWidth"
+                      placeholder="#{viewcontrollerBundle.keywordSearch}" value="#{pageFlowScope.secConnKeyword}"/>
         <af:spacer width="10" id="s21"/>
-        <af:button text="Search" id="b21"/>
+        <af:button text="Search" id="b21" actionListener="#{bindings.searchPost.execute}">
+          <af:setPropertyListener from="#{pageFlowScope.secConnKeyword}" to="#{requestScope.keyword}" type="action"/>
+          <af:setPropertyListener to="#{requestScope.voName}" from="#{'S'}" type="action"/>
+        </af:button>
       </af:group>
       <af:listView value="#{bindings.SecondaryConnVO.collectionModel}" var="item"
                    emptyText="#{bindings.SecondaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.SecondaryConnVO.rangeSize}" id="lv11">
+                   fetchSize="#{bindings.SecondaryConnVO.rangeSize}" id="lv11" partialTriggers="::b21">
         <af:listItem id="li11">
           <af:panelGridLayout id="pgl31" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr11">
@@ -105,7 +115,9 @@
               <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc31" halign="center" valign="middle">
                 <af:panelGroupLayout id="pgl51" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot21"/>
-                  <af:button text="#{item.PostStatusCode}" id="b11" disabled="true"/>
+                  <af:panelGroupLayout id="pgl16" styleClass="statusLayout">
+                    <af:outputText value="#{item.PostStatusCode}" id="ot123"/>
+                  </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s41"/>
                   </f:facet>
@@ -123,13 +135,18 @@
                          partialTriggers="np1:ni1 np1:ni2 np1:ni3"
                          visible="#{pageFlowScope.selectedTab == 'primaryConn'}">
       <af:group id="g111">
-        <af:inputText label="Search box" id="it111" simple="true" styleClass="AFStretchWidth"/>
+        <af:inputText label="Search box" id="it111" simple="true" styleClass="AFStretchWidth"
+                      placeholder="#{viewcontrollerBundle.keywordSearch}" value="#{pageFlowScope.primaryConnKeyword}"/>
         <af:spacer width="10" id="s211"/>
-        <af:button text="Search" id="b211"/>
+        <af:button text="Search" id="b211" actionListener="#{bindings.searchPost.execute}">
+          <af:setPropertyListener from="#{pageFlowScope.primaryConnKeyword}" to="#{requestScope.keyword}"
+                                  type="action"/>
+          <af:setPropertyListener to="#{requestScope.voName}" from="#{'P'}" type="action"/>
+        </af:button>
       </af:group>
       <af:listView value="#{bindings.PrimaryConnVO.collectionModel}" var="item"
                    emptyText="#{bindings.PrimaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.PrimaryConnVO.rangeSize}" id="lv111">
+                   fetchSize="#{bindings.PrimaryConnVO.rangeSize}" id="lv111" partialTriggers="::b211">
         <af:listItem id="li211">
           <af:panelGridLayout id="pgl311" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr111">
@@ -151,7 +168,9 @@
               <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc311" halign="center" valign="middle">
                 <af:panelGroupLayout id="pgl511" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot211"/>
-                  <af:button text="#{item.PostStatusCode}" id="b111" disabled="true"/>
+                  <af:panelGroupLayout id="pgl26" styleClass="statusLayout">
+                    <af:outputText value="#{item.PostStatusCode}" id="ot133"/>
+                  </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s411"/>
                   </f:facet>

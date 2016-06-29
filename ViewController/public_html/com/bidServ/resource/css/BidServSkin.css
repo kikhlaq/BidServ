@@ -25,6 +25,10 @@ af|panelTabbed {
     background-color: #999999; 
 }
 
+af|panelTabbed::header {
+top:0px;
+}
+
 af|panelTabbed::tab:disabled  {
     width: 40px; 
     
@@ -114,33 +118,14 @@ af|listItem {
     background-color: #FBFBFB; 
 }
 
-af|button:disabled{
-    background-color: #18BC9C;
-    background-image: none;
-    color:white;
-    border-radius: 5px;
-    min-height:0px; 
-}
 
-af|button:disabled::link {
-    padding: 0px 8px 2px 8px; 
-    background-color:#18BC9C;
-}
 
-@agent webkit and (version: 537.*) {
-af|button:disabled::link {
-    padding: 2px 8px 0px 8px; 
-    background-color:#18BC9C;
-}
-}
 
-af|button:disabled:hover{
-    color:white;
-}
 
-af|button:disabled::text{
-    font-size: 11px;
-}
+
+
+
+
 
 .stars {
     /*position: absolute;
@@ -165,3 +150,111 @@ af|button:disabled::text{
     width:50px;
 }
 
+
+af|navigationPane-buttons::link {
+background-color: white;
+background-image: none;
+font-weight: normal;
+}
+
+af|navigationPane-buttons::link:hover {
+background-color: white;
+background-image: none;
+font-weight: normal;
+}
+
+af|navigationPane-buttons::link:selected{
+    font-weight: normal;
+}
+
+af|navigationPane-buttons::separator-icon {
+  content: "";
+}
+
+af|button {
+    background-color: #18BC9C; 
+    background-image: none;
+    color:white;
+    font-weight: normal;
+}
+
+af|button:depressed{
+        background-color: #128F76;
+    color:white;
+    font-weight: normal;
+}
+
+@agent (touchScreen:none){
+af|button:hover{
+    background-color: #128F76;
+    color:white;
+    font-weight: normal;
+}
+af|button:depressed:hover{
+        background-color: #128F76;
+        background-image:none;
+    color:white;
+    font-weight: normal;
+}
+
+}
+
+af|panelTabbed::tab af|panelTabbed::tab-text-link{
+    color:white;
+}
+
+af|panelTabbed::tab:selected af|panelTabbed::tab-text-link{
+    color:white;
+    font-weight: bold;
+}
+
+af|panelTabbed::tab:selected {
+    background-color: #293E6B;
+}
+
+
+.AFTabSelectedBorderAccentColor:alias {
+  color: #293E6B;
+}
+
+af|panelTabbed::tab-content {
+    height: 15px; 
+}
+
+@agent (touchScreen:none) {
+af|panelTabbed::tab:selected:hover af|panelTabbed::tab-text-link{
+    color:white;
+}
+}
+
+.AFLinkHoverForeground:alias{
+    color: #18BC9C;
+}
+
+.AFTextTertiaryColor:alias {
+  color: #A0A0A0   ;
+  
+}
+
+af|inputText::content {
+    border-radius: 3px;
+}
+
+.statusLayout, statusLayout af|outputText{
+    background-color: #18BC9C;
+    color:white;
+    border-radius: 2px;
+    padding: 2px 8px 2px 8px; 
+    font-size: x-small;
+    font-weight: bold;
+}
+
+
+@agent (touchScreen:none) {
+
+    af|button:disabled {
+        background-color: #128F76; 
+        color: white;
+    }
+
+}

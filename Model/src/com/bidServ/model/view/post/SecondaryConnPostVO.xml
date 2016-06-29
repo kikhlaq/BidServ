@@ -34,7 +34,11 @@
   FromList="mysql.posts Post
 INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID)
 LEFT OUTER JOIN Connections Connection1 ON (Connection.SOURCE_COMPANY_ID = Connection1.DEST_COMPANY_ID)"
-  Where="Post.VISIBILITY_CODE = 'SECONDARY'">
+  Where="Post.VISIBILITY_CODE = 'SECONDARY'"
+  ComponentClass="com.bidServ.model.view.post.SecondaryConnPostVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+  </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -44,11 +48,19 @@ LEFT OUTER JOIN Connections Connection1 ON (Connection.SOURCE_COMPANY_ID = Conne
   <Variable
     Name="bindCompId"
     Kind="viewcriteria"
-    Type="java.math.BigDecimal"/>
+    Type="java.math.BigDecimal">
+    <AttrArray Name="ExtendedDataInts">
+<Item Value="0" />
+</AttrArray>
+  </Variable>
   <Variable
     Name="keyword"
     Kind="viewcriteria"
-    Type="java.lang.String"/>
+    Type="java.lang.String">
+    <AttrArray Name="ExtendedDataInts">
+<Item Value="1" />
+</AttrArray>
+    </Variable>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>

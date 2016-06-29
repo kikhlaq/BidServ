@@ -127,7 +127,12 @@
                             </af:showDetailItem>
                             <af:showDetailItem id="tab2" text="#{viewcontrollerBundle1.myPosts}"/>
                             <af:showDetailItem id="tab3" text="#{viewcontrollerBundle1.myBids}"/>
-                            <af:showDetailItem id="newPost" icon="/com/bidServ/resource/images/plus-grey.png" shortDesc="#{viewcontrollerBundle1.newPost}"/>
+                            <af:showDetailItem id="newPost" icon="/com/bidServ/resource/images/plus.png" shortDesc="#{viewcontrollerBundle1.newPost}"
+                                            >
+                            <af:panelGroupLayout id="pgl44" layout="vertical">
+                                    <af:region value="#{bindings.createPost1.regionModel}" id="r2"/>
+                                </af:panelGroupLayout>
+                            </af:showDetailItem>
                         </af:panelTabbed>
                         <af:panelTabbed position="above" id="pt13" inlineStyle="width:250px;">
                             <af:showDetailItem id="tab14" disclosed="true" displayIndex="-1" disabled="true"

@@ -90,7 +90,7 @@
     <methodAction id="searchPost" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchPost"
                   IsViewObjectMethod="false" DataControl="BidServAMDataControl"
                   InstanceName="data.BidServAMDataControl.dataProvider">
-      <NamedData NDName="voName" NDValue="E" NDType="java.lang.String"/>
+      <NamedData NDName="voName" NDValue="#{requestScope.voName}" NDType="java.lang.String"/>
       <NamedData NDName="keyword" NDValue="#{requestScope.keyword}" NDType="java.lang.String"/>
     </methodAction>
   </bindings>

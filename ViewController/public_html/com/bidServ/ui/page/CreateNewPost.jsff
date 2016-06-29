@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html">
+<c:set var="viewcontrollerBundle" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
+  <af:panelGroupLayout id="pfl1" styleClass="AFStretchWidth" layout="vertical"
+                       halign="center">
+    <af:inputText value="#{bindings.CompanyId.inputValue}" rendered="false" id="it11"/>
+    <af:inputText value="#{bindings.UserId.inputValue}" rendered="false" id="it15"/>
+    <af:navigationPane id="np1" hint="buttons">
+      <af:commandNavigationItem id="ni1" text="#{viewcontrollerBundle.iWantTobuy}" selected="true">
+        <!--af:setPropertyListener type="valueChange" from="BUY" to="#{bindings.PostType.inputValue}"/-->
+      </af:commandNavigationItem>
+      <af:commandNavigationItem id="ni2" text="#{viewcontrollerBundle.iWantTosell}">
+        <!--af:setPropertyListener type="attributeChange" from="SELL" to="#{bindings.PostType.inputValue}"/-->
+      </af:commandNavigationItem>
+    </af:navigationPane>
+    <af:inputText value="#{bindings.Product.inputValue}" placeholder="#{viewcontrollerBundle.product}"
+                  required="#{bindings.Product.hints.mandatory}" 
+                  maximumLength="#{bindings.Product.hints.precision}" shortDesc="#{viewcontrollerBundle.product}"
+                  id="it12" styleClass="AFStretchWidth" simple="true">
+      <f:validator binding="#{bindings.Product.validator}"/>
+    </af:inputText>
+    <af:inputText value="#{bindings.PostDescription.inputValue}" placeholder="#{viewcontrollerBundle.description}"
+                  required="#{bindings.PostDescription.hints.mandatory}" 
+                  maximumLength="#{bindings.PostDescription.hints.precision}"
+                  shortDesc="#{viewcontrollerBundle.description}" id="it8" clientComponent="true" rows="3"
+                  styleClass="AFStretchWidth" simple="true">
+      <f:validator binding="#{bindings.PostDescription.validator}"/>
+    </af:inputText>
+    <trh:tableLayout id="tl1" width="100%">
+      <trh:rowLayout id="rl1" width="100%">
+        <trh:cellFormat id="cf1" width="50%" halign="right">
+          <af:inputText value="#{bindings.Quantity.inputValue}" placeholder="#{viewcontrollerBundle.quantity}"
+                        required="#{bindings.Quantity.hints.mandatory}"
+                        maximumLength="#{bindings.Quantity.hints.precision}"
+                        shortDesc="#{viewcontrollerBundle.quantity}" id="it13" styleClass="AFStretchWidth"
+                        simple="true">
+            <f:validator binding="#{bindings.Quantity.validator}"/>
+            <af:convertNumber groupingUsed="false" pattern="#{bindings.Quantity.format}"/>
+          </af:inputText>
+        </trh:cellFormat>
+        <trh:cellFormat id="cf3">
+          <af:spacer width="10" id="s2"/>
+        </trh:cellFormat>
+        <trh:cellFormat id="cf2" width="50%" halign="start">
+          <af:inputText value="#{bindings.Uom.inputValue}" placeholder="#{viewcontrollerBundle.units}"
+                        required="#{bindings.Uom.hints.mandatory}" maximumLength="#{bindings.Uom.hints.precision}"
+                        shortDesc="#{viewcontrollerBundle.units}" id="it14" styleClass="AFStretchWidth" simple="true">
+            <f:validator binding="#{bindings.Uom.validator}"/>
+          </af:inputText>
+        </trh:cellFormat>
+      </trh:rowLayout>
+    </trh:tableLayout>
+    <af:inputDate value="#{bindings.ExpiryDate.inputValue}" label="#{viewcontrollerBundle.expiry}"
+                  required="#{bindings.ExpiryDate.hints.mandatory}" columns="#{bindings.ExpiryDate.hints.displayWidth}"
+                  shortDesc="#{viewcontrollerBundle.expiry}" id="id2">
+      <f:validator binding="#{bindings.ExpiryDate.validator}"/>
+      <af:convertDateTime pattern="#{bindings.ExpiryDate.format}"/>
+    </af:inputDate>
+    <af:panelGroupLayout layout="horizontal" id="pgl32" valign="middle" halign="center">
+      <af:outputLabel value="#{viewcontrollerBundle.shareWith}" id="ol1"/>
+      <af:navigationPane hint="buttons" id="np12">
+        <af:commandNavigationItem id="ni12" text="#{viewcontrollerBundle.entireNetwork}" selected="true">
+          <!--af:setPropertyListener type="valueChange" from="ENTIRE_NETWORK" to="#{bindings.VisibilityCode.inputValue}"/-->
+        </af:commandNavigationItem>
+        <af:commandNavigationItem id="ni22" text="#{viewcontrollerBundle.primaryNetwork}">
+          <!--af:setPropertyListener type="attributeChange" from="SECONDARY" to="#{bindings.VisibilityCode.inputValue}"/-->
+        </af:commandNavigationItem>
+        <af:commandNavigationItem id="ni223" text="#{viewcontrollerBundle.secondaryNetwork}">
+          <!--af:setPropertyListener type="attributeChange" from="PRIMARY" to="#{bindings.VisibilityCode.inputValue}"/-->
+        </af:commandNavigationItem>
+      </af:navigationPane>
+    </af:panelGroupLayout>
+    <af:button text="Submit" id="b1"/>
+    <f:facet name="separator">
+      <af:spacer height="10" id="s1"/>
+    </f:facet>
+  </af:panelGroupLayout>
+</jsp:root>

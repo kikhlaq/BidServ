@@ -10,6 +10,7 @@
         <parameter id="flow" value="memberPosts"/>
       </parameters>
     </taskFlow>
+    <taskFlow id="createPost1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
 </pageDefinition>

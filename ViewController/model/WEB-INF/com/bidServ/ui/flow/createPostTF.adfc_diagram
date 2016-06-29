@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1">
+      <property
+         name="linkStyle">Direct</property>
+      <property
+         name="x">91.65625</property>
+      <property
+         name="y">83.50001</property>
+   </OverallProperties>
+   <View
+      id="View2">
+      <property
+         name="activityId">__createPost1</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">263.18262</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>__createPost1&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">83.500015</property>
+      <property
+         name="page">/com/bidServ/ui/page/CreateNewPost.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">Create</property>
+      <property
+         name="x">413.55273</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Create&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">83.50001</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall3"
+      to="View2">
+      <property
+         name="tosrcid">__4</property>
+      <property
+         name="fromOutcome">Create</property>
+      <property
+         name="fromsrcid">__3</property>
+      <property
+         name="sdm:polyPoints">L50,372.55273,83.51856,304.18262,83.51857,R50</property>
+   </ControlFlowCase>
+</SDM>

@@ -33,7 +33,11 @@
        if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE())) AS VIEW_ATTR"
   FromList="mysql.posts Post
 INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID)"
-  Where="Post.VISIBILITY_CODE = 'PRIMARY'">
+  Where="Post.VISIBILITY_CODE = 'PRIMARY'"
+  ComponentClass="com.bidServ.model.view.post.PrimaryConnPostVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+  </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -51,7 +55,11 @@ INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_
   <Variable
     Name="keyword"
     Kind="viewcriteria"
-    Type="java.lang.String"/>
+    Type="java.lang.String">
+    <AttrArray Name="ExtendedDataInts">
+<Item Value="1" />
+</AttrArray>
+    </Variable>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>

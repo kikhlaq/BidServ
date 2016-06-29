@@ -12,6 +12,18 @@
   <DesignTime>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.applicationModule.BidServAM_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewUsage
+    Name="PostVO1"
+    ViewObjectName="com.bidServ.model.view.PostVO"/>
+  <ViewUsage
+    Name="createPostVO"
+    ViewObjectName="com.bidServ.model.view.PostVO"/>
   <ViewUsage
     Name="SupplierNetworkVO"
     ViewObjectName="com.bidServ.model.view.post.EntireNetworkPostVO">
@@ -63,4 +75,8 @@
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
 </AppModule>

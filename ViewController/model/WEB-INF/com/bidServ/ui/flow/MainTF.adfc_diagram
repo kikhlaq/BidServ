@@ -42,6 +42,6 @@
       <property
          name="fromOutcome">memberPosts</property>
       <property
-         name="sdm:polyPoints">B50,215.0,163.83301,165.01074,201.44824,T50</property>
+         name="sdm:polyPoints">B50,215.0,163.48242,165.01074,201.44824,T50</property>
    </ControlFlowCase>
 </SDM>

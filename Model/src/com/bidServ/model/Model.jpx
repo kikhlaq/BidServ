@@ -48,4 +48,12 @@
       <Attr Name="_VO" Value="true"/>
     </DesignTime>
   </Containee>
+  <Containee
+    Name="view"
+    PackageName="com.bidServ.model.view"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
 </JboProject>
