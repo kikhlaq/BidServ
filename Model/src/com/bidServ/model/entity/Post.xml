@@ -9,16 +9,21 @@
   DBObjectType="table"
   DBObjectName="mysql.posts"
   AliasName="Post"
-  BindingStyle="JDBC">
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.PostImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <Attribute
     Name="PostId"
-    IsNotNull="true"
     ColumnName="POST_ID"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
     TableName="mysql.posts"
-    PrimaryKey="true">
+    PrimaryKey="true"
+    IsUpdateable="while_insert">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -66,7 +71,8 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="mysql.posts"
+    DefaultValue="BUY">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
@@ -139,7 +145,8 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="mysql.posts"
+    DefaultValue="ENTIRE_NETWORK">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
@@ -233,4 +240,8 @@
       <Item Value="com.bidServ.model.entity.Post.PostId"/>
     </AttrArray>
   </Key>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
 </Entity>

@@ -5,20 +5,22 @@
 <c:set var="viewcontrollerBundle" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
   <af:panelGroupLayout id="pfl1" styleClass="AFStretchWidth" layout="vertical"
                        halign="center">
-    <af:inputText value="#{bindings.CompanyId.inputValue}" rendered="false" id="it11"/>
+    <af:inputText value="#{bindings.CompanyId.inputValue}" id="it11" rendered="false"/>
     <af:inputText value="#{bindings.UserId.inputValue}" rendered="false" id="it15"/>
-    <af:navigationPane id="np1" hint="buttons">
-      <af:commandNavigationItem id="ni1" text="#{viewcontrollerBundle.iWantTobuy}" selected="true">
-        <!--af:setPropertyListener type="valueChange" from="BUY" to="#{bindings.PostType.inputValue}"/-->
+    <af:navigationPane id="np1" hint="buttons" partialTriggers="ni1 ni2">
+      <af:commandNavigationItem id="ni1" text="#{viewcontrollerBundle.iWantTobuy}"
+                                selected="#{bindings.PostType.inputValue == 'BUY'}" partialSubmit="true">
+        <af:setPropertyListener type="action" from="BUY" to="#{bindings.PostType.inputValue}"/>
       </af:commandNavigationItem>
-      <af:commandNavigationItem id="ni2" text="#{viewcontrollerBundle.iWantTosell}">
-        <!--af:setPropertyListener type="attributeChange" from="SELL" to="#{bindings.PostType.inputValue}"/-->
+      <af:commandNavigationItem id="ni2" text="#{viewcontrollerBundle.iWantTosell}"
+                                selected="#{bindings.PostType.inputValue == 'SELL'}" partialSubmit="true">
+        <af:setPropertyListener type="action" from="SELL" to="#{bindings.PostType.inputValue}"/>
       </af:commandNavigationItem>
     </af:navigationPane>
     <af:inputText value="#{bindings.Product.inputValue}" placeholder="#{viewcontrollerBundle.product}"
                   required="#{bindings.Product.hints.mandatory}" 
                   maximumLength="#{bindings.Product.hints.precision}" shortDesc="#{viewcontrollerBundle.product}"
-                  id="it12" styleClass="AFStretchWidth" simple="true">
+                  id="it12" styleClass="AFStretchWidth" simple="true" autoSubmit="true">
       <f:validator binding="#{bindings.Product.validator}"/>
     </af:inputText>
     <af:inputText value="#{bindings.PostDescription.inputValue}" placeholder="#{viewcontrollerBundle.description}"
@@ -52,29 +54,36 @@
         </trh:cellFormat>
       </trh:rowLayout>
     </trh:tableLayout>
-    <af:inputDate value="#{bindings.ExpiryDate.inputValue}" label="#{viewcontrollerBundle.expiry}"
-                  required="#{bindings.ExpiryDate.hints.mandatory}" columns="#{bindings.ExpiryDate.hints.displayWidth}"
+    <af:inputDate value="#{bindings.DeliveryDate.inputValue}" label="#{viewcontrollerBundle.expiry}"
+                  required="#{bindings.DeliveryDate.hints.mandatory}" columns="#{bindings.DeliveryDate.hints.displayWidth}"
                   shortDesc="#{viewcontrollerBundle.expiry}" id="id2">
-      <f:validator binding="#{bindings.ExpiryDate.validator}"/>
-      <af:convertDateTime pattern="#{bindings.ExpiryDate.format}"/>
+      <f:validator binding="#{bindings.DeliveryDate.validator}"/>
+      <af:convertDateTime pattern="#{bindings.DeliveryDate.format}"/>
     </af:inputDate>
     <af:panelGroupLayout layout="horizontal" id="pgl32" valign="middle" halign="center">
       <af:outputLabel value="#{viewcontrollerBundle.shareWith}" id="ol1"/>
       <af:navigationPane hint="buttons" id="np12">
-        <af:commandNavigationItem id="ni12" text="#{viewcontrollerBundle.entireNetwork}" selected="true">
-          <!--af:setPropertyListener type="valueChange" from="ENTIRE_NETWORK" to="#{bindings.VisibilityCode.inputValue}"/-->
+        <af:commandNavigationItem id="ni12" text="#{viewcontrollerBundle.entireNetwork}"
+                                  selected="#{bindings.VisibilityCode.inputValue == 'ENTIRE_NETWORK'}"
+                                  partialSubmit="true">
+          <af:setPropertyListener type="action" from="ENTIRE_NETWORK" to="#{bindings.VisibilityCode.inputValue}"/>
         </af:commandNavigationItem>
-        <af:commandNavigationItem id="ni22" text="#{viewcontrollerBundle.primaryNetwork}">
-          <!--af:setPropertyListener type="attributeChange" from="SECONDARY" to="#{bindings.VisibilityCode.inputValue}"/-->
+        <af:commandNavigationItem id="ni22" text="#{viewcontrollerBundle.primaryNetwork}"
+                                  selected="#{bindings.VisibilityCode.inputValue == 'SECONDARY'}" partialSubmit="true">
+          <af:setPropertyListener type="action" from="SECONDARY" to="#{bindings.VisibilityCode.inputValue}"/>
         </af:commandNavigationItem>
-        <af:commandNavigationItem id="ni223" text="#{viewcontrollerBundle.secondaryNetwork}">
-          <!--af:setPropertyListener type="attributeChange" from="PRIMARY" to="#{bindings.VisibilityCode.inputValue}"/-->
+        <af:commandNavigationItem id="ni223" text="#{viewcontrollerBundle.secondaryNetwork}"
+                                  selected="#{bindings.VisibilityCode.inputValue == 'PRIMARY'}" partialSubmit="true">
+          <af:setPropertyListener type="action" from="PRIMARY" to="#{bindings.VisibilityCode.inputValue}"/>
         </af:commandNavigationItem>
       </af:navigationPane>
     </af:panelGroupLayout>
-    <af:button text="Submit" id="b1"/>
     <f:facet name="separator">
       <af:spacer height="10" id="s1"/>
     </f:facet>
+    <af:button  text="#{viewcontrollerBundle.SUBMIT}"
+               id="b2" actionListener="#{ManagedBean.submitPost}">
+      <af:setPropertyListener from="#{'Y'}" to="#{requestScope.newPostCreated}" type="action"/>
+    </af:button>
   </af:panelGroupLayout>
 </jsp:root>

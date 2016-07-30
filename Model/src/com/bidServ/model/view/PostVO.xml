@@ -12,13 +12,25 @@
   BindingStyle="JDBC"
   CustomQuery="false"
   SelectAllAttributes="false"
-  PageIterMode="Full">
+  PageIterMode="Full"
+  ComponentClass="com.bidServ.model.view.PostVOImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Coll"/>
+  </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
         ResId="com.bidServ.model.view.PostVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="bindUserId"
+    Kind="viewcriteria"
+    Type="java.math.BigDecimal"/>
+  <Variable
+    Name="keyword"
+    Kind="viewcriteria"
+    Type="java.lang.String"/>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>
@@ -41,7 +53,8 @@
     PrecisionRule="true"
     EntityAttrName="CompanyId"
     EntityUsage="Post"
-    AliasName="COMPANY_ID"/>
+    AliasName="COMPANY_ID"
+    DefaultValue="201"/>
   <ViewAttribute
     Name="DeliveryDate"
     PrecisionRule="true"
@@ -96,7 +109,8 @@
     PrecisionRule="true"
     EntityAttrName="PostId"
     EntityUsage="Post"
-    AliasName="POST_ID"/>
+    AliasName="POST_ID"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="PostStatusCode"
     PrecisionRule="true"
@@ -133,7 +147,8 @@
     PrecisionRule="true"
     EntityAttrName="UserId"
     EntityUsage="Post"
-    AliasName="USER_ID"/>
+    AliasName="USER_ID"
+    DefaultValue="3002"/>
   <ViewAttribute
     Name="VisibilityCode"
     PrecisionRule="true"
@@ -151,6 +166,78 @@
     SQLType="NUMERIC"
     Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
     IsQueriable="false"/>
+  <ViewCriteria
+    Name="MyPostVC"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="UserId"
+        ViewAttribute="UserId"
+        Operator="="
+        Conjunction="AND"
+        Value=":bindUserId"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <ViewCriteria
+    Name="SearchVC"
+    ViewObjectName="com.bidServ.model.view.PostVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="PostVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="PostDescription"
+        ViewAttribute="PostDescription"
+        Operator="CONTAINS"
+        Conjunction="AND"
+        Value=":keyword"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.bidServ.model.ModelBundle"/>

@@ -59,6 +59,20 @@
       </PIMap>
     </ParameterMap>
   </ViewUsage>
+  <ViewUsage
+    Name="MyPost"
+    ViewObjectName="com.bidServ.model.view.PostVO">
+    <ViewCriteriaUsage
+      Name="MyPostVC"
+      FullName="com.bidServ.model.view.PostVO.MyPostVC"/>
+    <ParameterMap>
+      <PIMap Variable="bindUserId">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[3002]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -73,6 +87,16 @@
       <Parameter
         Name="keyword"
         Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setMyPostVC"
+      MethodName="setMyPostVC">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.math.BigDecimal"/>
     </Method>
   </ClientInterface>
   <ResourceBundle>

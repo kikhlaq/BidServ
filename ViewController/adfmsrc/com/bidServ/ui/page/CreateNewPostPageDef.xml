@@ -107,5 +107,6 @@
         <Item Value="DaysLeft"/>
       </AttrNames>
     </attributeValues>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
   </bindings>
 </pageDefinition>

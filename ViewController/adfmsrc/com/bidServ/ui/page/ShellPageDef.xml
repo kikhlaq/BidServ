@@ -10,7 +10,15 @@
         <parameter id="flow" value="memberPosts"/>
       </parameters>
     </taskFlow>
-    <taskFlow id="createPost1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="createPost1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost" xmlns="http://xmlns.oracle.com/adf/controller/binding"
+              RefreshCondition="#{requestScope.refreshNewPost == 'Y'}" activation="deferred"/>
+    <taskFlow id="myPostTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"
+              RefreshCondition="#{requestScope.newPostCreated == 'Y'}">
+      <parameters>
+        <parameter id="userId" value="3002"/>
+      </parameters>
+    </taskFlow>
   </executables>
   <bindings/>
 </pageDefinition>

@@ -12,6 +12,9 @@
     <page path="/com/bidServ/ui/page/CreateNewPost.jsff" usageId="com_bidServ_view_CreateNewPostPageDef"/>
     <page path="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost@Create"
           usageId="com_bidServ_view_createPostTF_createPost_CreatePageDef"/>
+    <page path="/com/bidServ/ui/page/MyPost.jsff" usageId="com_bidServ_view_MyPostPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF@setMyPostVC"
+          usageId="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
@@ -19,6 +22,9 @@
     <page id="com_bidServ_view_CreateNewPostPageDef" path="com.bidServ.ui.page.CreateNewPostPageDef"/>
     <page id="com_bidServ_view_createPostTF_createPost_CreatePageDef"
           path="com.bidServ.ui.flow.createPostTF_createPost_CreatePageDef"/>
+    <page id="com_bidServ_view_MyPostPageDef" path="com.bidServ.ui.page.MyPostPageDef"/>
+    <page id="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"
+          path="com.bidServ.ui.flow.myPostTF_myPostTF_setMyPostVCPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="BidServAMDataControl" Package="com.bidServ.model.applicationModule"

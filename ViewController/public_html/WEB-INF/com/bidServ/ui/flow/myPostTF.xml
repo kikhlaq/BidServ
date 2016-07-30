@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="myPostTF">
+    <default-activity>setMyPostVC</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>userId</name>
+      <value>#{pageFlowScope.userId}</value>
+      <class>java.math.BigDecimal</class>
+    </input-parameter-definition>
+    <method-call id="setMyPostVC">
+      <method>#{bindings.setMyPostVC.execute}</method>
+      <outcome>
+        <fixed-outcome>setMyPostVC</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="MyPost">
+      <page>/com/bidServ/ui/page/MyPost.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>setMyPostVC</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>setMyPostVC</from-outcome>
+        <to-activity-id>MyPost</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -167,6 +167,13 @@ af|navigationPane-buttons::link:selected{
     font-weight: normal;
 }
 
+@agent (touchScreen:none){
+af|navigationPane-buttons::link:selected:hover {
+    background-color: #0572CE;
+    color: white;
+}
+}
+
 af|navigationPane-buttons::separator-icon {
   content: "";
 }
@@ -257,4 +264,13 @@ af|inputText::content {
         color: white;
     }
 
+}
+
+.bidLayout, bidLayout af|outputText{
+    background-color: #F39C12;
+    color:white;
+    border-radius: 2px;
+    padding: 2px 8px 2px 8px; 
+    font-size: x-small;
+    font-weight: bold;
 }

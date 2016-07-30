@@ -117,21 +117,36 @@
                                 </trh:tableLayout>
                             </af:showDetailItem>
                         </af:panelTabbed>
-                        <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth">
+                        <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth"
+                                        binding="#{ShellBackingBean.panelTab}">
                             <af:showDetailItem id="sdi1" disabled="true" styleClass="deadPadItem"/>
-                            <af:showDetailItem id="tab1" text="#{viewcontrollerBundle1.memberPosts}" disclosed="true">
+                            <af:showDetailItem id="tab1" text="#{viewcontrollerBundle1.memberPosts}" disclosed="true"
+                                               disclosureListener="#{ManagedBean.tabDisclosureListener}">
                                 <af:panelGroupLayout id="pgl4" layout="vertical">
                                     
                                     <af:region value="#{bindings.MainTF1.regionModel}" id="r1"/>
                                 </af:panelGroupLayout>
                             </af:showDetailItem>
-                            <af:showDetailItem id="tab2" text="#{viewcontrollerBundle1.myPosts}"/>
-                            <af:showDetailItem id="tab3" text="#{viewcontrollerBundle1.myBids}"/>
-                            <af:showDetailItem id="newPost" icon="/com/bidServ/resource/images/plus.png" shortDesc="#{viewcontrollerBundle1.newPost}"
-                                            >
-                            <af:panelGroupLayout id="pgl44" layout="vertical">
-                                    <af:region value="#{bindings.createPost1.regionModel}" id="r2"/>
+                            <af:showDetailItem id="tab2" text="#{viewcontrollerBundle1.myPosts}"
+                                               disclosureListener="#{ManagedBean.tabDisclosureListener}"
+                                               binding="#{ShellBackingBean.myPosts}">
+                                <af:panelGroupLayout id="pgl11" layout="vertical">
+                                    <af:region value="#{bindings.myPostTF1.regionModel}" id="r3"/>
                                 </af:panelGroupLayout>
+                            </af:showDetailItem>
+                            <af:showDetailItem id="tab3" text="#{viewcontrollerBundle1.myBids}"
+                                               disclosureListener="#{ManagedBean.tabDisclosureListener}"/>
+                            <af:showDetailItem id="newPost" icon="/com/bidServ/resource/images/plus.png" shortDesc="#{viewcontrollerBundle1.newPost}"
+                                            binding="#{ShellBackingBean.createPost}"
+                                               disclosureListener="#{ManagedBean.tabDisclosureListener}">
+                            <af:panelGroupLayout id="pgl44" layout="vertical">
+                                    <af:region value="#{bindings.createPost1.regionModel}" id="r2"
+                                               />
+                                </af:panelGroupLayout>
+                                <af:setPropertyListener from="#{'Y'}" to="#{pageFlowScope.isNewPostTab}"
+                                                        type="disclosure"/>
+                                <af:setPropertyListener from="#{'Y'}" to="#{requestScope.refreshNewPost}"
+                                                        type="disclosure"/>
                             </af:showDetailItem>
                         </af:panelTabbed>
                         <af:panelTabbed position="above" id="pt13" inlineStyle="width:250px;">

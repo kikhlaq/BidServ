@@ -1,9 +1,12 @@
 package com.bidServ.model.applicationModule;
 
 import com.bidServ.model.applicationModule.common.BidServAM;
+import com.bidServ.model.view.PostVOImpl;
 import com.bidServ.model.view.post.EntireNetworkPostVOImpl;
 import com.bidServ.model.view.post.PrimaryConnPostVOImpl;
 import com.bidServ.model.view.post.SecondaryConnPostVOImpl;
+
+import java.math.BigDecimal;
 
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewObjectImpl;
@@ -24,16 +27,16 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
      * Container's getter for PostVO1.
      * @return PostVO1
      */
-    public ViewObjectImpl getPostVO1() {
-        return (ViewObjectImpl) findViewObject("PostVO1");
+    public PostVOImpl getPostVO1() {
+        return (PostVOImpl) findViewObject("PostVO1");
     }
 
     /**
      * Container's getter for createPostVO.
      * @return createPostVO
      */
-    public ViewObjectImpl getcreatePostVO() {
-        return (ViewObjectImpl) findViewObject("createPostVO");
+    public PostVOImpl getcreatePostVO() {
+        return (PostVOImpl) findViewObject("createPostVO");
     }
 
     /**
@@ -68,6 +71,8 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
             vo = getSecondaryConnVO();
         }else if(voName.equals("P")){
             vo = getPrimaryConnVO();
+        }else if(voName.equals("M")){
+            vo = getMyPost();
         }
         if(vo != null){
             if (keyword == null || keyword.length()==0){
@@ -78,6 +83,21 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
             }
              vo.executeQuery();
         }
-    }    
+    }
+
+    /**
+     * Container's getter for PostVO2.
+     * @return PostVO2
+     */
+    public PostVOImpl getMyPost() {
+        return (PostVOImpl) findViewObject("MyPost");
+    }
+    
+    public void setMyPostVC(BigDecimal userId){
+        getMyPost().setNamedWhereClauseParam("bindUserId", userId);
+        getMyPost().removeApplyViewCriteriaName("SearchVC");
+        getMyPost().setNamedWhereClauseParam("keyword", null);
+        getMyPost().executeQuery();
+    }
 }
 

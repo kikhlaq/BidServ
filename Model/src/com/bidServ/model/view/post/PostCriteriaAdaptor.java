@@ -23,6 +23,8 @@ public class PostCriteriaAdaptor extends CriteriaAdapterImpl  implements Criteri
             return "Connection1.SOURCE_COMPANY_ID = :bindCompId";
         }else if (criteria.getName().equals("EntireNetworkVC")){
             return "Post.VISIBILITY_CODE = 'ENTIRE_NETWORK'";
+        }else if (criteria.getName().equals("MyPostVC")){
+            return "Post.USER_ID = :bindUserId";
         }else{
             return null;
         }
