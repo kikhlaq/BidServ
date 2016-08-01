@@ -38,7 +38,8 @@
       </af:group>
       <af:listView value="#{bindings.SupplierNetworkVO.collectionModel}" var="item"
                    emptyText="#{bindings.SupplierNetworkVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.SupplierNetworkVO.rangeSize}" id="lv1" partialTriggers="::b2">
+                   fetchSize="#{bindings.SupplierNetworkVO.rangeSize}" id="lv1" partialTriggers="::b2"
+                   selection="single">
         <af:listItem id="li1">
           <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr1">
@@ -50,7 +51,12 @@
               </af:gridCell>
               <af:gridCell width="70%" id="gc2">
                 <af:panelGroupLayout id="pgl4" layout="vertical">
-                  <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
+                  <af:link text="#{item.Product}" id="l1" styleClass="postLink" action="postDetail">
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
+                    <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
+                                            type="action"/>
+                  </af:link>
                   <af:outputText value="#{item.PostDescription}" id="ot1"/>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s3"/>

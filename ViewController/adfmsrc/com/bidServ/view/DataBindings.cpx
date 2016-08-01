@@ -15,6 +15,12 @@
     <page path="/com/bidServ/ui/page/MyPost.jsff" usageId="com_bidServ_view_MyPostPageDef"/>
     <page path="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF@setMyPostVC"
           usageId="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"/>
+    <page path="/com/bidServ/ui/page/MyBids.jsff" usageId="com_bidServ_view_MyBidsPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/myBidsTF.xml#myBids@setMyBidsVC"
+          usageId="com_bidServ_view_myBidsTF_myBids_setMyBidsVCPageDef"/>
+    <page path="/com/bidServ/ui/page/PostDetail.jsff" usageId="com_bidServ_view_PostDetailPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml#postDetailTF@postDetails"
+          usageId="com_bidServ_view_postDetailTF_postDetailTF_postDetailsPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
@@ -25,6 +31,12 @@
     <page id="com_bidServ_view_MyPostPageDef" path="com.bidServ.ui.page.MyPostPageDef"/>
     <page id="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"
           path="com.bidServ.ui.flow.myPostTF_myPostTF_setMyPostVCPageDef"/>
+    <page id="com_bidServ_view_MyBidsPageDef" path="com.bidServ.ui.page.MyBidsPageDef"/>
+    <page id="com_bidServ_view_myBidsTF_myBids_setMyBidsVCPageDef"
+          path="com.bidServ.ui.flow.myBidsTF_myBids_setMyBidsVCPageDef"/>
+    <page id="com_bidServ_view_PostDetailPageDef" path="com.bidServ.ui.page.PostDetailPageDef"/>
+    <page id="com_bidServ_view_postDetailTF_postDetailTF_postDetailsPageDef"
+          path="com.bidServ.ui.flow.postDetailTF_postDetailTF_postDetailsPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="BidServAMDataControl" Package="com.bidServ.model.applicationModule"

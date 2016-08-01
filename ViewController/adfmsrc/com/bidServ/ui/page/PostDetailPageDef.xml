@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="PostDetailPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="Post" RangeSize="25" DataControl="BidServAMDataControl" id="PostIterator"/>
+    <iterator Binds="Bids" RangeSize="25" DataControl="BidServAMDataControl" id="BidsIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="PostIterator" id="BasePrice">
+      <AttrNames>
+        <Item Value="BasePrice"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="CompanyId">
+      <AttrNames>
+        <Item Value="CompanyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="DeliveryDate">
+      <AttrNames>
+        <Item Value="DeliveryDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="ExpiryDate">
+      <AttrNames>
+        <Item Value="ExpiryDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="NegotiableFlag">
+      <AttrNames>
+        <Item Value="NegotiableFlag"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="PostDescription">
+      <AttrNames>
+        <Item Value="PostDescription"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="PostId">
+      <AttrNames>
+        <Item Value="PostId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="PostStatusCode">
+      <AttrNames>
+        <Item Value="PostStatusCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="PostType">
+      <AttrNames>
+        <Item Value="PostType"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="Product">
+      <AttrNames>
+        <Item Value="Product"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="Quantity">
+      <AttrNames>
+        <Item Value="Quantity"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="Uom">
+      <AttrNames>
+        <Item Value="Uom"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="VisibilityCode">
+      <AttrNames>
+        <Item Value="VisibilityCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PostIterator" id="DaysLeft">
+      <AttrNames>
+        <Item Value="DaysLeft"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BidsIterator" id="Bids">
+      <nodeDefinition DefName="com.bidServ.model.view.bid.BidVO" Name="Bids0">
+        <AttrNames>
+          <Item Value="Amount"/>
+          <Item Value="BidDescription"/>
+          <Item Value="BidId"/>
+          <Item Value="BidStatusCode"/>
+          <Item Value="ChangeLog"/>
+          <Item Value="CompanyId"/>
+          <Item Value="Currency"/>
+          <Item Value="DeliveryDate"/>
+          <Item Value="Language"/>
+          <Item Value="ModifiedByUser"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="ObjectVersionNumber"/>
+          <Item Value="PostId"/>
+          <Item Value="Price"/>
+          <Item Value="Quantity"/>
+          <Item Value="Uom"/>
+          <Item Value="UserId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

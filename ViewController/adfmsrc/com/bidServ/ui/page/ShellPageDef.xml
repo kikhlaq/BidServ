@@ -19,6 +19,12 @@
         <parameter id="userId" value="3002"/>
       </parameters>
     </taskFlow>
+    <taskFlow id="myBids1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myBidsTF.xml#myBids" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="userId" value="3002"/>
+      </parameters>    
+    </taskFlow>
   </executables>
   <bindings/>
 </pageDefinition>

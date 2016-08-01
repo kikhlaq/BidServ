@@ -135,7 +135,11 @@
                                 </af:panelGroupLayout>
                             </af:showDetailItem>
                             <af:showDetailItem id="tab3" text="#{viewcontrollerBundle1.myBids}"
-                                               disclosureListener="#{ManagedBean.tabDisclosureListener}"/>
+                                               disclosureListener="#{ManagedBean.tabDisclosureListener}">
+                                <af:panelGroupLayout id="pgl12" layout="vertical">
+                                    <af:region value="#{bindings.myBids1.regionModel}" id="r4"/>
+                                </af:panelGroupLayout>
+                            </af:showDetailItem>
                             <af:showDetailItem id="newPost" icon="/com/bidServ/resource/images/plus.png" shortDesc="#{viewcontrollerBundle1.newPost}"
                                             binding="#{ShellBackingBean.createPost}"
                                                disclosureListener="#{ManagedBean.tabDisclosureListener}">

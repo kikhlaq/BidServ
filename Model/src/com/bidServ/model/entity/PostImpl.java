@@ -42,7 +42,8 @@ public class PostImpl extends EntityImpl {
         Language,
         ObjectVersionNumber,
         ChangeLog,
-        PrimaryConnection;
+        PrimaryConnection,
+        Bid;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
 
@@ -65,6 +66,8 @@ public class PostImpl extends EntityImpl {
             return vals;
         }
     }
+
+
     public static final int POSTID = AttributesEnum.PostId.index();
     public static final int COMPANYID = AttributesEnum.CompanyId.index();
     public static final int USERID = AttributesEnum.UserId.index();
@@ -85,6 +88,7 @@ public class PostImpl extends EntityImpl {
     public static final int OBJECTVERSIONNUMBER = AttributesEnum.ObjectVersionNumber.index();
     public static final int CHANGELOG = AttributesEnum.ChangeLog.index();
     public static final int PRIMARYCONNECTION = AttributesEnum.PrimaryConnection.index();
+    public static final int BID = AttributesEnum.Bid.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -107,7 +111,8 @@ public class PostImpl extends EntityImpl {
     public static synchronized EntityDefImpl getDefinitionObject() {
         return EntityDefImpl.findDefObject("com.bidServ.model.entity.Post");
     }
-    
+
+
     @Override
     protected void doDML(int i, TransactionEvent transactionEvent) {
         //got to call first to super, so the record is posted 

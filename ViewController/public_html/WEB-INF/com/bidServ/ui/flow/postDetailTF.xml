@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="postDetailTF">
+    <default-activity>postDetails</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>userId</name>
+      <value>#{pageFlowScope.userId}</value>
+      <class>java.math.BigDecimal</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__2">
+      <name>postId</name>
+      <value>#{pageFlowScope.postId}</value>
+      <class>java.math.BigDecimal</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__3">
+      <name>source</name>
+      <value>#{pageFlowScope.source}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <method-call id="postDetails">
+      <method>#{bindings.postDetails.execute}</method>
+      <outcome>
+        <fixed-outcome>postDetails</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="PostDetail">
+      <page>/com/bidServ/ui/page/PostDetail.jsff</page>
+    </view>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome>
+        <name>taskFlowReturn1</name>
+      </outcome>
+    </task-flow-return>
+    <control-flow-rule id="__4">
+      <from-activity-id>postDetails</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>postDetails</from-outcome>
+        <to-activity-id>PostDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>PostDetail</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>done</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41"
+                id="myBidsTF_myBids_setMyBidsVCPageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="setMyBidsVC" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setMyBidsVC"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="userId" NDValue="#{pageFlowScope.userId}" NDType="java.math.BigDecimal"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="MyBidsPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="MyBidsVO1" RangeSize="25" DataControl="BidServAMDataControl" id="MyBidsVO1Iterator"/>
+  </executables>
+  <bindings>
+    <methodAction id="searchPost" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchPost"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="voName" NDValue="#{requestScope.voName}" NDType="java.lang.String"/>
+      <NamedData NDName="keyword" NDValue="#{requestScope.keyword}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="MyBidsVO1Iterator" id="MyBidsVO1">
+      <nodeDefinition DefName="com.bidServ.model.view.bid.MyBidsVO" Name="MyBidsVO10">
+        <AttrNames>
+          <Item Value="BasePrice"/>
+          <Item Value="ChangeLog"/>
+          <Item Value="CompanyId"/>
+          <Item Value="DeliveryDate"/>
+          <Item Value="ExpiryDate"/>
+          <Item Value="Language"/>
+          <Item Value="ModifiedByUser"/>
+          <Item Value="ModifiedDate"/>
+          <Item Value="NegotiableFlag"/>
+          <Item Value="ObjectVersionNumber"/>
+          <Item Value="PostDescription"/>
+          <Item Value="PostId"/>
+          <Item Value="PostStatusCode"/>
+          <Item Value="PostType"/>
+          <Item Value="Product"/>
+          <Item Value="Quantity"/>
+          <Item Value="Uom"/>
+          <Item Value="UserId"/>
+          <Item Value="VisibilityCode"/>
+          <Item Value="UserId1"/>
+          <Item Value="BidId"/>
+          <Item Value="BidStatusCode"/>
+          <Item Value="DaysLeft"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+  </bindings>
+</pageDefinition>

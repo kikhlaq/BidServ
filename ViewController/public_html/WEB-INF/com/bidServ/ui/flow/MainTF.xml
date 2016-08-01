@@ -24,11 +24,36 @@
     <view id="MemberPost">
       <page>/com/bidServ/ui/page/MemberPost.jsff</page>
     </view>
+    <task-flow-call id="taskFlowCall1">
+      <task-flow-reference>
+        <document>/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml</document>
+        <id>postDetailTF</id>
+      </task-flow-reference>
+      <input-parameter id="__8">
+        <name>userId</name>
+        <value>#{requestScope.userId}</value>
+      </input-parameter>
+      <input-parameter id="__9">
+        <name>postId</name>
+        <value>#{requestScope.postId}</value>
+      </input-parameter>
+      <input-parameter id="__10">
+        <name>source</name>
+        <value>#{requestScope.source}</value>
+      </input-parameter>
+    </task-flow-call>
     <control-flow-rule id="__4">
       <from-activity-id>router1</from-activity-id>
       <control-flow-case id="__5">
         <from-outcome>memberPosts</from-outcome>
         <to-activity-id>MemberPost</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>MemberPost</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>postDetail</from-outcome>
+        <to-activity-id>taskFlowCall1</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

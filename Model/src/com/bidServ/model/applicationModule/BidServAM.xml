@@ -19,8 +19,12 @@
     </SchemaBasedProperties>
   </Properties>
   <ViewUsage
-    Name="PostVO1"
-    ViewObjectName="com.bidServ.model.view.PostVO"/>
+    Name="Post"
+    ViewObjectName="com.bidServ.model.view.PostVO">
+    <ViewCriteriaUsage
+      Name="PostIdVC"
+      FullName="com.bidServ.model.view.PostVO.PostIdVC"/>
+  </ViewUsage>
   <ViewUsage
     Name="createPostVO"
     ViewObjectName="com.bidServ.model.view.PostVO"/>
@@ -73,6 +77,29 @@
       </PIMap>
     </ParameterMap>
   </ViewUsage>
+  <ViewUsage
+    Name="MyBidsVO1"
+    ViewObjectName="com.bidServ.model.view.bid.MyBidsVO">
+    <ViewCriteriaUsage
+      Name="MyBidsVC"
+      FullName="com.bidServ.model.view.bid.MyBidsVO.MyBidsVC"/>
+    <ParameterMap>
+      <PIMap Variable="bindUserId">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[3002]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
+  <ViewUsage
+    Name="Bids"
+    ViewObjectName="com.bidServ.model.view.bid.BidVO"/>
+  <ViewLinkUsage
+    Name="PostToBidVL1"
+    ViewLinkObjectName="com.bidServ.model.view.link.PostToBidVL"
+    SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.Post"
+    DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.Bids"
+    Reversed="false"/>
   <ClientInterface
     Name="__clientInterface">
     <Method
@@ -97,6 +124,32 @@
       <Parameter
         Name="userId"
         Type="java.math.BigDecimal"/>
+    </Method>
+    <Method
+      Name="setMyBidsVC"
+      MethodName="setMyBidsVC">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.math.BigDecimal"/>
+    </Method>
+    <Method
+      Name="postDetails"
+      MethodName="postDetails">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="source"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="postId"
+        Type="java.lang.String"/>
     </Method>
   </ClientInterface>
   <ResourceBundle>

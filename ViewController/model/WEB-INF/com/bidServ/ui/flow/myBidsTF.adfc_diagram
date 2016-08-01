@@ -5,32 +5,32 @@
    <MethodCall
       id="MethodCall2">
       <property
-         name="activityId">setMyPostVC</property>
+         name="activityId">setMyBidsVC</property>
       <property
-         name="x">180.34277</property>
+         name="x">165.00879</property>
       <property
          name="start">true</property>
       <property
-         name="description">&lt;html>&lt;p>&lt;b>setMyPostVC&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+         name="description">&lt;html>&lt;p>&lt;b>setMyBidsVC&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
       <property
-         name="y">201.64355</property>
+         name="y">221.34473</property>
       <property
          name="exceptionHandler">false</property>
    </MethodCall>
    <View
       id="View3">
       <property
-         name="activityId">MyPost</property>
+         name="activityId">MyBids</property>
       <property
          name="pageFragment">true</property>
       <property
-         name="x">425.5</property>
+         name="x">413.5</property>
       <property
-         name="description">&lt;html>&lt;p>&lt;b>MyPost&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+         name="description">&lt;html>&lt;p>&lt;b>MyBids&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
-         name="y">211.79883</property>
+         name="y">199.09766</property>
       <property
-         name="page">/com/bidServ/ui/page/MyPost.jsff</property>
+         name="page">/com/bidServ/ui/page/MyBids.jsff</property>
       <property
          name="exceptionHandler">false</property>
    </View>
@@ -40,9 +40,9 @@
       from="MethodCall2"
       to="View3">
       <property
-         name="fromOutcome">setMyPostVC</property>
+         name="fromOutcome">setMyBidsVC</property>
       <property
-         name="sdm:polyPoints">R50,221.34277,201.29297,384.5,211.44824,L50</property>
+         name="sdm:polyPoints">R50,206.00879,220.99414,372.5,198.74707,L50</property>
    </ControlFlowCase>
    <TaskFlowCall
       id="TaskFlowCall5">
@@ -51,9 +51,9 @@
       <property
          name="activityId">postDetailTF</property>
       <property
-         name="x">688.01074</property>
+         name="x">659.01074</property>
       <property
-         name="y">243.14941</property>
+         name="y">229.14941</property>
       <property
          name="documentReference">/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml</property>
       <property
@@ -69,6 +69,6 @@
       <property
          name="fromOutcome">postDetail</property>
       <property
-         name="sdm:polyPoints">R50,466.5,211.44824,647.01074,242.79883,L50</property>
+         name="sdm:polyPoints">R50,454.5,198.74707,618.01074,228.79883,L50</property>
    </ControlFlowCase>
 </SDM>

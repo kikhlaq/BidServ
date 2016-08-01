@@ -11,5 +11,9 @@ public interface BidServAM extends ApplicationModule {
     void searchPost(String voName, String keyword);
 
     void setMyPostVC(BigDecimal userId);
+
+    void setMyBidsVC(BigDecimal userId);
+
+    void postDetails(String source, String userId, String postId);
 }
 

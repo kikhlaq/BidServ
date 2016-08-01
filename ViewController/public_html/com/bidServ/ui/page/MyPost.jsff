@@ -27,7 +27,12 @@
             </af:gridCell>
             <af:gridCell marginStart="5px" width="70%" id="gc2">
               <af:panelGroupLayout id="pgl4" layout="vertical">
-                <af:link text="#{item.Product}" id="l1" styleClass="postLink"/>
+                <af:link text="#{item.Product}" id="l1" styleClass="postLink" action="postDetail">
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
+                    <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
+                                            type="action"/>                
+                </af:link>
                 <af:outputText value="#{item.PostDescription}" id="ot1"/>
                 <f:facet name="separator">
                   <af:spacer height="3" id="s2"/>

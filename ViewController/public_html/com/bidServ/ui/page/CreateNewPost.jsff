@@ -53,7 +53,7 @@
           </af:inputText>
         </trh:cellFormat>
       </trh:rowLayout>
-    </trh:tableLayout>
+    </trh:tableLayout>  
     <af:inputDate value="#{bindings.DeliveryDate.inputValue}" label="#{viewcontrollerBundle.expiry}"
                   required="#{bindings.DeliveryDate.hints.mandatory}" columns="#{bindings.DeliveryDate.hints.displayWidth}"
                   shortDesc="#{viewcontrollerBundle.expiry}" id="id2">

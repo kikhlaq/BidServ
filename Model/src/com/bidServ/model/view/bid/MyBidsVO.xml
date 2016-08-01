@@ -3,7 +3,7 @@
 <!---->
 <ViewObject
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="PostVO"
+  Name="MyBidsVO"
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   SelectListFlags="1"
@@ -13,14 +13,14 @@
   CustomQuery="false"
   SelectAllAttributes="false"
   PageIterMode="Full"
-  ComponentClass="com.bidServ.model.view.PostVOImpl">
+  ComponentClass="com.bidServ.model.view.bid.MyBidsVOImpl">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Coll"/>
   </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
-        ResId="com.bidServ.model.view.PostVO_LABEL"/>
+        ResId="com.bidServ.model.view.bid.MyBidsVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
   <Variable
@@ -31,13 +31,28 @@
     Name="keyword"
     Kind="viewcriteria"
     Type="java.lang.String"/>
-  <Variable
-    Name="bindPostId"
-    Kind="viewcriteria"
-    Type="java.math.BigDecimal"/>
   <EntityUsage
     Name="Post"
     Entity="com.bidServ.model.entity.Post"/>
+  <EntityUsage
+    Name="Bid"
+    Entity="com.bidServ.model.entity.Bid"
+    Association="com.bidServ.model.entity.association.PostToBid"
+    AssociationEnd="com.bidServ.model.entity.association.PostToBid.Bid"
+    SourceUsage="com.bidServ.model.view.bid.MyBidsVO.Post"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="com.bidServ.model.entity.Bid.PostId"/>
+      </AttrArray>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="com.bidServ.model.entity.Post.PostId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
   <ViewAttribute
     Name="BasePrice"
     PrecisionRule="true"
@@ -57,8 +72,7 @@
     PrecisionRule="true"
     EntityAttrName="CompanyId"
     EntityUsage="Post"
-    AliasName="COMPANY_ID"
-    DefaultValue="201"/>
+    AliasName="COMPANY_ID"/>
   <ViewAttribute
     Name="DeliveryDate"
     PrecisionRule="true"
@@ -109,12 +123,11 @@
     AliasName="POST_DESCRIPTION"/>
   <ViewAttribute
     Name="PostId"
-    IsNotNull="true"
+    IsUpdateable="while_insert"
     PrecisionRule="true"
     EntityAttrName="PostId"
     EntityUsage="Post"
-    AliasName="POST_ID"
-    IsUpdateable="while_insert"/>
+    AliasName="POST_ID"/>
   <ViewAttribute
     Name="PostStatusCode"
     PrecisionRule="true"
@@ -151,14 +164,33 @@
     PrecisionRule="true"
     EntityAttrName="UserId"
     EntityUsage="Post"
-    AliasName="USER_ID"
-    DefaultValue="3002"/>
+    AliasName="USER_ID"/>
   <ViewAttribute
     Name="VisibilityCode"
     PrecisionRule="true"
     EntityAttrName="VisibilityCode"
     EntityUsage="Post"
     AliasName="VISIBILITY_CODE"/>
+  <ViewAttribute
+    Name="UserId1"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="UserId"
+    EntityUsage="Bid"
+    AliasName="User_Id1"/>
+  <ViewAttribute
+    Name="BidId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="BidId"
+    EntityUsage="Bid"
+    AliasName="BID_ID"/>
+  <ViewAttribute
+    Name="BidStatusCode"
+    PrecisionRule="true"
+    EntityAttrName="BidStatusCode"
+    EntityUsage="Bid"
+    AliasName="BID_STATUS_CODE"/>
   <ViewAttribute
     Name="DaysLeft"
     IsUpdateable="false"
@@ -168,11 +200,11 @@
     ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
     SQLType="NUMERIC"
-    Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
-    IsQueriable="false"/>
+    Expression="if(DATEDIFF(Post.DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(Post.DELIVERY_DATE,CURDATE()))"
+    IsQueriable="false"/>    
   <ViewCriteria
-    Name="MyPostVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
+    Name="MyBidsVC"
+    ViewObjectName="com.bidServ.model.view.bid.MyBidsVO"
     Conjunction="AND">
     <Properties Name="_Props">
       <CustomProperties>
@@ -194,11 +226,11 @@
       </CustomProperties>
     </Properties>
     <ViewCriteriaRow
-      Name="PostVOCriteria_row_0"
+      Name="MyBidsCriteria_row_0"
       UpperColumns="1">
       <ViewCriteriaItem
-        Name="UserId"
-        ViewAttribute="UserId"
+        Name="UserId1"
+        ViewAttribute="UserId1"
         Operator="="
         Conjunction="AND"
         Value=":bindUserId"
@@ -208,7 +240,7 @@
   </ViewCriteria>
   <ViewCriteria
     Name="SearchVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
+    ViewObjectName="com.bidServ.model.view.bid.MyBidsVO"
     Conjunction="AND">
     <Properties Name="_Props">
       <CustomProperties>
@@ -230,7 +262,7 @@
       </CustomProperties>
     </Properties>
     <ViewCriteriaRow
-      Name="PostVOCriteria_row_0"
+      Name="MyBidsCriteria_row_0"
       UpperColumns="1">
       <ViewCriteriaItem
         Name="PostDescription"
@@ -242,47 +274,9 @@
         Required="Optional"/>
     </ViewCriteriaRow>
   </ViewCriteria>
-  <ViewCriteria
-    Name="PostIdVC"
-    ViewObjectName="com.bidServ.model.view.PostVO"
-    Conjunction="AND">
-    <Properties Name="_Props">
-      <CustomProperties>
-        <Property
-          Name="autoExecute"
-          Value="false"/>
-        <Property
-          Name="mode"
-          Value="Basic"/>
-        <Property
-          Name="allowConjunctionOverride"
-          Value="true"/>
-        <Property
-          Name="showInList"
-          Value="true"/>
-        <Property
-          Name="displayOperators"
-          Value="InAdvancedMode"/>
-      </CustomProperties>
-    </Properties>
-    <ViewCriteriaRow
-      Name="PostVOCriteria_row_0"
-      UpperColumns="1">
-      <ViewCriteriaItem
-        Name="PostId"
-        ViewAttribute="PostId"
-        Operator="="
-        Conjunction="AND"
-        Value=":bindPostId"
-        IsBindVarValue="true"
-        Required="Optional"/>
-    </ViewCriteriaRow>
-  </ViewCriteria>
-  <ViewLinkAccessor
-    Name="BidVO"
-    ViewLink="com.bidServ.model.view.link.PostToBidVL"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="PostId"/>
+  </AttrArray>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.bidServ.model.ModelBundle"/>

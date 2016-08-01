@@ -3,27 +3,22 @@
 <!---->
 <Entity
   xmlns="http://xmlns.oracle.com/bc4j"
-  Name="Post"
+  Name="Bid"
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   DBObjectType="table"
-  DBObjectName="mysql.posts"
-  AliasName="Post"
-  BindingStyle="JDBC"
-  RowClass="com.bidServ.model.entity.PostImpl"
-  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
-  <DesignTime>
-    <Attr Name="_isCodegen" Value="true"/>
-  </DesignTime>
+  DBObjectName="Bids"
+  AliasName="Bid"
+  BindingStyle="JDBC">
   <Attribute
-    Name="PostId"
-    ColumnName="POST_ID"
+    Name="BidId"
+    IsNotNull="true"
+    ColumnName="BID_ID"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts"
-    PrimaryKey="true"
-    IsUpdateable="while_insert">
+    TableName="Bids"
+    PrimaryKey="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -35,7 +30,19 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PostId"
+    IsNotNull="true"
+    ColumnName="POST_ID"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -47,81 +54,42 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="Product"
-    Precision="255"
-    ColumnName="PRODUCT"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR"
-    TableName="mysql.posts">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="255"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="PostType"
-    Precision="30"
-    ColumnName="POST_TYPE"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR"
-    TableName="mysql.posts"
-    DefaultValue="BUY">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="PostStatusCode"
-    Precision="30"
-    ColumnName="POST_STATUS_CODE"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR"
-    TableName="mysql.posts">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="PostDescription"
+    Name="BidDescription"
     Precision="1000"
-    ColumnName="POST_DESCRIPTION"
+    ColumnName="BID_DESCRIPTION"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="1000"/>
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="ExpiryDate"
-    ColumnName="EXPIRY_DATE"
-    SQLType="DATE"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    TableName="mysql.posts"/>
-  <Attribute
-    Name="DeliveryDate"
-    ColumnName="DELIVERY_DATE"
-    SQLType="DATE"
-    Type="java.sql.Date"
-    ColumnType="DATE"
-    TableName="mysql.posts"/>
+    Name="BidStatusCode"
+    Precision="30"
+    ColumnName="BID_STATUS_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Bids">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
   <Attribute
     Name="Quantity"
     ColumnName="QUANTITY"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -133,54 +101,59 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="VisibilityCode"
-    Precision="30"
-    ColumnName="VISIBILITY_CODE"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR"
-    TableName="mysql.posts"
-    DefaultValue="ENTIRE_NETWORK">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="30"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="NegotiableFlag"
-    Precision="1"
-    ColumnName="NEGOTIABLE_FLAG"
-    SQLType="VARCHAR"
-    Type="java.lang.String"
-    ColumnType="VARCHAR"
-    TableName="mysql.posts">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="1"/>
-    </DesignTime>
-  </Attribute>
-  <Attribute
-    Name="BasePrice"
-    ColumnName="BASE_PRICE"
+    Name="Price"
+    ColumnName="PRICE"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="Amount"
+    ColumnName="AMOUNT"
+    SQLType="DECIMAL"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    TableName="Bids">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Currency"
+    Precision="30"
+    ColumnName="CURRENCY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Bids">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="DeliveryDate"
+    ColumnName="DELIVERY_DATE"
+    SQLType="DATE"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="Bids"/>
   <Attribute
     Name="ModifiedByUser"
     ColumnName="MODIFIED_BY_USER"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -191,7 +164,7 @@
     SQLType="DATE"
     Type="java.sql.Date"
     ColumnType="DATE"
-    TableName="mysql.posts"/>
+    TableName="Bids"/>
   <Attribute
     Name="Language"
     Precision="10"
@@ -199,7 +172,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -210,7 +183,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="Bids">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -222,21 +195,14 @@
     SQLType="BLOB"
     Type="java.sql.Blob"
     ColumnType="BLOB"
-    TableName="mysql.posts"/>
+    TableName="Bids"/>
   <AccessorAttribute
-    Name="PrimaryConnection"
-    Association="com.bidServ.model.entity.association.PostToPrimaryConnection"
-    AssociationEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.PrimaryConnection"
-    AssociationOtherEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.Post"
-    Type="oracle.jbo.server.EntityImpl"
-    IsUpdateable="true"/>
-  <AccessorAttribute
-    Name="Bid"
+    Name="Post"
     Association="com.bidServ.model.entity.association.PostToBid"
-    AssociationEnd="com.bidServ.model.entity.association.PostToBid.Bid"
-    AssociationOtherEnd="com.bidServ.model.entity.association.PostToBid.Post"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
+    AssociationEnd="com.bidServ.model.entity.association.PostToBid.Post"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PostToBid.Bid"
+    Type="com.bidServ.model.entity.PostImpl"
+    IsUpdateable="true"/>
   <Key
     Name="Primary1"
     PrimaryKey="true">
@@ -244,11 +210,18 @@
       <Attr Name="_DBObjectName" Value="PRIMARY"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="com.bidServ.model.entity.Post.PostId"/>
+      <Item Value="com.bidServ.model.entity.Bid.BidId"/>
     </AttrArray>
   </Key>
-  <ResourceBundle>
-    <PropertiesBundle
-      PropertiesFile="com.bidServ.model.ModelBundle"/>
-  </ResourceBundle>
+  <Key
+    Name="fk_Bid">
+    <DesignTime>
+      <Attr Name="_referencedKey" Value="PRIMARY"/>
+      <Attr Name="_isForeign" Value="true"/>
+      <Attr Name="_DBObjectName" Value="fk_Bid"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.Bid.PostId"/>
+    </AttrArray>
+  </Key>
 </Entity>

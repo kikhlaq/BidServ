@@ -41,6 +41,22 @@
     </DesignTime>
   </Containee>
   <Containee
+    Name="bid"
+    PackageName="com.bidServ.model.view.bid"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="link"
+    PackageName="com.bidServ.model.view.link"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VL" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
     Name="post"
     PackageName="com.bidServ.model.view.post"
     ObjectType="JboPackage">
