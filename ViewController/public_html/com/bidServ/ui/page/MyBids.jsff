@@ -26,7 +26,7 @@
                 <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
                 <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
               </af:panelGroupLayout>
-            </af:gridCell> 
+            </af:gridCell>  
             <af:gridCell width="70%" id="gc2">
               <af:panelGroupLayout id="pgl4" layout="vertical">
                 <af:link text="#{item.Product}" id="l1" styleClass="postLink" action="postDetail">
@@ -48,7 +48,7 @@
                 </f:facet>
                 <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                 <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                  <af:outputText value="#{item.BidStatusCode}" id="ot3"/>
+                  <af:outputText value="#{item.BidStatusCode == 'PENDING' ? viewcontrollerBundle.PENDING : (item.BidStatusCode == 'LOST' ? viewcontrollerBundle.LOST : viewcontrollerBundle.WON)}" id="ot3"/>
                 </af:panelGroupLayout>
                 <af:group id="g2" >
                   <af:link id="l2" icon="/com/bidServ/resource/images/chat.png"/>

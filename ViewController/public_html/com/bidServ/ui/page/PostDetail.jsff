@@ -16,14 +16,14 @@
               </af:panelGroupLayout>
           </trh:cellFormat>
           <trh:cellFormat id="cf2" halign="left" valign="middle" width="70%">
-            <af:outputText value="#{bindings.PostType.inputValue}: #{bindings.Product.inputValue}" id="ot1"
+            <af:outputText value="#{bindings.PostType.inputValue == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL}: #{bindings.Product.inputValue}" id="ot1"
                            inlineStyle="font-size:large;"/>
           </trh:cellFormat>
           <trh:cellFormat id="cf3" width="15%" valign="middle" halign="center">
             <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                   <af:outputText value="#{bindings.DaysLeft.inputValue} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                   <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                    <af:outputText value="#{bindings.PostStatusCode.inputValue}" id="ot3"/>
+                    <af:outputText value="#{bindings.PostStatusCode.inputValue == 'OPEN' ? viewcontrollerBundle.OPEN : (bindings.PostStatusCode.inputValue == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s4"/>
@@ -40,7 +40,7 @@
       <af:outputText value="#{bindings.PostDescription.inputValue}" id="ot4"/>
       <af:outputText value="#{viewcontrollerBundle.quantity}: #{bindings.Quantity.inputValue} #{bindings.Uom.inputValue}"
                      id="ot7"/>
-      <af:outputFormatted value="#{viewcontrollerBundle.BROADCASTED_TO} &lt;b>#{bindings.VisibilityCode.inputValue}&lt;/b> #{viewcontrollerBundle.NETWORK}"
+      <af:outputFormatted value="#{viewcontrollerBundle.BROADCASTED_TO} &lt;b>#{bindings.VisibilityCode.inputValue == 'PRIMARY' ? viewcontrollerBundle.PRIMARY : (bindings.VisibilityCode.inputValue == 'SECONDARY' ? viewcontrollerBundle.SECONDARY : viewcontrollerBundle.ENTIRE_NETWORK)}&lt;/b> #{viewcontrollerBundle.NETWORK}"
                           id="ot6"/>
       <f:facet name="separator">
         <af:spacer height="10" id="s3"/>
@@ -93,7 +93,7 @@
             <af:panelGroupLayout id="pgl15" layout="vertical" halign="center">
                   <af:outputText value="#{item.DeliveryDate}" id="ot112"/>
                   <af:panelGroupLayout id="pgl16" styleClass="statusLayout">
-                    <af:outputText value="#{item.BidStatusCode}" id="ot113"/>
+                    <af:outputText value="#{item.BidStatusCode == 'PENDING' ? viewcontrollerBundle.PENDING : (item.BidStatusCode == 'LOST' ? viewcontrollerBundle.LOST : viewcontrollerBundle.WON)}" id="ot113"/>
                   </af:panelGroupLayout>
                   <af:group id="g2" >
                   <af:link id="l2" icon="/com/bidServ/resource/images/chat.png"/>

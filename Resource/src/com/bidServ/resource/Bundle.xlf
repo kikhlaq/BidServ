@@ -76,6 +76,86 @@
       </trans-unit> 
       <trans-unit id="shareWith">
         <source>Share with</source>
+      </trans-unit>
+      <trans-unit id="KEYWORD_SEARCH">
+        <source>Keyword search</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="SEARCH">
+        <source>Search</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="BIDS">
+        <source>Bids</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="SUBMIT">
+        <source>Submit</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="BROADCASTED_TO">
+        <source>Broadcasted to</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="NETWORK">
+        <source>Network</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="BIDDER">
+        <source>Bidder</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="AMOUNT">
+        <source>Amount</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="INFO">
+        <source>Info</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="OPEN">
+        <source>Open</source>
+        <target/>
+      </trans-unit> 
+      <trans-unit id="CLOSED">
+        <source>Closed</source>
+        <target/>
+      </trans-unit>  
+      <trans-unit id="EXPIRED">
+        <source>Expired</source>
+        <target/>
+      </trans-unit>  
+      <trans-unit id="PENDING">
+        <source>Pending</source>
+        <target/>
+      </trans-unit>  
+      <trans-unit id="LOST">
+        <source>Lost</source>
+        <target/>
+      </trans-unit> 
+      <trans-unit id="PRIMARY">
+        <source>Primay</source>
+        <target/>
+      </trans-unit>   
+      <trans-unit id="SECONDARY">
+        <source>Secondary</source>
+        <target/>
+      </trans-unit>   
+      <trans-unit id="ENTIRE_NETWORK">
+        <source>Everyone in</source>
+        <target/>
+      </trans-unit> 
+      <trans-unit id="BUY">
+        <source>Buy</source>
+        <target/>
+      </trans-unit>  
+      <trans-unit id="SELL">
+        <source>Sell</source>
+        <target/>
+      </trans-unit> 
+      <trans-unit id="WON">
+        <source>Won</source>
+        <target/>
       </trans-unit>       
     </body>
   </file>

@@ -51,7 +51,7 @@
               </af:gridCell>
               <af:gridCell width="70%" id="gc2">
                 <af:panelGroupLayout id="pgl4" layout="vertical">
-                  <af:link text="#{item.Product}" id="l1" styleClass="postLink" action="postDetail">
+                  <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }:  #{item.Product}" id="l1" styleClass="postLink" action="postDetail">
                     <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
                     <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
                     <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
@@ -67,7 +67,7 @@
                 <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                   <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode}" id="ot3"/>
+                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s4"/>
@@ -111,7 +111,12 @@
               </af:gridCell>
               <af:gridCell width="70%" id="gc21">
                 <af:panelGroupLayout id="pgl41" layout="vertical">
-                  <af:link text="#{item.Product}" id="l11" styleClass="postLink"/>
+                  <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }: #{item.Product}" id="l11" styleClass="postLink" action="postDetail">
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
+                    <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
+                                            type="action"/>                  
+                  </af:link>
                   <af:outputText value="#{item.PostDescription}" id="ot11"/>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s31"/>
@@ -122,7 +127,7 @@
                 <af:panelGroupLayout id="pgl51" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot21"/>
                   <af:panelGroupLayout id="pgl16" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode}" id="ot123"/>
+                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot123"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s41"/>
@@ -164,7 +169,12 @@
               </af:gridCell>
               <af:gridCell width="70%" id="gc211">
                 <af:panelGroupLayout id="pgl411" layout="vertical">
-                  <af:link text="#{item.Product}" id="l111" styleClass="postLink"/>
+                  <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }: #{item.Product}" id="l111" styleClass="postLink" action="postDetail">
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
+                    <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
+                                            type="action"/>                  
+                  </af:link>
                   <af:outputText value="#{item.PostDescription}" id="ot111"/>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s311"/>
@@ -175,7 +185,7 @@
                 <af:panelGroupLayout id="pgl511" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot211"/>
                   <af:panelGroupLayout id="pgl26" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode}" id="ot133"/>
+                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot133"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s411"/>

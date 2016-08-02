@@ -61,7 +61,7 @@
                       <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                         <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                         <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                          <af:outputText value="#{item.PostStatusCode}" id="ot3"/>
+                          <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
                         </af:panelGroupLayout>
                         <f:facet name="separator">
                           <af:spacer id="s4" height="3"/>
