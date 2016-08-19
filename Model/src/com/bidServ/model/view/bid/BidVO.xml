@@ -169,6 +169,11 @@
         Required="Optional"/>
     </ViewCriteriaRow>
   </ViewCriteria>
+  <ViewLinkAccessor
+    Name="ChatVO"
+    ViewLink="com.bidServ.model.view.link.BidToChatVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.bidServ.model.ModelBundle"/>

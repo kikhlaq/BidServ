@@ -36,7 +36,9 @@
                                         <af:link text="Logout" id="l2" styleClass="globalLink"/>
                                     </af:panelGroupLayout>
                                 </trh:cellFormat>
-                                <trh:cellFormat id="cf4" width="15%"/>
+                                <trh:cellFormat id="cf4" width="15%" halign="right" valign="middle">
+                                    <af:statusIndicator id="si1"/>
+                                </trh:cellFormat>
                             </trh:rowLayout>
                         </trh:tableLayout>
                     </af:panelGroupLayout>

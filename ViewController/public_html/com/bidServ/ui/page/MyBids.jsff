@@ -11,7 +11,7 @@
         <af:setPropertyListener from="#{pageFlowScope.mybidKeyword}" to="#{requestScope.keyword}" type="action"/>
         <af:setPropertyListener from="#{'B'}" to="#{requestScope.voName}" type="action"/>
       </af:button>
-    </af:group>
+    </af:group> 
     <f:facet name="separator">
       <af:spacer height="10" id="s2"/>
     </f:facet>

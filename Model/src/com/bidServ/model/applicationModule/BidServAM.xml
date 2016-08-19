@@ -94,11 +94,34 @@
   <ViewUsage
     Name="Bids"
     ViewObjectName="com.bidServ.model.view.bid.BidVO"/>
+  <ViewUsage
+    Name="Chats"
+    ViewObjectName="com.bidServ.model.view.bid.ChatVO"/>
+  <ViewUsage
+    Name="BidChats"
+    ViewObjectName="com.bidServ.model.view.bid.ChatVO">
+    <ViewCriteriaUsage
+      Name="ChatByBidVC"
+      FullName="com.bidServ.model.view.bid.ChatVO.ChatByBidVC"/>
+    <ParameterMap>
+      <PIMap Variable="bindBidId">
+        <TransientExpression
+          trustMode="untrusted"
+          Name="ExpressionScript"><![CDATA[5001]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewUsage>
   <ViewLinkUsage
     Name="PostToBidVL1"
     ViewLinkObjectName="com.bidServ.model.view.link.PostToBidVL"
     SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.Post"
     DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.Bids"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="BidToChatVL1"
+    ViewLinkObjectName="com.bidServ.model.view.link.BidToChatVL"
+    SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.Bids"
+    DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.Chats"
     Reversed="false"/>
   <ClientInterface
     Name="__clientInterface">
@@ -149,6 +172,25 @@
         Type="java.lang.String"/>
       <Parameter
         Name="postId"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="createComment"
+      MethodName="createComment">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="bidId"
+        Type="int"/>
+      <Parameter
+        Name="userId"
+        Type="int"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="comment"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>

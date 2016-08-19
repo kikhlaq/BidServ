@@ -290,3 +290,86 @@ af|inputText::content {
     font-size: 16px;
     font-weight: bold;
 }
+
+.chatLayoutLeft {
+    max-width: 300px;
+    width:100%;
+    background-color: #DAFDEC;
+    border-radius: 5px;
+    border:#E2E4E5 groove   1px;
+    padding:3px;
+}
+
+.chatLayoutRight {
+    max-width: 300px;
+    width:100%;
+    background-color: #DAF5FD;
+    border-radius: 5px;
+    border:#E2E4E5 groove   1px;
+    padding:3px;
+}
+
+.chatHeader{
+    color:#949797;
+}
+
+.chatlistItem{
+    border-top: none;
+    background-color: white;
+}
+
+.chatlistItem:highlighted{
+    background-color: white;
+}
+
+.chatListView{
+  border-top: none;
+  border-bottom: none;
+  height: 300px;
+}
+
+af|listItem:focus{
+    border: none;
+    outline: none;
+}
+
+af|dialog::header-end,
+af|dialog::header-start,
+af|dialog::header {
+  height: 0px;
+  background-image:none;
+  border:none;
+}
+
+.chatLayout{
+    max-height: 600px;
+}
+
+af|dialog {
+  background-color: white;
+  border-radius: 5px;
+  
+  
+}
+/**
+ af|statusIndicator::connected-icon, af|statusIndicator::disconnected-icon, af|statusIndicator::idle-icon {
+   content: '';
+ }
+  
+af|statusIndicator::processing-icon {
+    content: url("images/af_statusIndicator/busy.gif"); 
+       height: 23px;
+   width: 23px;
+}
+
+af|statusIndicator::reconnecting-icon {
+    content: url("images/af_statusIndicator/reconnecting.gif"); 
+       height: 23px;
+   width: 23px;
+}
+
+af|statusIndicator::connecting-icon {
+    content: url("images/af_statusIndicator/connecting.gif"); 
+           height: 23px;
+   width: 23px;
+}**/

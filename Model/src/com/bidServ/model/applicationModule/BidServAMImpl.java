@@ -9,7 +9,10 @@ import com.bidServ.model.view.post.SecondaryConnPostVOImpl;
 
 import java.math.BigDecimal;
 
+import oracle.jbo.Row;
 import oracle.jbo.server.ApplicationModuleImpl;
+import oracle.jbo.server.DBTransactionImpl;
+import oracle.jbo.server.RowImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -143,6 +146,46 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
      */
     public ViewLinkImpl getPostToBidVL1() {
         return (ViewLinkImpl) findViewLink("PostToBidVL1");
+    }
+
+    /**
+     * Container's getter for ChatVO1.
+     * @return ChatVO1
+     */
+    public ViewObjectImpl getChats() {
+        return (ViewObjectImpl) findViewObject("Chats");
+    }
+
+    /**
+     * Container's getter for BidToChatVL1.
+     * @return BidToChatVL1
+     */
+    public ViewLinkImpl getBidToChatVL1() {
+        return (ViewLinkImpl) findViewLink("BidToChatVL1");
+    }
+
+    /**
+     * Container's getter for ChatVO1.
+     * @return ChatVO1
+     */
+    public ViewObjectImpl getBidChats() {
+        return (ViewObjectImpl) findViewObject("BidChats");
+    }
+    
+    public void createComment(int bidId, int userId, String username,String comment){
+        System.out.println("====================createComment");
+        ViewObjectImpl chatVO = getBidChats();
+        Row chat = chatVO.createRow();
+        chat.setAttribute("UserId", userId);
+        chat.setAttribute("UserName", username);
+        chat.setAttribute("BidId", bidId);
+        chat.setAttribute("Comment", comment);
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+        chat.setAttribute("ChatTime",date);
+        this.getDBTransaction().commit();
+        chatVO.executeQuery();
+        
+        
     }
 }
 

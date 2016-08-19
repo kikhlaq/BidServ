@@ -6,6 +6,7 @@
     <variableIterator id="variables"/>
     <iterator Binds="Post" RangeSize="25" DataControl="BidServAMDataControl" id="PostIterator"/>
     <iterator Binds="Bids" RangeSize="25" DataControl="BidServAMDataControl" id="BidsIterator"/>
+    <iterator Binds="BidChats" RangeSize="25" DataControl="BidServAMDataControl" id="ChatsIterator"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="PostIterator" id="BasePrice">
@@ -106,5 +107,26 @@
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <tree IterBinding="ChatsIterator" id="Chats">
+      <nodeDefinition DefName="com.bidServ.model.view.bid.ChatVO" Name="Chats0">
+        <AttrNames>
+          <Item Value="BidId"/>
+          <Item Value="ChatId"/>
+          <Item Value="ChatTime"/>
+          <Item Value="Comment"/>
+          <Item Value="UserId"/>
+          <Item Value="UserName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <methodAction id="createComment" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createComment"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bidId" NDValue="#{pageFlowScope.chatBidId}" NDType="int"/>
+      <NamedData NDName="userId" NDValue="#{pageFlowScope.chatUserId}" NDType="int"/>
+      <NamedData NDName="username" NDValue="#{pageFlowScope.chatUsername}" NDType="java.lang.String"/>
+      <NamedData NDName="comment" NDValue="#{requestScope.comment}" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

@@ -14,6 +14,7 @@ import javax.faces.event.ActionEvent;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.DataControlFrame;
+import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
 import oracle.binding.BindingContainer;
@@ -101,5 +102,30 @@ public class CommonManagedBean {
                 Map map =(Map)exp.getValue(elContext);
         System.out.println("====================5");
                 return map;
+    }
+
+    public void saveComment(ActionEvent actionEvent) {
+        System.out.println("====================saveComment");
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("createComment");
+        Object result = operationBinding.execute();
+        System.out.println("====================3");
+        ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
+        shellBean.getComment().resetValue();
+        getRequestScope().put("comment",null);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(shellBean.getComment());
+    }
+
+    public void cancelCommentPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
+        shellBean.getChatPopup().hide();
+    }
+
+    public void showChat(ActionEvent actionEvent) {
+        ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getChatPopup().show(hints);
+        // Add event code here...
     }
 }

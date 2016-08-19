@@ -15,5 +15,7 @@ public interface BidServAM extends ApplicationModule {
     void setMyBidsVC(BigDecimal userId);
 
     void postDetails(String source, String userId, String postId);
+
+    void createComment(int bidId, int userId, String username, String comment);
 }
 

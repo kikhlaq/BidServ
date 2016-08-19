@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewLink
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BidToChatVL"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.view.link.BidToChatVL_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <ViewLinkDefEnd
+    Name="BidVO"
+    Cardinality="1"
+    Source="true"
+    Owner="com.bidServ.model.view.bid.BidVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="BidVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.view.bid.BidVO.BidId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ViewLinkDefEnd
+    Name="ChatVO"
+    Cardinality="-1"
+    Owner="com.bidServ.model.view.bid.ChatVO">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_finderName" Value="ChatVO"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.view.bid.ChatVO.BidId"/>
+    </AttrArray>
+  </ViewLinkDefEnd>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewLink>
