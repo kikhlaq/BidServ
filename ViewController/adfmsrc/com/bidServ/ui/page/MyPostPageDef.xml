@@ -5,6 +5,7 @@
   <executables>
     <variableIterator id="variables"/>
     <iterator Binds="MyPost" RangeSize="25" DataControl="BidServAMDataControl" id="MyPostIterator"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
   </executables>
   <bindings>
     <tree IterBinding="MyPostIterator" id="MyPost">
@@ -30,6 +31,7 @@
           <Item Value="UserId"/>
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
+          <Item Value="BidCount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -39,5 +41,10 @@
       <NamedData NDName="voName" NDValue="#{requestScope.voName}" NDType="java.lang.String"/>
       <NamedData NDName="keyword" NDValue="#{requestScope.keyword}" NDType="java.lang.String"/>
     </methodAction>
+    <attributeValues IterBinding="LoggedInUserIterator" id="LogoURL">
+      <AttrNames>
+        <Item Value="LogoURL"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

@@ -1,6 +1,8 @@
 package com.bidServ.model.applicationModule;
 
 import com.bidServ.model.applicationModule.common.BidServAM;
+import com.bidServ.model.view.LoggedInUserVOImpl;
+import com.bidServ.model.view.LoggedInUserVORowImpl;
 import com.bidServ.model.view.PostVOImpl;
 import com.bidServ.model.view.bid.MyBidsVOImpl;
 import com.bidServ.model.view.post.EntireNetworkPostVOImpl;
@@ -101,6 +103,7 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
     }
     
     public void setMyPostVC(BigDecimal userId){
+        System.out.println("====================setMyPostVC "+userId);
         getMyPost().setNamedWhereClauseParam("bindUserId", userId);
         getMyPost().removeApplyViewCriteriaName("SearchVC");
         getMyPost().setNamedWhereClauseParam("keyword", null);
@@ -172,8 +175,18 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         return (ViewObjectImpl) findViewObject("BidChats");
     }
     
+    public void createPostRow(){
+        System.out.println("====================createPostRow "+ getcreatePostVO().getRowCount());
+        Row row = getcreatePostVO().createRow();
+        getcreatePostVO().insertRow(row);
+        row.setAttribute("CompanyId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId());
+        row.setAttribute("UserId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getUserId());
+        row.setNewRowState(Row.STATUS_INITIALIZED);
+        System.out.println("====================createPostRow later "+ getcreatePostVO().getRowCount());
+    }
+    
     public void createComment(int bidId, int userId, String username,String comment){
-        System.out.println("====================createComment");
+        System.out.println("====================createComment "+userId+", "+username);
         ViewObjectImpl chatVO = getBidChats();
         Row chat = chatVO.createRow();
         chat.setAttribute("UserId", userId);
@@ -186,6 +199,58 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         chatVO.executeQuery();
         
         
+    }
+
+    /**
+     * Container's getter for SampleUserVO1.
+     * @return SampleUserVO1
+     */
+    public ViewObjectImpl getSampleUser() {
+        return (ViewObjectImpl) findViewObject("SampleUser");
+    }
+
+    /**
+     * Container's getter for LoggedInUserVO1.
+     * @return LoggedInUserVO1
+     */
+    public LoggedInUserVOImpl getLoggedInUser() {
+        return (LoggedInUserVOImpl) findViewObject("LoggedInUser");
+    }
+    
+    public Long initLoggedInUser(){
+        System.out.println("====================initLoggedInUser");
+        LoggedInUserVOImpl userVO = getLoggedInUser();
+        LoggedInUserVORowImpl userRow = (LoggedInUserVORowImpl)userVO.createRow();
+        userVO.insertRow(userRow);
+        
+        userRow.setUserId((Long)getSampleUser().getCurrentRow().getAttribute("UserId"));
+        userRow.setName((String)getSampleUser().getCurrentRow().getAttribute("User"));
+        userRow.setCompanyId((Long)getSampleUser().getCurrentRow().getAttribute("CompanyId"));
+        userRow.setCompanyName((String)getSampleUser().getCurrentRow().getAttribute("Company"));
+        userRow.setLogoURL((String)getSampleUser().getCurrentRow().getAttribute("LogoURL"));
+        
+        System.out.println("===================="+userRow.getUserId()+", "+userRow.getCompanyId());
+        return userRow.getUserId();
+        
+    }
+    
+    public Long initCompany(){
+        System.out.println("====================initCompany");
+        LoggedInUserVOImpl userVO = getLoggedInUser();
+        LoggedInUserVORowImpl userRow = (LoggedInUserVORowImpl)userVO.getCurrentRow();
+        System.out.println("===================="+userRow.getCompanyId());
+        getPrimaryConnVO().setNamedWhereClauseParam("bindCompId", userRow.getCompanyId());
+        getPrimaryConnVO().clearCache();
+        getSecondaryConnVO().setNamedWhereClauseParam("bindCompId", userRow.getCompanyId());
+        getSecondaryConnVO().clearCache();
+        return userRow.getCompanyId();
+        
+    }
+    
+    public void initChatforBid(Long bindBidId){
+        System.out.println("====================initChatforBid");
+        getBidChats().clearCache();
+        getBidChats().setNamedWhereClauseParam("bindBidId", bindBidId);
     }
 }
 

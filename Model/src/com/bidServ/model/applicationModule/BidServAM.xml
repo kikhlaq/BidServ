@@ -41,13 +41,6 @@
     <ViewCriteriaUsage
       Name="SecondaryConnPostVOCriteria"
       FullName="com.bidServ.model.view.post.SecondaryConnPostVO.SecondaryConnPostVOCriteria"/>
-    <ParameterMap>
-      <PIMap Variable="bindCompId">
-        <TransientExpression
-          trustMode="untrusted"
-          Name="ExpressionScript"><![CDATA[201]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
   </ViewUsage>
   <ViewUsage
     Name="PrimaryConnVO"
@@ -55,13 +48,6 @@
     <ViewCriteriaUsage
       Name="PrimaryPostCriteria"
       FullName="com.bidServ.model.view.post.PrimaryConnPostVO.PrimaryPostCriteria"/>
-    <ParameterMap>
-      <PIMap Variable="bindCompId">
-        <TransientExpression
-          trustMode="untrusted"
-          Name="ExpressionScript"><![CDATA[201]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
   </ViewUsage>
   <ViewUsage
     Name="MyPost"
@@ -69,13 +55,6 @@
     <ViewCriteriaUsage
       Name="MyPostVC"
       FullName="com.bidServ.model.view.PostVO.MyPostVC"/>
-    <ParameterMap>
-      <PIMap Variable="bindUserId">
-        <TransientExpression
-          trustMode="untrusted"
-          Name="ExpressionScript"><![CDATA[3002]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
   </ViewUsage>
   <ViewUsage
     Name="MyBidsVO1"
@@ -83,13 +62,6 @@
     <ViewCriteriaUsage
       Name="MyBidsVC"
       FullName="com.bidServ.model.view.bid.MyBidsVO.MyBidsVC"/>
-    <ParameterMap>
-      <PIMap Variable="bindUserId">
-        <TransientExpression
-          trustMode="untrusted"
-          Name="ExpressionScript"><![CDATA[3002]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
   </ViewUsage>
   <ViewUsage
     Name="Bids"
@@ -103,14 +75,13 @@
     <ViewCriteriaUsage
       Name="ChatByBidVC"
       FullName="com.bidServ.model.view.bid.ChatVO.ChatByBidVC"/>
-    <ParameterMap>
-      <PIMap Variable="bindBidId">
-        <TransientExpression
-          trustMode="untrusted"
-          Name="ExpressionScript"><![CDATA[5001]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
   </ViewUsage>
+  <ViewUsage
+    Name="SampleUser"
+    ViewObjectName="com.bidServ.model.view.SampleUserVO"/>
+  <ViewUsage
+    Name="LoggedInUser"
+    ViewObjectName="com.bidServ.model.view.LoggedInUserVO"/>
   <ViewLinkUsage
     Name="PostToBidVL1"
     ViewLinkObjectName="com.bidServ.model.view.link.PostToBidVL"
@@ -192,6 +163,37 @@
       <Parameter
         Name="comment"
         Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="initLoggedInUser"
+      MethodName="initLoggedInUser">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.Long"/>
+    </Method>
+    <Method
+      Name="initCompany"
+      MethodName="initCompany">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.Long"/>
+    </Method>
+    <Method
+      Name="createPostRow"
+      MethodName="createPostRow">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+    </Method>
+    <Method
+      Name="initChatforBid"
+      MethodName="initChatforBid">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="bindBidId"
+        Type="java.lang.Long"/>
     </Method>
   </ClientInterface>
   <ResourceBundle>

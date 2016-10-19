@@ -21,7 +21,7 @@
           <af:gridRow height="60px" id="gr1">
             <af:gridCell marginStart="5px" width="10%" id="gc1" valign="middle" halign="center">
               <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                <af:image source="#{bindings.LogoURL.inputValue}" id="i1" styleClass="image"/>
                 <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
               </af:panelGroupLayout>
             </af:gridCell>
@@ -46,7 +46,7 @@
                     <trh:cellFormat id="cf1" width="30%" halign="end">
                       <af:panelGroupLayout id="pgl7" halign="center" layout="vertical">
                         <af:panelGroupLayout id="pgl8" styleClass="bidLayout">
-                          <af:outputText value="2" id="ot4"/>
+                          <af:outputText value="#{item.BidCount}" id="ot4"/>
                         </af:panelGroupLayout>
                         <af:outputText value="#{viewcontrollerBundle.BIDS}" id="ot5"/>
                         <f:facet name="separator">

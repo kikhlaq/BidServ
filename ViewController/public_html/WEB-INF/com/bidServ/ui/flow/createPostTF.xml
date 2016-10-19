@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="createPost">
-    <default-activity>Create</default-activity>
+    <default-activity>createPostRow</default-activity>
     <data-control-scope>
       <shared/>
     </data-control-scope>
     <view id="__createPost1">
       <page>/com/bidServ/ui/page/CreateNewPost.jsff</page>
     </view>
-    <method-call id="Create">
-      <method>#{bindings.Create.execute}</method>
+    <method-call id="createPostRow">
+      <method>#{bindings.createPostRow.execute}</method>
       <outcome>
         <fixed-outcome>Create</fixed-outcome>
       </outcome>
     </method-call>
     <control-flow-rule id="__3">
-      <from-activity-id>Create</from-activity-id>
+      <from-activity-id>createPostRow</from-activity-id>
       <control-flow-case id="__4">
         <from-outcome>Create</from-outcome>
         <to-activity-id>__createPost1</to-activity-id>

@@ -17,5 +17,13 @@ public interface BidServAM extends ApplicationModule {
     void postDetails(String source, String userId, String postId);
 
     void createComment(int bidId, int userId, String username, String comment);
+
+    Long initLoggedInUser();
+
+    Long initCompany();
+
+    void createPostRow();
+
+    void initChatforBid(Long bindBidId);
 }
 

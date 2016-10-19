@@ -23,7 +23,7 @@
           <af:gridRow height="60px" id="gr1">
             <af:gridCell marginStart="5px" width="10%" id="gc1" valign="middle" halign="center">
               <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                <af:image source="#{item.LogoUrl}" id="i1" styleClass="image"/>
                 <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
               </af:panelGroupLayout>
             </af:gridCell>  
@@ -31,7 +31,7 @@
               <af:panelGroupLayout id="pgl4" layout="vertical">
                 <af:link text="#{item.Product}" id="l1" styleClass="postLink" action="postDetail">
                     <af:setPropertyListener to="#{requestScope.source}" from="#{'B'}" type="action"/>
-                    <af:setPropertyListener to="#{requestScope.userId}" from="#{3002}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.userId}" from="#{pageFlowScope.userId}" type="action"/>
                     <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
                                             type="action"/>                
                 </af:link>
@@ -51,9 +51,14 @@
                   <af:outputText value="#{item.BidStatusCode == 'PENDING' ? viewcontrollerBundle.PENDING : (item.BidStatusCode == 'LOST' ? viewcontrollerBundle.LOST : viewcontrollerBundle.WON)}" id="ot3"/>
                 </af:panelGroupLayout>
                 <af:group id="g2" >
-                  <af:link id="l2" icon="/com/bidServ/resource/images/chat.png"/>
+                  <af:link id="l2" icon="/com/bidServ/resource/images/chat.png"
+                           actionListener="#{ManagedBean.showBidChat}">
+                    <af:setPropertyListener from="#{item.BidId}" to="#{pageFlowScope.chatBidId}" type="action"/>
+                    <af:setPropertyListener from="#{bindings.UserId1.inputValue}" to="#{pageFlowScope.chatUserId}" type="action"/>
+                    <af:setPropertyListener from="#{bindings.Name.inputValue}" to="#{pageFlowScope.chatUsername}" type="action"/>
+                  </af:link>
                   <af:spacer width="3" id="s5"/>
-                  <af:outputText value="(2)" id="ot4"/>
+                  <af:outputText value="(#{item.ChatCount})" id="ot4"/>
                 </af:group>
               </af:panelGroupLayout>
             </af:gridCell>
@@ -62,4 +67,45 @@
       </af:listItem>
     </af:listView>
   </af:panelGroupLayout>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{ShellBackingBean.myBidsChatPopup}"
+            contentDelivery="lazyUncached">
+    <af:dialog id="d1" type="none" contentWidth="400" closeIconVisible="false">
+      <f:facet name="buttonBar">
+        <af:panelGroupLayout id="pgl17" layout="horizontal">
+          <af:button text="Save" id="b3" actionListener="#{ManagedBean.saveComment}"/>
+          <af:button text="Cancel" id="b2" actionListener="#{ManagedBean.cancelBidCommentPopup}"/>
+        </af:panelGroupLayout>
+      </f:facet>
+      <af:panelGroupLayout id="pgl10" layout="vertical">
+        <af:listView value="#{bindings.Chats.collectionModel}" var="item"
+                     emptyText="#{bindings.Chats.viewable ? 'No data to display.' : 'Access Denied.'}"
+                     fetchSize="#{bindings.Chats.rangeSize}" id="lv2" styleClass="chatListView" partialTriggers="::b3">
+          <af:listItem id="li2" styleClass="chatlistItem">
+            <af:panelGridLayout id="pgl11">
+              <af:gridRow height="auto" id="gr2" marginTop="2px" marginBottom="2px">
+                <af:gridCell width="100%" id="gc5" rendered="#{item.UserId == pageFlowScope.userId ? false : true}">
+                  <af:panelGroupLayout id="pgl13" layout="vertical" styleClass="chatLayoutLeft">
+                    <af:outputText value="#{item.ChatTime} | #{item.UserName}" id="ot14" styleClass="chatHeader"/>
+                    <af:outputText value="#{item.Comment}" id="ot15"/>
+                  </af:panelGroupLayout>
+                </af:gridCell>
+                <af:gridCell id="gc6" width="100%" halign="end"
+                             rendered="#{item.UserId != pageFlowScope.userId ? false : true}">
+                  <af:panelGroupLayout id="pgl14" layout="vertical" styleClass="chatLayoutRight">
+                    <af:outputText value="#{item.ChatTime} | #{item.UserName}" id="ot16" styleClass="chatHeader"/>
+                    <af:outputText value="#{item.Comment}" id="ot17"/>
+                  </af:panelGroupLayout>
+                </af:gridCell>
+              </af:gridRow>
+            </af:panelGridLayout>
+          </af:listItem>
+        </af:listView>
+        <f:facet name="separator">
+          <af:spacer height="10" id="s6"/>
+        </f:facet>
+        <af:inputText id="it2" placeholder="Add Comment..." rows="3" styleClass="AFStretchWidth" simple="true"
+                      value="#{requestScope.comment}" binding="#{ShellBackingBean.comment}"/>
+      </af:panelGroupLayout>
+    </af:dialog>
+  </af:popup>
 </jsp:root>

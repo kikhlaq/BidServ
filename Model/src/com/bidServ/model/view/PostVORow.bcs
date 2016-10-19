@@ -1,0 +1,12 @@
+//Groovy Scripts for com.bidServ.model.view.PostVO
+
+package com.bidServ.model.view
+
+import oracle.jbo.script.annotation.TransientValueExpression;
+
+@TransientValueExpression(attributeName="BidCount")
+def BidCount_ExpressionScript_Expression()
+{
+object.BidVO.count('BidId')
+}
+

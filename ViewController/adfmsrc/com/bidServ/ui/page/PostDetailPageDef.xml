@@ -6,7 +6,8 @@
     <variableIterator id="variables"/>
     <iterator Binds="Post" RangeSize="25" DataControl="BidServAMDataControl" id="PostIterator"/>
     <iterator Binds="Bids" RangeSize="25" DataControl="BidServAMDataControl" id="BidsIterator"/>
-    <iterator Binds="BidChats" RangeSize="25" DataControl="BidServAMDataControl" id="ChatsIterator"/>
+    <iterator Binds="BidChats" RangeSize="25" DataControl="BidServAMDataControl" id="ChatsIterator" Refresh="always"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="PostIterator" id="BasePrice">
@@ -104,6 +105,8 @@
           <Item Value="Quantity"/>
           <Item Value="Uom"/>
           <Item Value="UserId"/>
+          <Item Value="LogoUrl"/>
+          <Item Value="ChatCount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -127,6 +130,26 @@
       <NamedData NDName="userId" NDValue="#{pageFlowScope.chatUserId}" NDType="int"/>
       <NamedData NDName="username" NDValue="#{pageFlowScope.chatUsername}" NDType="java.lang.String"/>
       <NamedData NDName="comment" NDValue="#{requestScope.comment}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PostIterator" id="LogoUrl">
+      <AttrNames>
+        <Item Value="LogoUrl"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId1">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="Name">
+      <AttrNames>
+        <Item Value="Name"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="initChatforBid" RequiresUpdateModel="true" Action="invokeMethod" MethodName="initChatforBid"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bindBidId" NDValue="#{pageFlowScope.chatBidId}" NDType="java.lang.Long"/>
     </methodAction>
   </bindings>
 </pageDefinition>

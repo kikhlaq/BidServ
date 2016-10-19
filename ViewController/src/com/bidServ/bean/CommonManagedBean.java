@@ -121,11 +121,32 @@ public class CommonManagedBean {
         ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
         shellBean.getChatPopup().hide();
     }
+    
+    public void cancelBidCommentPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
+        shellBean.getMyBidsChatPopup().hide();
+    }
 
     public void showChat(ActionEvent actionEvent) {
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("initChatforBid");
+        Object result = operationBinding.execute();
+        
         ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
         RichPopup.PopupHints hints = new RichPopup.PopupHints();
         shellBean.getChatPopup().show(hints);
+        // Add event code here...
+    }
+    
+    public void showBidChat(ActionEvent actionEvent) {
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("initChatforBid");
+        Object result = operationBinding.execute();
+        
+        ShellBackingBean shellBean = (ShellBackingBean)FacesContext.getCurrentInstance().getExternalContext().getApplicationMap().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getMyBidsChatPopup().show(hints);
         // Add event code here...
     }
 }

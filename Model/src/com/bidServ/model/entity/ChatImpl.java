@@ -50,6 +50,7 @@ public class ChatImpl extends EntityImpl {
         }
     }
 
+
     public static final int CHATID = AttributesEnum.ChatId.index();
     public static final int BIDID = AttributesEnum.BidId.index();
     public static final int USERID = AttributesEnum.UserId.index();

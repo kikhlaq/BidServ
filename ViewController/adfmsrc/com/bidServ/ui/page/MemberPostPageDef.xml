@@ -32,6 +32,7 @@
           <Item Value="UserId"/>
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
+          <Item Value="LogoUrl"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -58,6 +59,7 @@
           <Item Value="UserId"/>
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
+          <Item Value="LogoUrl"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -84,6 +86,7 @@
           <Item Value="UserId"/>
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
+          <Item Value="LogoUrl"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

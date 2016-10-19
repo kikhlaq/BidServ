@@ -10,6 +10,7 @@ public class ShellBackingBean {
     private RichShowDetailItem createPost;
     private RichPanelTabbed panelTab;
     private RichPopup chatPopup;
+    private RichPopup myBidsChatPopup;
     private RichInputText comment;
 
     public void setMyPosts(RichShowDetailItem myPosts) {
@@ -50,5 +51,13 @@ public class ShellBackingBean {
 
     public RichInputText getComment() {
         return comment;
+    }
+
+    public void setMyBidsChatPopup(RichPopup myBidsChatPopup) {
+        this.myBidsChatPopup = myBidsChatPopup;
+    }
+
+    public RichPopup getMyBidsChatPopup() {
+        return myBidsChatPopup;
     }
 }

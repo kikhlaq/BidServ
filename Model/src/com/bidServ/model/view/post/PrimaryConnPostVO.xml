@@ -30,9 +30,12 @@
        Post.CHANGE_LOG, 
        Connection.SOURCE_COMPANY_ID, 
        Connection.CONNECTION_ID, 
-       if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE())) AS VIEW_ATTR"
+       if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE())) AS VIEW_ATTR, 
+       Company.LOGO_URL, 
+       Company.COMPANY_ID AS Company_Id1"
   FromList="mysql.posts Post
-INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID)"
+INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID)
+INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID)"
   Where="Post.VISIBILITY_CODE = 'PRIMARY'"
   ComponentClass="com.bidServ.model.view.post.PrimaryConnPostVOImpl">
   <DesignTime>
@@ -81,13 +84,33 @@ INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_
       </AttrArray>
     </DesignTime>
   </EntityUsage>
+  <EntityUsage
+    Name="Company"
+    Entity="com.bidServ.model.entity.Company"
+    Association="com.bidServ.model.entity.association.PostToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.PostToCompany.Company"
+    SourceUsage="com.bidServ.model.view.post.PrimaryConnPostVO.Post"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="com.bidServ.model.entity.Company.CompanyId"/>
+      </AttrArray>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="com.bidServ.model.entity.Post.CompanyId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
   <ViewAttribute
     Name="PostId"
     IsNotNull="true"
     PrecisionRule="true"
     EntityAttrName="PostId"
     EntityUsage="Post"
-    AliasName="POST_ID"/>
+    AliasName="POST_ID"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="CompanyId"
     IsNotNull="true"
@@ -224,6 +247,19 @@ INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_
     SQLType="NUMERIC"
     Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
     IsQueriable="false"/>
+  <ViewAttribute
+    Name="LogoUrl"
+    PrecisionRule="true"
+    EntityAttrName="LogoUrl"
+    EntityUsage="Company"
+    AliasName="LOGO_URL"/>
+  <ViewAttribute
+    Name="CompanyId1"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CompanyId"
+    EntityUsage="Company"
+    AliasName="Company_Id1"/>
   <ViewCriteria
     Name="PrimaryPostCriteria"
     ViewObjectName="com.bidServ.model.view.post.PrimaryConnPostVO"

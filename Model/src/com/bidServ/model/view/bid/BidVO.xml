@@ -26,6 +26,25 @@
   <EntityUsage
     Name="Bid"
     Entity="com.bidServ.model.entity.Bid"/>
+  <EntityUsage
+    Name="Company"
+    Entity="com.bidServ.model.entity.Company"
+    Association="com.bidServ.model.entity.association.BidToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.BidToCompany.Company"
+    SourceUsage="com.bidServ.model.view.bid.BidVO.Bid"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="com.bidServ.model.entity.Company.CompanyId"/>
+      </AttrArray>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="com.bidServ.model.entity.Bid.CompanyId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
   <ViewAttribute
     Name="Amount"
     PrecisionRule="true"
@@ -133,6 +152,34 @@
     EntityAttrName="UserId"
     EntityUsage="Bid"
     AliasName="USER_ID"/>
+  <ViewAttribute
+    Name="LogoUrl"
+    PrecisionRule="true"
+    EntityAttrName="LogoUrl"
+    EntityUsage="Company"
+    AliasName="LOGO_URL"/>
+  <ViewAttribute
+    Name="CompanyId1"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CompanyId"
+    EntityUsage="Company"
+    AliasName="Company_Id1"/>
+  <ViewAttribute
+    Name="ChatCount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER">
+    <TransientExpression
+      Name="ExpressionScript"
+      trustMode="untrusted"
+      CodeSourceName="BidVORow"/>
+  </ViewAttribute>
   <ViewCriteria
     Name="MyBidsVC"
     ViewObjectName="com.bidServ.model.view.bid.BidVO"
@@ -169,6 +216,9 @@
         Required="Optional"/>
     </ViewCriteriaRow>
   </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="BidId"/>
+  </AttrArray>
   <ViewLinkAccessor
     Name="ChatVO"
     ViewLink="com.bidServ.model.view.link.BidToChatVL"

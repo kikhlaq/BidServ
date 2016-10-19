@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="LoginPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SampleUser" RangeSize="25" DataControl="BidServAMDataControl" id="SampleUserIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="SampleUserIterator" id="User">
+      <AttrNames>
+        <Item Value="User"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="SampleUserIterator" id="SampleUser">
+      <nodeDefinition DefName="com.bidServ.model.view.SampleUserVO" Name="SampleUser0">
+        <AttrNames>
+          <Item Value="User"/>
+          <Item Value="UserId"/>
+          <Item Value="Company"/>
+          <Item Value="CompanyId"/>
+          <Item Value="LogoURL"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="SampleUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

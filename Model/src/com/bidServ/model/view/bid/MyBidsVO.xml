@@ -53,6 +53,25 @@
       </AttrArray>
     </DesignTime>
   </EntityUsage>
+  <EntityUsage
+    Name="Company"
+    Entity="com.bidServ.model.entity.Company"
+    Association="com.bidServ.model.entity.association.PostToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.PostToCompany.Company"
+    SourceUsage="com.bidServ.model.view.bid.MyBidsVO.Post"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="com.bidServ.model.entity.Company.CompanyId"/>
+      </AttrArray>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="com.bidServ.model.entity.Post.CompanyId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
   <ViewAttribute
     Name="BasePrice"
     PrecisionRule="true"
@@ -201,7 +220,35 @@
     AliasName="VIEW_ATTR"
     SQLType="NUMERIC"
     Expression="if(DATEDIFF(Post.DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(Post.DELIVERY_DATE,CURDATE()))"
-    IsQueriable="false"/>    
+    IsQueriable="false"/>
+  <ViewAttribute
+    Name="LogoUrl"
+    PrecisionRule="true"
+    EntityAttrName="LogoUrl"
+    EntityUsage="Company"
+    AliasName="LOGO_URL"/>
+  <ViewAttribute
+    Name="CompanyId1"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CompanyId"
+    EntityUsage="Company"
+    AliasName="Company_Id1"/>
+  <ViewAttribute
+    Name="ChatCount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
+    AliasName="VIEW_ATTR"
+    SQLType="INTEGER">
+    <TransientExpression
+      Name="ExpressionScript"
+      trustMode="untrusted"
+      CodeSourceName="MyBidsVORow"/>
+  </ViewAttribute>
   <ViewCriteria
     Name="MyBidsVC"
     ViewObjectName="com.bidServ.model.view.bid.MyBidsVO"
@@ -277,6 +324,11 @@
   <AttrArray Name="KeyAttributes">
     <Item Value="PostId"/>
   </AttrArray>
+  <ViewLinkAccessor
+    Name="ChatVO"
+    ViewLink="com.bidServ.model.view.link.MyBidToChatVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="com.bidServ.model.ModelBundle"/>

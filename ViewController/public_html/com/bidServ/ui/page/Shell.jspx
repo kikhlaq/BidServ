@@ -7,6 +7,7 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view> 
         <af:document title="Shell" id="d1">
+            <af:messages id="m1"/>
             <af:form id="f1">
                 <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="AFStretchWidth">
                     <af:panelGroupLayout id="pgl2" layout="vertical"
@@ -20,7 +21,7 @@
                                         <af:link text="#{viewcontrollerBundle1.bidServ}" id="l3"
                                                  styleClass="bannerLink"/>
                                         <af:outputText value="|" id="ot2" styleClass="bannerLink"/>
-                                        <af:outputText value="#{viewcontrollerBundle1.olympicPaints}" id="l4"
+                                        <af:outputText value="#{bindings.CompanyName.inputValue}" id="l4"
                                                  styleClass="bannerLink"/>
                                         <f:facet name="separator">
                                             <af:spacer width="5" id="s4"/>
@@ -36,7 +37,7 @@
                                         <af:link text="Logout" id="l2" styleClass="globalLink"/>
                                     </af:panelGroupLayout>
                                 </trh:cellFormat>
-                                <trh:cellFormat id="cf4" width="15%" halign="right" valign="middle">
+                                <trh:cellFormat id="cf4" width="15%" halign="center" valign="middle">
                                     <af:statusIndicator id="si1"/>
                                 </trh:cellFormat>
                             </trh:rowLayout>
@@ -152,6 +153,8 @@
                                 <af:setPropertyListener from="#{'Y'}" to="#{pageFlowScope.isNewPostTab}"
                                                         type="disclosure"/>
                                 <af:setPropertyListener from="#{'Y'}" to="#{requestScope.refreshNewPost}"
+                                                        type="disclosure"/>
+                                <af:setPropertyListener from="#{'Y'}" to="#{pageFlowScope.activateNewPost}"
                                                         type="disclosure"/>
                             </af:showDetailItem>
                         </af:panelTabbed>

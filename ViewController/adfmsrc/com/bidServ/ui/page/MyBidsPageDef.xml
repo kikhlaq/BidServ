@@ -5,6 +5,8 @@
   <executables>
     <variableIterator id="variables"/>
     <iterator Binds="MyBidsVO1" RangeSize="25" DataControl="BidServAMDataControl" id="MyBidsVO1Iterator"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+    <iterator Binds="BidChats" RangeSize="25" DataControl="BidServAMDataControl" id="BidChatsIterator"/>
   </executables>
   <bindings>
     <methodAction id="searchPost" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchPost"
@@ -39,8 +41,56 @@
           <Item Value="BidId"/>
           <Item Value="BidStatusCode"/>
           <Item Value="DaysLeft"/>
+          <Item Value="LogoUrl"/>
+          <Item Value="ChatCount"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
+    <attributeValues IterBinding="LoggedInUserIterator" id="LogoURL">
+      <AttrNames>
+        <Item Value="LogoURL"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BidChatsIterator" id="Chats">
+      <nodeDefinition DefName="com.bidServ.model.view.bid.ChatVO" Name="BidChats0">
+        <AttrNames>
+          <Item Value="BidId"/>
+          <Item Value="ChatId"/>
+          <Item Value="ChatTime"/>
+          <Item Value="Comment"/>
+          <Item Value="UserId"/>
+          <Item Value="UserName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <methodAction id="createComment" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createComment"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bidId" NDValue="#{pageFlowScope.chatBidId}" NDType="int"/>
+      <NamedData NDName="userId" NDValue="#{pageFlowScope.chatUserId}" NDType="int"/>
+      <NamedData NDName="username" NDValue="#{pageFlowScope.chatUsername}" NDType="java.lang.String"/>
+      <NamedData NDName="comment" NDValue="#{requestScope.comment}" NDType="java.lang.String"/>
+    </methodAction>
+        <methodAction id="initChatforBid" RequiresUpdateModel="true" Action="invokeMethod" MethodName="initChatforBid"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bindBidId" NDValue="#{pageFlowScope.chatBidId}" NDType="java.lang.Long"/>
+    </methodAction>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId1">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="Name">
+      <AttrNames>
+        <Item Value="Name"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="MyBidsVO1Iterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

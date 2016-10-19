@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41"
+                id="MainTF_MainTF_initCompanyPageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="initCompany" RequiresUpdateModel="true" Action="invokeMethod" MethodName="initCompany"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"
+                  ReturnName="data.BidServAMDataControl.methodResults.initCompany_BidServAMDataControl_dataProvider_initCompany_result"/>
+  </bindings>
+</pageDefinition>

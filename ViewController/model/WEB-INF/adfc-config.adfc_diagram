@@ -2,4 +2,67 @@
 <SDM>
    <OverallProperties
       id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">Login</property>
+      <property
+         name="x">31.5</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Login&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">196.79883</property>
+      <property
+         name="page">/com/bidServ/ui/page/Login.jspx</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <View
+      id="View3">
+      <property
+         name="activityId">Shell</property>
+      <property
+         name="x">330.5</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Shell&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">197.09766</property>
+      <property
+         name="page">/com/bidServ/ui/page/Shell.jspx</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View2"
+      to="MethodCall5">
+      <property
+         name="fromOutcome">login</property>
+      <property
+         name="sdm:polyPoints">T50,31.5,142.44824,139.44336,67.09766,L50</property>
+   </ControlFlowCase>
+   <MethodCall
+      id="MethodCall5">
+      <property
+         name="activityId">initLoggedInUser</property>
+      <property
+         name="x">180.44336</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>initLoggedInUser&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">67.44824</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall5"
+      to="View3">
+      <property
+         name="fromOutcome">initLoggedInUser</property>
+      <property
+         name="sdm:polyPoints">B50,180.44336,121.09766,289.5,196.74707,L50</property>
+   </ControlFlowCase>
 </SDM>

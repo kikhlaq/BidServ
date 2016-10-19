@@ -45,7 +45,7 @@
             <af:gridRow height="60px" id="gr1">
               <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
                 <af:panelGroupLayout id="pgl2" layout="vertical">
-                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                  <af:image source="#{item.LogoUrl}" id="i1" styleClass="image"/>
                   <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
                 </af:panelGroupLayout>
               </af:gridCell>
@@ -105,7 +105,7 @@
             <af:gridRow height="60px" id="gr11">
               <af:gridCell width="10%" id="gc11" valign="middle" halign="center">
                 <af:panelGroupLayout id="pgl21" layout="vertical">
-                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i11" styleClass="image"/>
+                  <af:image source="#{item.LogoUrl}" id="i11" styleClass="image"/>
                   <af:image source="/com/bidServ/resource/images/2.png" id="i21" styleClass="stars"/>
                 </af:panelGroupLayout>
               </af:gridCell>
@@ -163,7 +163,7 @@
             <af:gridRow height="60px" id="gr111">
               <af:gridCell width="10%" id="gc111" valign="middle" halign="center">
                 <af:panelGroupLayout id="pgl211" layout="vertical">
-                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i111" styleClass="image"/>
+                  <af:image source="#{item.LogoUrl}" id="i111" styleClass="image"/>
                   <af:image source="/com/bidServ/resource/images/2.png" id="i211" styleClass="stars"/>
                 </af:panelGroupLayout>
               </af:gridCell>

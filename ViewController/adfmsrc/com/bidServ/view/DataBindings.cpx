@@ -10,8 +10,6 @@
     <page path="/com/bidServ/ui/page/MemberPost.jsff" usageId="com_bidServ_view_MemberPostPageDef"/>
     <page path="/com/bidServ/ui/page/Shell.jspx" usageId="com_bidServ_view_ShellPageDef"/>
     <page path="/com/bidServ/ui/page/CreateNewPost.jsff" usageId="com_bidServ_view_CreateNewPostPageDef"/>
-    <page path="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost@Create"
-          usageId="com_bidServ_view_createPostTF_createPost_CreatePageDef"/>
     <page path="/com/bidServ/ui/page/MyPost.jsff" usageId="com_bidServ_view_MyPostPageDef"/>
     <page path="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF@setMyPostVC"
           usageId="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"/>
@@ -21,13 +19,19 @@
     <page path="/com/bidServ/ui/page/PostDetail.jsff" usageId="com_bidServ_view_PostDetailPageDef"/>
     <page path="/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml#postDetailTF@postDetails"
           usageId="com_bidServ_view_postDetailTF_postDetailTF_postDetailsPageDef"/>
+    <page path="/com/bidServ/ui/page/Login.jspx" usageId="com_bidServ_view_LoginPageDef"/>
+    <page path="PageFlow#initLoggedInUser" usageId="com_bidServ_view_adfc_config___initLoggedInUserPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/MainTF.xml#MainTF@initCompany"
+          usageId="com_bidServ_view_MainTF_MainTF_initCompanyPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost@createPost"
+          usageId="com_bidServ_view_createPostTF_createPost_createPostPageDef"/>
+    <page path="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost@createPostRow"
+          usageId="com_bidServ_view_createPostTF_createPost_createPostRowPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
     <page id="com_bidServ_view_ShellPageDef" path="com.bidServ.ui.page.ShellPageDef"/>
     <page id="com_bidServ_view_CreateNewPostPageDef" path="com.bidServ.ui.page.CreateNewPostPageDef"/>
-    <page id="com_bidServ_view_createPostTF_createPost_CreatePageDef"
-          path="com.bidServ.ui.flow.createPostTF_createPost_CreatePageDef"/>
     <page id="com_bidServ_view_MyPostPageDef" path="com.bidServ.ui.page.MyPostPageDef"/>
     <page id="com_bidServ_view_myPostTF_myPostTF_setMyPostVCPageDef"
           path="com.bidServ.ui.flow.myPostTF_myPostTF_setMyPostVCPageDef"/>
@@ -37,6 +41,15 @@
     <page id="com_bidServ_view_PostDetailPageDef" path="com.bidServ.ui.page.PostDetailPageDef"/>
     <page id="com_bidServ_view_postDetailTF_postDetailTF_postDetailsPageDef"
           path="com.bidServ.ui.flow.postDetailTF_postDetailTF_postDetailsPageDef"/>
+    <page id="com_bidServ_view_LoginPageDef" path="com.bidServ.ui.page.LoginPageDef"/>
+    <page id="com_bidServ_view_adfc_config___initLoggedInUserPageDef"
+          path="com.bidServ.view.pageDefs.adfc_config___initLoggedInUserPageDef"/>
+    <page id="com_bidServ_view_MainTF_MainTF_initCompanyPageDef"
+          path="com.bidServ.ui.flow.MainTF_MainTF_initCompanyPageDef"/>
+    <page id="com_bidServ_view_createPostTF_createPost_createPostPageDef"
+          path="com.bidServ.ui.flow.createPostTF_createPost_createPostPageDef"/>
+    <page id="com_bidServ_view_createPostTF_createPost_createPostRowPageDef"
+          path="com.bidServ.ui.flow.createPostTF_createPost_createPostRowPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="BidServAMDataControl" Package="com.bidServ.model.applicationModule"

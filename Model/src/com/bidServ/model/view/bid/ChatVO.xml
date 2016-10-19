@@ -38,7 +38,8 @@
     PrecisionRule="true"
     EntityAttrName="ChatId"
     EntityUsage="Chat"
-    AliasName="chat_id"/>
+    AliasName="chat_id"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="ChatTime"
     PrecisionRule="true"

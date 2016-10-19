@@ -1,0 +1,12 @@
+//Groovy Scripts for com.bidServ.model.view.bid.MyBidsVO
+
+package com.bidServ.model.view.bid
+
+import oracle.jbo.script.annotation.TransientValueExpression;
+
+@TransientValueExpression(attributeName="ChatCount")
+def ChatCount_ExpressionScript_Expression()
+{
+object.ChatVO.count('ChatId')
+}
+

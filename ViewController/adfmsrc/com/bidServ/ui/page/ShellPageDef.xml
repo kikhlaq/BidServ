@@ -5,26 +5,34 @@
   <executables>
     <variableIterator id="variables"/>
     <taskFlow id="MainTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/MainTF.xml#MainTF" activation="deferred"
-              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+              xmlns="http://xmlns.oracle.com/adf/controller/binding" RefreshCondition="#{requestScope.isLogin == 'Y'}">
       <parameters>
         <parameter id="flow" value="memberPosts"/>
       </parameters>
     </taskFlow>
     <taskFlow id="createPost1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost" xmlns="http://xmlns.oracle.com/adf/controller/binding"
-              RefreshCondition="#{requestScope.refreshNewPost == 'Y'}" activation="deferred"/>
+              RefreshCondition="#{requestScope.refreshNewPost == 'Y'}" activation="conditional"
+              active="#{pageFlowScope.activateNewPost  == 'Y' &amp;&amp; requestScope.newPostCreated != 'Y'}"/>
     <taskFlow id="myPostTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF" activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding"
               RefreshCondition="#{requestScope.newPostCreated == 'Y'}">
       <parameters>
-        <parameter id="userId" value="3002"/>
+        <parameter id="userId" value="#{pageFlowScope.userId}"/>
       </parameters>
     </taskFlow>
     <taskFlow id="myBids1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myBidsTF.xml#myBids" activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding">
       <parameters>
-        <parameter id="userId" value="3002"/>
+        <parameter id="userId" value="#{pageFlowScope.userId}"/>
       </parameters>    
     </taskFlow>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
   </executables>
-  <bindings/>
+  <bindings>
+    <attributeValues IterBinding="LoggedInUserIterator" id="CompanyName">
+      <AttrNames>
+        <Item Value="CompanyName"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
 </pageDefinition>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="MainTF">
-    <default-activity>router1</default-activity>
+    <default-activity>initCompany</default-activity>
     <data-control-scope>
       <shared/>
     </data-control-scope>
@@ -42,18 +42,25 @@
         <value>#{requestScope.source}</value>
       </input-parameter>
     </task-flow-call>
-    <control-flow-rule id="__4">
-      <from-activity-id>router1</from-activity-id>
-      <control-flow-case id="__5">
-        <from-outcome>memberPosts</from-outcome>
-        <to-activity-id>MemberPost</to-activity-id>
-      </control-flow-case>
-    </control-flow-rule>
+    <method-call id="initCompany">
+      <method>#{bindings.initCompany.execute}</method>
+      <return-value>#{pageFlowScope.flow}</return-value>
+      <outcome>
+        <fixed-outcome>memberPosts</fixed-outcome>
+      </outcome>
+    </method-call>
     <control-flow-rule id="__6">
       <from-activity-id>MemberPost</from-activity-id>
       <control-flow-case id="__7">
         <from-outcome>postDetail</from-outcome>
         <to-activity-id>taskFlowCall1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>initCompany</from-activity-id>
+      <control-flow-case id="__5">
+        <from-outcome>memberPosts</from-outcome>
+        <to-activity-id>MemberPost</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

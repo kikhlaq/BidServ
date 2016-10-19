@@ -193,8 +193,12 @@
             <list n="EnvironmentVariables"/>
             <value n="javaOptions" v="-Djbo.debugoutput=console"/>
             <value n="name" v="Default"/>
+            <hash n="oracle.adfdt.controller.adfc.source.runner.AdfcRunnerLaunchSettings">
+               <value n="unboundedTaskFlow" v="true"/>
+               <value n="viewActivityId" v="Login"/>
+            </hash>
             <url n="runDirectoryURL" path="."/>
-            <url n="targetURL" path="public_html/com/bidServ/ui/page/Shell.jspx"/>
+            <url n="targetURL" path="public_html/WEB-INF/adfc-config.xml"/>
          </hash>
       </hash>
    </hash>

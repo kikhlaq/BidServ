@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding='windows-1252'?>
+<!DOCTYPE OperationDefinitions SYSTEM "jbo_03_01.dtd">
+<OperationDefinitions xmlns="http://xmlns.oracle.com/bc4j" Name="MyBidsVOOperations">
+  <ExpressionCodeSource
+    Name="MyBidsVORow"
+    Type="Static"
+    URI="com/bidServ/model/view/bid/MyBidsVORow.bcs"/>
+</OperationDefinitions>

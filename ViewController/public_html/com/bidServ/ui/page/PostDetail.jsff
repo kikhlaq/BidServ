@@ -11,7 +11,7 @@
         <trh:rowLayout id="rl1">
           <trh:cellFormat id="cf1" halign="center" valign="middle" width="15%">
             <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="/com/bidServ/resource/images/postImg.png" id="i1" styleClass="image"/>
+                <af:image source="#{bindings.LogoUrl.inputValue}" id="i1" styleClass="image"/>
                 <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
               </af:panelGroupLayout>
           </trh:cellFormat>
@@ -77,7 +77,7 @@
           <af:gridRow height="auto" id="gr1">
             <af:gridCell width="10%" id="gc1">
             <af:panelGroupLayout id="pgl12" layout="vertical">
-                  <af:image source="/com/bidServ/resource/images/postImg.png" id="i11" styleClass="image"/>
+                  <af:image source="#{item.LogoUrl}" id="i11" styleClass="image"/>
                   <af:image source="/com/bidServ/resource/images/2.png" id="i12" styleClass="stars"/>
                 </af:panelGroupLayout>
             </af:gridCell>
@@ -98,12 +98,12 @@
                   <af:group id="g2" >
                   <af:link id="l2" icon="/com/bidServ/resource/images/chat.png"
                            actionListener="#{ManagedBean.showChat}">
-                    <af:setPropertyListener from="#{5001}" to="#{pageFlowScope.chatBidId}" type="action"/>
-                    <af:setPropertyListener from="#{item.UserId}" to="#{pageFlowScope.chatUserId}" type="action"/>
-                    <af:setPropertyListener to="#{pageFlowScope.chatUsername}" from="#{'user2'}" type="action"/>
+                    <af:setPropertyListener from="#{item.BidId}" to="#{pageFlowScope.chatBidId}" type="action"/>
+                    <af:setPropertyListener from="#{bindings.UserId1.inputValue}" to="#{pageFlowScope.chatUserId}" type="action"/>
+                    <af:setPropertyListener from="#{bindings.Name.inputValue}" to="#{pageFlowScope.chatUsername}" type="action"/>
                   </af:link>
                   <af:spacer width="3" id="s5"/>
-                  <af:outputText value="(2)" id="ot04"/>
+                  <af:outputText value="(#{item.ChatCount})" id="ot04"/>
                 </af:group>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s14"/>
@@ -115,7 +115,8 @@
       </af:listItem>
     </af:listView>
   </af:panelGroupLayout>
-  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{ShellBackingBean.chatPopup}">
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{ShellBackingBean.chatPopup}"
+            contentDelivery="lazyUncached">
     <af:dialog id="d1" type="none" contentWidth="400" closeIconVisible="false">
       <f:facet name="buttonBar">
         <af:panelGroupLayout id="pgl17" layout="horizontal">
