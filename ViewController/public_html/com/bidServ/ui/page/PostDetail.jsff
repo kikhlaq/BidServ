@@ -1,19 +1,39 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
           xmlns:trh="http://myfaces.apache.org/trinidad/html" xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:tr="http://myfaces.apache.org/trinidad">
   <c:set var="viewcontrollerBundle" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
   <af:panelGroupLayout id="pgl1" layout="vertical">
-    <af:button text="Back" id="b1" action="done"/>
+    <af:panelGroupLayout id="pgl19" layout="horizontal">
+      <af:button text="Back" id="b1" action="done"/>
+      <af:spacer width="10" height="10" id="s9"/>
+      <af:button text="Close Post" id="b4"
+                 rendered="#{bindings.PostStatusCode.inputValue == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; bindings.UserId.inputValue == bindings.UserId1.inputValue}">
+        <af:setPropertyListener from="#{'CLOSED'}" to="#{bindings.PostStatusCode.inputValue}" type="action"/>
+      </af:button>
+    </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl2" layout="horizontal" inlineStyle="background-color:white;"
                          styleClass="AFStretchWidth">
       <trh:tableLayout id="tl1" width="100%">
         <trh:rowLayout id="rl1">
           <trh:cellFormat id="cf1" halign="center" valign="middle" width="15%">
             <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="#{bindings.LogoUrl.inputValue}" id="i1" styleClass="image"/>
+              <af:commandLink id="cl1" action="detail">
+                <af:image source="#{bindings.LogoUrl.inputValue == null  ? '/com/bidServ/resource/images/companyLogo.png' : bindings.LogoUrl.inputValue}"
+                          id="i1" styleClass="image" />
+                <af:setPropertyListener to="#{requestScope.detailMode}" from="#{'COMPANY'}" type="action"/>
+                <af:setPropertyListener to="#{requestScope.userId}" from="#{bindings.UserId.inputValue}" type="action"/>
+              </af:commandLink>
                 <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+              <af:panelGroupLayout id="pgl20" layout="horizontal">
+                <af:outputText value="By" id="ot18" inlineStyle="color:Silver;"/>
+                <af:spacer width="10" height="10" id="s10"/>
+              <af:commandLink id="cl3" action="detail" text="#{bindings.Name1.inputValue}">
+                <af:setPropertyListener to="#{requestScope.detailMode}" from="#{'USER'}" type="action"/>
+                <af:setPropertyListener to="#{requestScope.userId}" from="#{bindings.UserId.inputValue}" type="action"/>
+              </af:commandLink>
               </af:panelGroupLayout>
+            </af:panelGroupLayout>
           </trh:cellFormat>
           <trh:cellFormat id="cf2" halign="left" valign="middle" width="70%">
             <af:outputText value="#{bindings.PostType.inputValue == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL}: #{bindings.Product.inputValue}" id="ot1"
@@ -23,7 +43,8 @@
             <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                   <af:outputText value="#{bindings.DaysLeft.inputValue} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                   <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                    <af:outputText value="#{bindings.PostStatusCode.inputValue == 'OPEN' ? viewcontrollerBundle.OPEN : (bindings.PostStatusCode.inputValue == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
+                    <af:outputText value="#{bindings.PostStatusCode.inputValue == 'CLOSED' ? viewcontrollerBundle.CLOSED : (bindings.DaysLeft.inputValue == 0 ? viewcontrollerBundle.EXPIRED : viewcontrollerBundle.OPEN  )}" id="ot3"
+                                   partialTriggers="b4"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s4"/>
@@ -45,11 +66,25 @@
       <f:facet name="separator">
         <af:spacer height="10" id="s3"/>
       </f:facet>
+      <af:link id="l6" icon="/com/bidServ/resource/images/attachment.png" shortDesc="Add Attachment"
+               rendered="#{bindings.UserId.inputValue == bindings.UserId1.inputValue &amp;&amp; bindings.PostStatusCode.inputValue == 'OPEN' and bindings.DaysLeft.inputValue > 0}"/>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl4" layout="vertical"
                          inlineStyle="background-color:white; margin-top:0px; margin-bottom:0px; padding-bottom:10px; padding-top:10px; padding-left:10px;" halign="center">
       <af:outputText value="#{viewcontrollerBundle.BIDS}" id="ot5" styleClass="bidHeader"/>
       <trh:tableLayout id="tl2" width="100%">
+        <trh:rowLayout id="rl3">
+          <af:link id="l1" icon="/com/bidServ/resource/images/auction.png"
+                   rendered="#{bindings.IsBidAllowed.inputValue == 'Y'}" shortDesc="Create Bid"
+                   binding="#{pageFlowScope.ShellBackingBean.createBidButton}">
+            <af:showPopupBehavior popupId="p2"/>
+          </af:link>
+          <af:link id="l5" icon="/com/bidServ/resource/images/attachment.png" shortDesc="Add Attachment"
+                   rendered="#{bindings.IsAttachmentAllowed.inputValue == 'Y'}"/>
+        </trh:rowLayout>
+        <trh:rowLayout id="rl4">
+          <af:spacer width="10" height="10" id="s7"/>
+        </trh:rowLayout>
         <trh:rowLayout id="rl2">
           <trh:cellFormat id="cf4" width="9%">
             <af:outputText value="#{viewcontrollerBundle.BIDDER}" id="ot8" styleClass="bidColHeader"/>
@@ -71,15 +106,21 @@
     </af:panelGroupLayout>
     <af:listView value="#{bindings.Bids.collectionModel}" var="item"
                  emptyText="#{bindings.Bids.viewable ? 'No data to display.' : 'Access Denied.'}"
-                 fetchSize="#{bindings.Bids.rangeSize}" id="lv1">
+                 fetchSize="#{bindings.Bids.rangeSize}" id="lv1" binding="#{pageFlowScope.ShellBackingBean.bids}">
       <af:listItem id="li1">
         <af:panelGridLayout id="pgl7">
           <af:gridRow height="auto" id="gr1">
             <af:gridCell width="10%" id="gc1">
-            <af:panelGroupLayout id="pgl12" layout="vertical">
-                  <af:image source="#{item.LogoUrl}" id="i11" styleClass="image"/>
+              <af:panelGroupLayout id="pgl12" layout="horizontal" valign="bottom">
+                 <af:image shortDesc="Not Verified" id="i321"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>   
+                <af:panelGroupLayout id="pgl1s2" layout="vertical">
+                  <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                            id="i11" styleClass="image"/>
                   <af:image source="/com/bidServ/resource/images/2.png" id="i12" styleClass="stars"/>
                 </af:panelGroupLayout>
+              </af:panelGroupLayout>
             </af:gridCell>
             <af:gridCell width="75%" id="gc2">
               <af:panelGroupLayout id="pgl8" layout="vertical">
@@ -91,7 +132,7 @@
             </af:gridCell>
             <af:gridCell width="15%" id="gc4">
             <af:panelGroupLayout id="pgl15" layout="vertical" halign="center">
-                  <af:outputText value="#{item.DeliveryDate}" id="ot112"/>
+                  <af:outputText value="#{item.ModifiedDate}" id="ot112"/>
                   <af:panelGroupLayout id="pgl16" styleClass="statusLayout">
                     <af:outputText value="#{item.BidStatusCode == 'PENDING' ? viewcontrollerBundle.PENDING : (item.BidStatusCode == 'LOST' ? viewcontrollerBundle.LOST : viewcontrollerBundle.WON)}" id="ot113"/>
                   </af:panelGroupLayout>
@@ -108,14 +149,21 @@
                   <f:facet name="separator">
                     <af:spacer height="3" id="s14"/>
                   </f:facet>
-                </af:panelGroupLayout>
+                <af:link text="Edit" id="l3"
+                         rendered="#{bindings.UserId1.inputValue == item.UserId &amp;&amp; bindings.PostStatusCode == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; item.BidStatusCode == 'PENDING'}"/>
+                <af:link text="Grant" id="l4"
+                         rendered="#{bindings.UserId1.inputValue == bindings.UserId.inputValue &amp;&amp; bindings.PostStatusCode.inputValue == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; item.BidStatusCode == 'PENDING'}"
+                         actionListener="#{ManagedBean.grantBidListener}">
+                  <af:setPropertyListener to="#{requestScope.bidId}" from="#{item.BidId}" type="action"/>
+                </af:link>
+              </af:panelGroupLayout>
             </af:gridCell>
           </af:gridRow>
         </af:panelGridLayout>
       </af:listItem>
     </af:listView>
   </af:panelGroupLayout>
-  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{ShellBackingBean.chatPopup}"
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{pageFlowScope.ShellBackingBean.chatPopup}"
             contentDelivery="lazyUncached">
     <af:dialog id="d1" type="none" contentWidth="400" closeIconVisible="false">
       <f:facet name="buttonBar">
@@ -152,7 +200,19 @@
           <af:spacer height="10" id="s6"/>
         </f:facet>
         <af:inputText id="it1" placeholder="Add Comment..." rows="3" styleClass="AFStretchWidth" simple="true"
-                      value="#{requestScope.comment}" binding="#{ShellBackingBean.comment}"/>
+                      value="#{requestScope.comment}" binding="#{pageFlowScope.ShellBackingBean.comment}"/>
+      </af:panelGroupLayout>
+    </af:dialog>
+  </af:popup>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p2" contentDelivery="lazyUncached">
+    <af:dialog id="d2" closeIconVisible="false" contentWidth="400" title="Create Bid"
+               dialogListener="#{ManagedBean.createBidListener}">
+      <f:facet name="buttonBar"/>
+      <af:panelGroupLayout id="pgl18" layout="vertical">
+        <af:inputText id="it2" simple="true" placeholder="Description" value="#{requestScope.bidDesc}" rows="5"
+                      columns="75"/>
+        <af:spacer width="10" height="10" id="s8"/>
+        <af:inputText id="it3" placeholder="Amount" simple="true" value="#{requestScope.bidAmount}" columns="75"/>
       </af:panelGroupLayout>
     </af:dialog>
   </af:popup>

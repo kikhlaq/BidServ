@@ -107,6 +107,7 @@
           <Item Value="UserId"/>
           <Item Value="LogoUrl"/>
           <Item Value="ChatCount"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -151,5 +152,31 @@
                   InstanceName="data.BidServAMDataControl.dataProvider">
       <NamedData NDName="bindBidId" NDValue="#{pageFlowScope.chatBidId}" NDType="java.lang.Long"/>
     </methodAction>
+    <attributeValues IterBinding="PostIterator" id="IsBidAllowed">
+      <AttrNames>
+        <Item Value="IsBidAllowed"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="createBid" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createBid"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="desc" NDValue="#{requestScope.bidDesc}" NDType="java.lang.String"/>
+      <NamedData NDName="amt" NDValue="#{requestScope.bidAmount}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="PostIterator" id="Name1">
+      <AttrNames>
+        <Item Value="Name"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="grantBid" RequiresUpdateModel="true" Action="invokeMethod" MethodName="grantBid"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bidId" NDValue="#{requestScope.bidId}" NDType="java.math.BigDecimal"/>
+    </methodAction>
+    <attributeValues IterBinding="PostIterator" id="IsAttachmentAllowed">
+      <AttrNames>
+        <Item Value="IsAttachmentAllowed"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

@@ -244,6 +244,13 @@
     AssociationOtherEnd="com.bidServ.model.entity.association.PostToCompany.Post"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="User"
+    Association="com.bidServ.model.entity.association.PostToUser"
+    AssociationEnd="com.bidServ.model.entity.association.PostToUser.User"
+    AssociationOtherEnd="com.bidServ.model.entity.association.PostToUser.Post"
+    Type="com.bidServ.model.entity.UserImpl"
+    IsUpdateable="true"/>
   <Key
     Name="Primary1"
     PrimaryKey="true">

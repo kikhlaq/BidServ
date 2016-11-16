@@ -9,7 +9,7 @@
   </executables>
   <bindings>
     <tree IterBinding="MyPostIterator" id="MyPost">
-      <nodeDefinition DefName="com.bidServ.model.view.PostVO" Name="MyPost0">
+      <nodeDefinition DefName="com.bidServ.model.view.post.PostVO" Name="MyPost0">
         <AttrNames>
           <Item Value="BasePrice"/>
           <Item Value="ChangeLog"/>
@@ -32,6 +32,7 @@
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
           <Item Value="BidCount"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

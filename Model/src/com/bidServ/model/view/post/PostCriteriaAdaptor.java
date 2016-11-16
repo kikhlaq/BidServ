@@ -16,11 +16,13 @@ public class PostCriteriaAdaptor extends CriteriaAdapterImpl  implements Criteri
         System.out.println("VC n==========="+criteria.getViewObject().getName());
        // if(criteria.getViewObject().getName())
         if(criteria.getName().equals("SearchVC")){
-            return "UPPER(Post.POST_DESCRIPTION) LIKE CONCAT('%',:keyword,'%')";
+            return "UPPER(POST_DESCRIPTION) LIKE CONCAT('%',:keyword,'%') " + 
+            "or UPPER(PRODUCT) LIKE CONCAT('%',:keyword,'%') " + 
+            "or UPPER(POST_TYPE) LIKE CONCAT('%',:keyword,'%')";
         }else if(criteria.getName().equals("PrimaryPostCriteria")){
-            return "Connection.SOURCE_COMPANY_ID = :bindCompId";
+            return "SOURCE_COMPANY_ID = :bindCompId";
         }else if(criteria.getName().equals("SecondaryConnPostVOCriteria")){
-            return "Connection1.SOURCE_COMPANY_ID = :bindCompId";
+            return "SOURCE_COMPANY_ID = :bindCompId";
         }else if (criteria.getName().equals("EntireNetworkVC")){
             return "Post.VISIBILITY_CODE = 'ENTIRE_NETWORK'";
         }else if (criteria.getName().equals("MyPostVC")){
