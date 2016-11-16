@@ -7,259 +7,425 @@
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   BindingStyle="JDBC"
-  CustomQuery="false"
+  CustomQuery="true"
   PageIterMode="Full"
-  SelectList="Post.POST_ID, 
-       Post.COMPANY_ID, 
-       Post.USER_ID, 
-       Post.PRODUCT, 
-       Post.POST_TYPE, 
-       Post.POST_STATUS_CODE, 
-       Post.POST_DESCRIPTION, 
-       Post.EXPIRY_DATE, 
-       Post.DELIVERY_DATE, 
-       Post.QUANTITY, 
-       Post.UOM, 
-       Post.VISIBILITY_CODE, 
-       Post.NEGOTIABLE_FLAG, 
-       Post.BASE_PRICE, 
-       Post.MODIFIED_BY_USER, 
-       Post.MODIFIED_DATE, 
-       Post.LANGUAGE, 
-       Post.OBJECT_VERSION_NUMBER, 
-       Post.CHANGE_LOG, 
-       Connection.SOURCE_COMPANY_ID, 
-       Connection.CONNECTION_ID, 
-       if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE())) AS VIEW_ATTR, 
-       Company.LOGO_URL, 
-       Company.COMPANY_ID AS Company_Id1"
-  FromList="mysql.posts Post
-INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID)
-INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID)"
-  Where="Post.VISIBILITY_CODE = 'PRIMARY'"
   ComponentClass="com.bidServ.model.view.post.PrimaryConnPostVOImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Coll"/>
+    <Attr Name="_isExpertMode" Value="true"/>
   </DesignTime>
-  <Properties>
-    <SchemaBasedProperties>
-      <LABEL
-        ResId="com.bidServ.model.view.post.PrimaryConnPostVO_LABEL"/>
-    </SchemaBasedProperties>
-  </Properties>
-  <Variable
-    Name="bindCompId"
-    Kind="viewcriteria"
-    Type="java.math.BigDecimal">
-        <AttrArray Name="ExtendedDataInts">
-      <Item Value="0"/>
-    </AttrArray>
-    </Variable>
   <Variable
     Name="keyword"
     Kind="viewcriteria"
-    Type="java.lang.String">
-    <AttrArray Name="ExtendedDataInts">
-<Item Value="1" />
-</AttrArray>
-    </Variable>
-  <EntityUsage
-    Name="Post"
-    Entity="com.bidServ.model.entity.Post"/>
-  <EntityUsage
-    Name="Connection"
-    Entity="com.bidServ.model.entity.Connection"
-    ReadOnly="true"
-    DeleteParticipant="false"
-    Association="com.bidServ.model.entity.association.PostToPrimaryConnection"
-    AssociationEnd="com.bidServ.model.entity.association.PostToPrimaryConnection.PrimaryConnection"
-    SourceUsage="com.bidServ.model.view.post.PrimaryConnPostVO.Post"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_dstAttributes">
-        <Item Value="com.bidServ.model.entity.Connection.DestCompanyId"/>
-      </AttrArray>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="com.bidServ.model.entity.Post.CompanyId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
-  <EntityUsage
-    Name="Company"
-    Entity="com.bidServ.model.entity.Company"
-    Association="com.bidServ.model.entity.association.PostToCompany"
-    AssociationEnd="com.bidServ.model.entity.association.PostToCompany.Company"
-    SourceUsage="com.bidServ.model.view.post.PrimaryConnPostVO.Post"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_dstAttributes">
-        <Item Value="com.bidServ.model.entity.Company.CompanyId"/>
-      </AttrArray>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="com.bidServ.model.entity.Post.CompanyId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
+    Type="java.lang.String"/>
+  <Variable
+    Name="bindCompId"
+    Kind="viewcriteria"
+    Type="java.math.BigDecimal"/>
+  <SQLQuery><![CDATA[SELECT Post.POST_ID,    
+       Post.COMPANY_ID,    
+       Post.USER_ID,    
+       Post.PRODUCT,    
+       Post.POST_TYPE,    
+       Post.POST_STATUS_CODE,    
+       Post.POST_DESCRIPTION,    
+       Post.EXPIRY_DATE,    
+       Post.DELIVERY_DATE,    
+       Post.QUANTITY,    
+       Post.UOM,    
+       Post.VISIBILITY_CODE,    
+       Post.NEGOTIABLE_FLAG,    
+       Post.BASE_PRICE,    
+       Post.MODIFIED_BY_USER,    
+       Post.MODIFIED_DATE,    
+       Post.LANGUAGE,    
+       Post.OBJECT_VERSION_NUMBER,    
+       Post.CHANGE_LOG,    
+       Connection.SOURCE_COMPANY_ID SOURCE_COMPANY_ID,    
+       Connection.CONNECTION_ID,    
+       if(DATEDIFF(DELIVERY_DATE,CURDATE())<0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))  VIEW_ATTR,    
+       Company.LOGO_URL,    
+       Company.COMPANY_ID  Company_Id1,   
+       Company.IS_VERIFIED Is_Verified 
+FROM  mysql.posts Post   
+INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID AND Connection.connection_status_code = 'APPROVED') 
+INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID AND Company.STATUS = 'APPROVED')  
+WHERE Post.VISIBILITY_CODE = 'PRIMARY' 
+UNION  
+SELECT Post.POST_ID,    
+       Post.COMPANY_ID,    
+       Post.USER_ID,    
+       Post.PRODUCT,    
+       Post.POST_TYPE,    
+       Post.POST_STATUS_CODE,    
+       Post.POST_DESCRIPTION,    
+       Post.EXPIRY_DATE,    
+       Post.DELIVERY_DATE,    
+       Post.QUANTITY,    
+       Post.UOM,    
+       Post.VISIBILITY_CODE,    
+       Post.NEGOTIABLE_FLAG,    
+       Post.BASE_PRICE,    
+       Post.MODIFIED_BY_USER,    
+       Post.MODIFIED_DATE,    
+       Post.LANGUAGE,    
+       Post.OBJECT_VERSION_NUMBER,    
+       Post.CHANGE_LOG,    
+       Connection.DEST_COMPANY_ID SOURCE_COMPANY_ID,    
+       Connection.CONNECTION_ID,    
+       if(DATEDIFF(DELIVERY_DATE,CURDATE())<0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))  VIEW_ATTR,    
+       Company.LOGO_URL,    
+       Company.COMPANY_ID  Company_Id1 ,  
+       Company.IS_VERIFIED Is_Verified 
+FROM  mysql.posts Post   
+INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.SOURCE_COMPANY_ID AND Connection.connection_status_code = 'APPROVED') 
+INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID AND Company.STATUS = 'APPROVED') 
+WHERE Post.VISIBILITY_CODE = 'PRIMARY']]></SQLQuery>
   <ViewAttribute
     Name="PostId"
-    IsNotNull="true"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="PostId"
-    EntityUsage="Post"
+    Type="java.lang.Integer"
+    ColumnType="INTEGER"
     AliasName="POST_ID"
-    IsUpdateable="while_insert"/>
+    Expression="POST_ID"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="CompanyId"
-    IsNotNull="true"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="CompanyId"
-    EntityUsage="Post"
-    AliasName="COMPANY_ID"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="COMPANY_ID"
+    Expression="COMPANY_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="UserId"
-    IsNotNull="true"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="UserId"
-    EntityUsage="Post"
-    AliasName="USER_ID"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="USER_ID"
+    Expression="USER_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="Product"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="Product"
-    EntityUsage="Post"
-    AliasName="PRODUCT"/>
+    Precision="255"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="PRODUCT"
+    Expression="PRODUCT"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="255"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="PostType"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="PostType"
-    EntityUsage="Post"
-    AliasName="POST_TYPE"/>
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="POST_TYPE"
+    Expression="POST_TYPE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="PostStatusCode"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="PostStatusCode"
-    EntityUsage="Post"
-    AliasName="POST_STATUS_CODE"/>
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="POST_STATUS_CODE"
+    Expression="POST_STATUS_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="PostDescription"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="PostDescription"
-    EntityUsage="Post"
-    AliasName="POST_DESCRIPTION"/>
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="POST_DESCRIPTION"
+    Expression="POST_DESCRIPTION"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ExpiryDate"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ExpiryDate"
-    EntityUsage="Post"
-    AliasName="EXPIRY_DATE"/>
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="EXPIRY_DATE"
+    Expression="EXPIRY_DATE"
+    SQLType="DATE"/>
   <ViewAttribute
     Name="DeliveryDate"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="DeliveryDate"
-    EntityUsage="Post"
-    AliasName="DELIVERY_DATE"/>
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="DELIVERY_DATE"
+    Expression="DELIVERY_DATE"
+    SQLType="DATE"/>
   <ViewAttribute
     Name="Quantity"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="Quantity"
-    EntityUsage="Post"
-    AliasName="QUANTITY"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="QUANTITY"
+    Expression="QUANTITY"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="Uom"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="Uom"
-    EntityUsage="Post"
-    AliasName="UOM"/>
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="UOM"
+    Expression="UOM"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="VisibilityCode"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="VisibilityCode"
-    EntityUsage="Post"
-    AliasName="VISIBILITY_CODE"/>
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="VISIBILITY_CODE"
+    Expression="VISIBILITY_CODE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="NegotiableFlag"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="NegotiableFlag"
-    EntityUsage="Post"
-    AliasName="NEGOTIABLE_FLAG"/>
+    Precision="1"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="NEGOTIABLE_FLAG"
+    Expression="NEGOTIABLE_FLAG"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="BasePrice"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="BasePrice"
-    EntityUsage="Post"
-    AliasName="BASE_PRICE"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="BASE_PRICE"
+    Expression="BASE_PRICE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ModifiedByUser"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ModifiedByUser"
-    EntityUsage="Post"
-    AliasName="MODIFIED_BY_USER"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="MODIFIED_BY_USER"
+    Expression="MODIFIED_BY_USER"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ModifiedDate"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ModifiedDate"
-    EntityUsage="Post"
-    AliasName="MODIFIED_DATE"/>
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    AliasName="MODIFIED_DATE"
+    Expression="MODIFIED_DATE"
+    SQLType="DATE"/>
   <ViewAttribute
     Name="Language"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="Language"
-    EntityUsage="Post"
-    AliasName="LANGUAGE"/>
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="LANGUAGE"
+    Expression="LANGUAGE"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ObjectVersionNumber"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ObjectVersionNumber"
-    EntityUsage="Post"
-    AliasName="OBJECT_VERSION_NUMBER"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="OBJECT_VERSION_NUMBER"
+    Expression="OBJECT_VERSION_NUMBER"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="3"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ChangeLog"
+    IsUpdateable="false"
     IsQueriable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ChangeLog"
-    EntityUsage="Post"
-    AliasName="CHANGE_LOG"/>
+    Type="java.sql.Blob"
+    ColumnType="BLOB"
+    AliasName="CHANGE_LOG"
+    Expression="CHANGE_LOG"
+    SQLType="BLOB"/>
   <ViewAttribute
     Name="SourceCompanyId"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="SourceCompanyId"
-    EntityUsage="Connection"
-    AliasName="SOURCE_COMPANY_ID"/>
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="SOURCE_COMPANY_ID"
+    Expression="SOURCE_COMPANY_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="ConnectionId"
     IsUpdateable="false"
-    IsNotNull="true"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="ConnectionId"
-    EntityUsage="Connection"
-    AliasName="CONNECTION_ID"/>
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    AliasName="CONNECTION_ID"
+    Expression="CONNECTION_ID"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="DaysLeft"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Type="java.lang.Long"
-    ColumnType="NUMBER"
-    AliasName="VIEW_ATTR"
+    Type="java.math.BigDecimal"
+    ColumnType="BIGINT"
+    AliasName="DAYS_LEFT"
+    Expression="DAYS_LEFT"
     SQLType="NUMERIC"
-    Expression="if(DATEDIFF(DELIVERY_DATE,CURDATE())&lt;0,0,DATEDIFF(DELIVERY_DATE,CURDATE()))"
-    IsQueriable="false"/>
+    IsQueriable="false">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="7"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="LogoUrl"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="LogoUrl"
-    EntityUsage="Company"
-    AliasName="LOGO_URL"/>
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="LOGO_URL"
+    Expression="LOGO_URL"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="CompanyId1"
-    IsNotNull="true"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="CompanyId"
-    EntityUsage="Company"
-    AliasName="Company_Id1"/>
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    AliasName="Company_Id1"
+    Expression="Company_Id1"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+    <ViewAttribute
+    Name="IsVerified"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="10"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="Is_Verified"
+    Expression="Is_Verified"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewCriteria
     Name="PrimaryPostCriteria"
     ViewObjectName="com.bidServ.model.view.post.PrimaryConnPostVO"
@@ -335,8 +501,4 @@ INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID)"
   <AttrArray Name="KeyAttributes">
     <Item Value="PostId"/>
   </AttrArray>
-  <ResourceBundle>
-    <PropertiesBundle
-      PropertiesFile="com.bidServ.model.ModelBundle"/>
-  </ResourceBundle>
 </ViewObject>
