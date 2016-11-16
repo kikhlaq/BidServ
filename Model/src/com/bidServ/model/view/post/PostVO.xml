@@ -228,7 +228,12 @@
     Type="java.lang.Integer"
     ColumnType="INTEGER"
     AliasName="VIEW_ATTR"
-    SQLType="INTEGER"/>
+    SQLType="INTEGER">
+    <TransientExpression
+      Name="ExpressionScript"
+      trustMode="untrusted"
+      CodeSourceName="PostVORow"/>
+  </ViewAttribute>
   <ViewAttribute
     Name="IsBidAllowed"
     IsSelected="false"
