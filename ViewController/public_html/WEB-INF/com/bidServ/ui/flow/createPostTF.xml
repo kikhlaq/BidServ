@@ -5,6 +5,11 @@
     <data-control-scope>
       <shared/>
     </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>ShellBackingBean</managed-bean-name>
+      <managed-bean-class>com.bidServ.bean.ShellBackingBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
     <view id="__createPost1">
       <page>/com/bidServ/ui/page/CreateNewPost.jsff</page>
     </view>

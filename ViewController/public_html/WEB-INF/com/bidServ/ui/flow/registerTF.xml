@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="registerTF">
+    <default-activity>router1</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>mode</name>
+      <value>#{pageFlowScope.mode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__2">
+      <name>invitationCode</name>
+      <value>#{pageFlowScope.invitationCode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__5">
+      <name>userId</name>
+      <value>#{pageFlowScope.userId}</value>
+      <class>java.lang.Long</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__6">
+      <name>email</name>
+      <value>#{pageFlowScope.email}</value>
+      <class>java.lang.StringBuilder</class>
+    </input-parameter-definition>
+    <input-parameter-definition id="__23">
+      <name>detailMode</name>
+      <value>#{pageFlowScope.detailMode}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__16">
+      <managed-bean-name>RegisterBean</managed-bean-name>
+      <managed-bean-class>com.bidServ.bean.ShellBackingBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <view id="UserRegister">
+      <page>/com/bidServ/ui/page/User.jsff</page>
+    </view>
+    <view id="Company">
+      <page>/com/bidServ/ui/page/Company.jsff</page>
+    </view>
+    <method-call id="CreateInsert1">
+      <method>#{bindings.CreateInsert.execute}</method>
+      <outcome>
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="createNewUser">
+      <method>#{bindings.createNewUser.execute}</method>
+      <outcome>
+        <fixed-outcome>CreateInsert</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="router1">
+      <case id="__21">
+        <expression>#{pageFlowScope.mode == 'PROFILE' }</expression>
+        <outcome>query</outcome>
+      </case>
+      <case id="__32">
+        <expression>#{pageFlowScope.invitationCode != null &amp;&amp; pageFlowScope.email != null}</expression>
+        <outcome>invited</outcome>
+      </case>
+      <default-outcome>create</default-outcome>
+    </router>
+    <method-call id="queryUser">
+      <method>#{bindings.queryUser.execute}</method>
+      <outcome>
+        <fixed-outcome>queryUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <parent-action id="parentAction2">
+      <parent-outcome>toHome</parent-outcome>
+    </parent-action>
+    <router id="router2">
+      <case id="__27">
+        <expression>#{pageFlowScope.detailMode == 'COMPANY'}</expression>
+        <outcome>companyDetail</outcome>
+      </case>
+      <default-outcome>userDetail</default-outcome>
+    </router>
+    <task-flow-return id="taskFlowReturn1">
+      <outcome>
+        <name>toHome</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="validateRegistration">
+      <method>#{bindings.validateRegistration.execute}</method>
+      <return-value>#{requestScope.validationResult}</return-value>
+      <outcome>
+        <fixed-outcome>validateRegistration</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="router4">
+      <case id="__36">
+        <expression>#{requestScope.validationResult != 'Y'}</expression>
+        <outcome>invalid</outcome>
+      </case>
+      <default-outcome>valid</default-outcome>
+    </router>
+    <view id="Error">
+      <page>/com/bidServ/ui/page/Error.jsff</page>
+    </view>
+    <control-flow-rule id="__12">
+      <from-activity-id>UserRegister</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>next</from-outcome>
+        <to-activity-id>CreateInsert1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__28">
+        <from-outcome>done</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id>CreateInsert1</from-activity-id>
+      <control-flow-case id="__15">
+        <from-outcome>CreateInsert</from-outcome>
+        <to-activity-id>Company</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__17">
+      <from-activity-id>Company</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>goToHome</from-outcome>
+        <to-activity-id>parentAction2</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__29">
+        <from-outcome>done</from-outcome>
+        <to-activity-id>taskFlowReturn1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>createNewUser</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>CreateInsert</from-outcome>
+        <to-activity-id>UserRegister</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id>router1</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>create</from-outcome>
+        <to-activity-id>createNewUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__11">
+        <from-outcome>query</from-outcome>
+        <to-activity-id>queryUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__4">
+        <from-outcome>invited</from-outcome>
+        <to-activity-id>validateRegistration</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__19">
+      <from-activity-id>queryUser</from-activity-id>
+      <control-flow-case id="__20">
+        <from-outcome>queryUser</from-outcome>
+        <to-activity-id>router2</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__24">
+      <from-activity-id>router2</from-activity-id>
+      <control-flow-case id="__25">
+        <from-outcome>companyDetail</from-outcome>
+        <to-activity-id>CreateInsert1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__26">
+        <from-outcome>userDetail</from-outcome>
+        <to-activity-id>UserRegister</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__30">
+      <from-activity-id>validateRegistration</from-activity-id>
+      <control-flow-case id="__31">
+        <from-outcome>validateRegistration</from-outcome>
+        <to-activity-id>router4</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__34">
+      <from-activity-id>router4</from-activity-id>
+      <control-flow-case id="__35">
+        <from-outcome>valid</from-outcome>
+        <to-activity-id>createNewUser</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__37">
+        <from-outcome>invalid</from-outcome>
+        <to-activity-id>Error</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

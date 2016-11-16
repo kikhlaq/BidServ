@@ -16,11 +16,11 @@
       <property
          name="pageFragment">true</property>
       <property
-         name="x">263.18262</property>
+         name="x">326.18262</property>
       <property
          name="description">&lt;html>&lt;p>&lt;b>__createPost1&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
-         name="y">83.500015</property>
+         name="y">248.79883</property>
       <property
          name="page">/com/bidServ/ui/page/CreateNewPost.jsff</property>
       <property
@@ -38,7 +38,7 @@
       <property
          name="fromsrcid">__3</property>
       <property
-         name="sdm:polyPoints">T50,176.68457,196.09766,263.18262,137.14943,B50</property>
+         name="sdm:polyPoints">R50,217.68457,249.39648,285.18262,248.44824,L50</property>
    </ControlFlowCase>
    <MethodCall
       id="MethodCall8">

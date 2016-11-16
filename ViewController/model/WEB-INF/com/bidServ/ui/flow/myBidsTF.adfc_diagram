@@ -24,11 +24,11 @@
       <property
          name="pageFragment">true</property>
       <property
-         name="x">413.5</property>
+         name="x">356.5</property>
       <property
          name="description">&lt;html>&lt;p>&lt;b>MyBids&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
-         name="y">199.09766</property>
+         name="y">220.39648</property>
       <property
          name="page">/com/bidServ/ui/page/MyBids.jsff</property>
       <property
@@ -42,7 +42,7 @@
       <property
          name="fromOutcome">setMyBidsVC</property>
       <property
-         name="sdm:polyPoints">R50,206.00879,220.99414,372.5,198.74707,L50</property>
+         name="sdm:polyPoints">R50,206.00879,220.99414,315.5,220.0459,L50</property>
    </ControlFlowCase>
    <TaskFlowCall
       id="TaskFlowCall5">
@@ -51,9 +51,9 @@
       <property
          name="activityId">postDetailTF</property>
       <property
-         name="x">659.01074</property>
+         name="x">520.01074</property>
       <property
-         name="y">229.14941</property>
+         name="y">220.79883</property>
       <property
          name="documentReference">/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml</property>
       <property
@@ -69,6 +69,6 @@
       <property
          name="fromOutcome">postDetail</property>
       <property
-         name="sdm:polyPoints">R50,454.5,198.74707,618.01074,228.79883,L50</property>
+         name="sdm:polyPoints">R50,397.5,220.0459,479.01074,220.79883,L50</property>
    </ControlFlowCase>
 </SDM>

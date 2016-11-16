@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41"
+                id="registerTF_registerTF_createNewUserPageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="createNewUser" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createNewUser"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="invId" NDValue="#{pageFlowScope.invitationCode}" NDType="java.lang.String"/>
+      <NamedData NDName="email" NDValue="#{pageFlowScope.email}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

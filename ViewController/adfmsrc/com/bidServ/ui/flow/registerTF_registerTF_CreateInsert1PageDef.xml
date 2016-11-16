@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41"
+                id="registerTF_registerTF_CreateInsert1PageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="Company" RangeSize="25" DataControl="BidServAMDataControl" id="CompanyIterator"/>
+  </executables>
+  <bindings>
+    <action IterBinding="CompanyIterator" id="CreateInsert" RequiresUpdateModel="true" Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

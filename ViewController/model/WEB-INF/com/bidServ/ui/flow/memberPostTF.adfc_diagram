@@ -1,0 +1,74 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View3">
+      <property
+         name="activityId">MemberPost</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">88.01074</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>MemberPost&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">262.74707</property>
+      <property
+         name="page">/com/bidServ/ui/page/MemberPost.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall7"
+      to="View3">
+      <property
+         name="fromOutcome">memberPosts</property>
+      <property
+         name="sdm:polyPoints">R50,-53.651367,261.39648,47.010742,262.74707,L50</property>
+   </ControlFlowCase>
+   <TaskFlowCall
+      id="TaskFlowCall5">
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>taskFlowCall1&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="activityId">taskFlowCall1</property>
+      <property
+         name="x">258.0</property>
+      <property
+         name="y">261.89648</property>
+      <property
+         name="documentReference">/WEB-INF/com/bidServ/ui/flow/postDetailTF.xml</property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="taskFlowId">postDetailTF</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="View3"
+      to="TaskFlowCall5">
+      <property
+         name="fromOutcome">postDetail</property>
+      <property
+         name="sdm:polyPoints">R50,129.01074,262.74707,217.0,261.5459,L50</property>
+   </ControlFlowCase>
+   <MethodCall
+      id="MethodCall7">
+      <property
+         name="activityId">initCompany</property>
+      <property
+         name="x">-94.65137</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>initCompany&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">261.74707</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+</SDM>

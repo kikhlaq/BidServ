@@ -7,28 +7,13 @@
       <property
          name="activityId">Login</property>
       <property
-         name="x">31.5</property>
+         name="x">32.5</property>
       <property
          name="description">&lt;html>&lt;p>&lt;b>Login&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
-         name="y">196.79883</property>
+         name="y">196.09766</property>
       <property
          name="page">/com/bidServ/ui/page/Login.jspx</property>
-      <property
-         name="exceptionHandler">false</property>
-   </View>
-   <View
-      id="View3">
-      <property
-         name="activityId">Shell</property>
-      <property
-         name="x">330.5</property>
-      <property
-         name="description">&lt;html>&lt;p>&lt;b>Shell&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
-      <property
-         name="y">197.09766</property>
-      <property
-         name="page">/com/bidServ/ui/page/Shell.jspx</property>
       <property
          name="exceptionHandler">false</property>
    </View>
@@ -36,33 +21,148 @@
       islink="true"
       id="ControlFlowCase4"
       from="View2"
-      to="MethodCall5">
+      to="MethodCall25">
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">T50,31.5,142.44824,139.44336,67.09766,L50</property>
+         name="sdm:polyPoints">T44,29.0,141.74707,28.700195,62.591797,B50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall25"
+      to="Router30">
+      <property
+         name="fromOutcome">initLoggedInUser</property>
+      <property
+         name="sdm:polyPoints">R50,69.700195,8.591797,184.0,10.292969,L46</property>
+   </ControlFlowCase>
+   <View
+      id="View7">
+      <property
+         name="activityId">Registration</property>
+      <property
+         name="x">232.01562</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Registration&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">196.39648</property>
+      <property
+         name="page">/com/bidServ/ui/page/Registration.jspx</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase8"
+      from="View2"
+      to="View7">
+      <property
+         name="fromOutcome">register</property>
+      <property
+         name="sdm:polyPoints">R50,73.5,195.74707,191.01562,196.0459,L50</property>
    </ControlFlowCase>
    <MethodCall
-      id="MethodCall5">
+      id="MethodCall25">
       <property
-         name="activityId">initLoggedInUser</property>
+         name="activityId">initLoggedInUser1</property>
       <property
-         name="x">180.44336</property>
+         name="x">28.700195</property>
       <property
-         name="description">&lt;html>&lt;p>&lt;b>initLoggedInUser&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+         name="description">&lt;html>&lt;p>&lt;b>initLoggedInUser1&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
       <property
-         name="y">67.44824</property>
+         name="y">8.942383</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <Router
+      id="Router30">
+      <property
+         name="activityId">router1</property>
+      <property
+         name="x">225.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>router1&lt;/b>&lt;/p>&lt;p>Activity Type:  Router&lt;/p></property>
+      <property
+         name="y">14.143555</property>
+      <property
+         name="exceptionHandler">false</property>
+   </Router>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase31"
+      from="Router30"
+      to="MethodCall15">
+      <property
+         name="fromOutcome">success</property>
+      <property
+         name="sdm:polyPoints">T50,225.0,-40.20703,312.5,-87.75293,B44</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase32"
+      from="Router30"
+      to="View2">
+      <property
+         name="fromOutcome">failure</property>
+      <property
+         name="sdm:polyPoints">L54,184.0,17.292969,36.0,141.74707,T56</property>
+   </ControlFlowCase>
+   <WildcardControlFlowRule
+      id="WildcardControlFlowRule35">
+      <property
+         name="activityId">*</property>
+      <property
+         name="x">147.0</property>
+      <property
+         name="y">-141.20703</property>
+   </WildcardControlFlowRule>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase36"
+      from="WildcardControlFlowRule35"
+      to="MethodCall15">
+      <property
+         name="fromOutcome">toHome</property>
+      <property
+         name="sdm:polyPoints">R50,183.0,-141.05762,275.0,-141.75293,L50</property>
+   </ControlFlowCase>
+   <View
+      id="View36">
+      <property
+         name="activityId">Home</property>
+      <property
+         name="x">430.5</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>Home&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">12.6953125</property>
+      <property
+         name="page">/com/bidServ/ui/page/BidServ.jspx</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <MethodCall
+      id="MethodCall15">
+      <property
+         name="activityId">initSession</property>
+      <property
+         name="x">316.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>initSession&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">-141.40234</property>
       <property
          name="exceptionHandler">false</property>
    </MethodCall>
    <ControlFlowCase
       islink="true"
-      id="ControlFlowCase6"
-      from="MethodCall5"
-      to="View3">
+      id="ControlFlowCase16"
+      from="MethodCall15"
+      to="View36">
       <property
-         name="fromOutcome">initLoggedInUser</property>
+         name="fromOutcome">home</property>
       <property
-         name="sdm:polyPoints">B50,180.44336,121.09766,289.5,196.74707,L50</property>
+         name="sdm:polyPoints">B56,319.5,-87.75293,430.5,-41.655273,T50</property>
    </ControlFlowCase>
 </SDM>

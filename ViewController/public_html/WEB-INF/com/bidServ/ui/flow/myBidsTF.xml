@@ -10,6 +10,11 @@
       <value>#{pageFlowScope.userId}</value>
       <class>java.math.BigDecimal</class>
     </input-parameter-definition>
+    <managed-bean id="__9">
+      <managed-bean-name>ShellBackingBean</managed-bean-name>
+      <managed-bean-class>com.bidServ.bean.ShellBackingBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
     <method-call id="setMyBidsVC">
       <method>#{bindings.setMyBidsVC.execute}</method>
       <outcome>

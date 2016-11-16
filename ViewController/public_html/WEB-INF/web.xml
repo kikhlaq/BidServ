@@ -59,6 +59,10 @@
     <filter-name>adfBindings</filter-name>
     <filter-class>oracle.adf.model.servlet.ADFBindingFilter</filter-class>
   </filter>
+  <filter>
+    <filter-name>authenticate</filter-name>
+    <filter-class>com.bidServ.bean.AuthenticateFilter</filter-class>
+  </filter>
   <filter-mapping>
     <filter-name>trinidad</filter-name>
     <servlet-name>Faces Servlet</servlet-name>
@@ -71,6 +75,10 @@
     <servlet-name>Faces Servlet</servlet-name>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>authenticate</filter-name>
+    <url-pattern>/faces/Home</url-pattern>
   </filter-mapping>
   <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
@@ -119,6 +127,9 @@
     <param-name>javax.faces.FACELETS_RESOURCE_RESOLVER</param-name>
     <param-value>oracle.adfinternal.view.faces.facelets.rich.AdfFaceletsResourceResolver</param-value>
   </context-param>
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
   <mime-mapping>
     <extension>swf</extension>
     <mime-type>application/x-shockwave-flash</mime-type>

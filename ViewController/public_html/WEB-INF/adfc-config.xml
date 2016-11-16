@@ -3,38 +3,87 @@
   <view id="Login">
     <page>/com/bidServ/ui/page/Login.jspx</page>
   </view>
-  <view id="Shell">
-    <page>/com/bidServ/ui/page/Shell.jspx</page>
+  <view id="Registration">
+    <page>/com/bidServ/ui/page/Registration.jspx</page>
   </view>
-  <method-call id="initLoggedInUser">
+  <method-call id="initLoggedInUser1">
     <method>#{bindings.initLoggedInUser.execute}</method>
     <return-value>#{pageFlowScope.userId}</return-value>
     <outcome>
       <fixed-outcome>initLoggedInUser</fixed-outcome>
     </outcome>
   </method-call>
+  <router id="router1">
+    <case id="__29">
+      <expression>#{pageFlowScope.userId == null}</expression>
+      <outcome>failure</outcome>
+    </case>
+    <default-outcome>success</default-outcome>
+  </router>
+  <view id="Home">
+    <page>/com/bidServ/ui/page/BidServ.jspx</page>
+  </view>
+  <method-call id="initSession">
+    <method>#{ManagedBean.initSession}</method>
+    <parameter>
+      <class>java.lang.String</class>
+      <value>#{requestScope.username}</value>
+    </parameter>
+    <outcome>
+      <fixed-outcome>home</fixed-outcome>
+    </outcome>
+  </method-call>
   <control-flow-rule id="__3">
     <from-activity-id>Login</from-activity-id>
     <control-flow-case id="__4">
       <from-outcome>login</from-outcome>
-      <to-activity-id>initLoggedInUser</to-activity-id>
+      <to-activity-id>initLoggedInUser1</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__7">
+      <from-outcome>register</from-outcome>
+      <to-activity-id>Registration</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__25">
+    <from-activity-id>initLoggedInUser1</from-activity-id>
+    <control-flow-case id="__26">
+      <from-outcome>initLoggedInUser</from-outcome>
+      <to-activity-id>router1</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__30">
+    <from-activity-id>router1</from-activity-id>
+    <control-flow-case id="__31">
+      <from-outcome>success</from-outcome>
+      <to-activity-id>initSession</to-activity-id>
+    </control-flow-case>
+    <control-flow-case id="__32">
+      <from-outcome>failure</from-outcome>
+      <to-activity-id>Login</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__35">
+    <from-activity-id>*</from-activity-id>
+    <control-flow-case id="__36">
+      <from-outcome>toHome</from-outcome>
+      <to-activity-id>initSession</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <control-flow-rule id="__5">
-    <from-activity-id>initLoggedInUser</from-activity-id>
+    <from-activity-id>initSession</from-activity-id>
     <control-flow-case id="__6">
-      <from-outcome>initLoggedInUser</from-outcome>
-      <to-activity-id>Shell</to-activity-id>
+      <from-outcome>home</from-outcome>
+      <to-activity-id>Home</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <managed-bean id="__1">
     <managed-bean-name>ManagedBean</managed-bean-name>
     <managed-bean-class>com.bidServ.bean.CommonManagedBean</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
+    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean id="__2">
     <managed-bean-name>ShellBackingBean</managed-bean-name>
     <managed-bean-class>com.bidServ.bean.ShellBackingBean</managed-bean-class>
-    <managed-bean-scope>application</managed-bean-scope>
+    <managed-bean-scope>pageFlow</managed-bean-scope>
   </managed-bean>
 </adfc-config>
