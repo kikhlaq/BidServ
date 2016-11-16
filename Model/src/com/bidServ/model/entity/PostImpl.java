@@ -44,7 +44,8 @@ public class PostImpl extends EntityImpl {
         ChangeLog,
         PrimaryConnection,
         Bid,
-        Company;
+        Company,
+        User;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
 
@@ -91,6 +92,7 @@ public class PostImpl extends EntityImpl {
     public static final int PRIMARYCONNECTION = AttributesEnum.PrimaryConnection.index();
     public static final int BID = AttributesEnum.Bid.index();
     public static final int COMPANY = AttributesEnum.Company.index();
+    public static final int USER = AttributesEnum.User.index();
 
     /**
      * This is the default constructor (do not remove).

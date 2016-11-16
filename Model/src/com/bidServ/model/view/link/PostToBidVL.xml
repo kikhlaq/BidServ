@@ -16,13 +16,13 @@
     Name="PostVO"
     Cardinality="1"
     Source="true"
-    Owner="com.bidServ.model.view.PostVO">
+    Owner="com.bidServ.model.view.post.PostVO">
     <DesignTime>
       <Attr Name="_isUpdateable" Value="true"/>
       <Attr Name="_finderName" Value="PostVO"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="com.bidServ.model.view.PostVO.PostId"/>
+      <Item Value="com.bidServ.model.view.post.PostVO.PostId"/>
     </AttrArray>
   </ViewLinkDefEnd>
   <ViewLinkDefEnd
