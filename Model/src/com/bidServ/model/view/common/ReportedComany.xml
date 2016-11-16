@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ReportedComany"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  BindingStyle="JDBC"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.view.common.ReportedComany_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <SQLQuery><![CDATA[select count(ReportedEntity.report_id) report_count ,  
+ReportedEntity.entity_id company_id, CompanyInfo.name name, CompanyInfo.logo_url logo_url  
+from Reported_entity ReportedEntity, Company_info CompanyInfo   
+where ReportedEntity.type = 'COMPANY' and ReportedEntity.status='PENDING'   
+and ReportedEntity.entity_id=CompanyInfo.company_id  
+group by ReportedEntity.entity_id, CompanyInfo.name, CompanyInfo.logo_url]]></SQLQuery>
+  <EntityUsage
+    Name="ReportedEntity"
+    Entity="com.bidServ.model.entity.ReportedEntity"/>
+  <EntityUsage
+    Name="Company"
+    Entity="com.bidServ.model.entity.Company"
+    Association="com.bidServ.model.entity.association.ReportedEntityToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.ReportedEntityToCompany.Company"
+    SourceUsage="com.bidServ.model.view.ReportedComany.ReportedEntity"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_dstAttributes">
+        <Item Value="com.bidServ.model.entity.Company.CompanyId"/>
+      </AttrArray>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="com.bidServ.model.entity.ReportedEntity.EntityId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
+  <ViewAttribute
+    Name="ReportCount"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="BIGINT"
+    AliasName="report_count"
+    Expression="report_count"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="21"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyId"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    AliasName="company_id"
+    IsPersistent="false"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    Expression="company_id"
+    SQLType="INTEGER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="11"/>
+    </DesignTime>
+  </ViewAttribute>
+    <ViewAttribute
+    Name="Name"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="name"
+    Expression="name"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+    <ViewAttribute
+    Name="LogoUrl"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="logo_url"
+    Expression="logo_url"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="CompanyId"/>
+  </AttrArray>
+</ViewObject>

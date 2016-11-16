@@ -4,7 +4,7 @@
   <parameters/>
   <executables>
     <variableIterator id="variables"/>
-    <taskFlow id="MainTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/MainTF.xml#MainTF" activation="deferred"
+    <taskFlow id="MainTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/memberPostTF.xml#MainTF" activation="deferred"
               xmlns="http://xmlns.oracle.com/adf/controller/binding" RefreshCondition="#{requestScope.isLogin == 'Y'}">
       <parameters>
         <parameter id="flow" value="memberPosts"/>
@@ -34,5 +34,31 @@
         <Item Value="CompanyName"/>
       </AttrNames>
     </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="IsAdmin">
+      <AttrNames>
+        <Item Value="IsAdmin"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="handleNewPostEvent" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="handleNewPostEvent" IsViewObjectMethod="false" DataControl="CommonManagedBean"
+                  InstanceName="data.CommonManagedBean.dataProvider"/>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
   </bindings>
+  <eventMap xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+    <event name="fireNewPostEvent">
+      <producer region="createPost1.CreateNewPostPageDef.eventBinding">
+        <consumer region="" handler="handleNewPostEvent"/>
+      </producer>
+    </event>
+  </eventMap>
 </pageDefinition>

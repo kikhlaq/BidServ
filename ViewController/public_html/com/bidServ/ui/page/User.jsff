@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+ 
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" 
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:trh="http://myfaces.apache.org/trinidad/html">
+    <af:panelHeader text="User Details" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:spacer width="10" height="10" id="s5"/>
+        <trh:tableLayout id="tl1" width="100%">
+            <trh:rowLayout id="rl2">
+                <trh:cellFormat id="cf3" halign="left">
+                    <af:button text="Ok" id="b1" rendered="#{pageFlowScope.detailMode != null}" action="done"/>
+                    <af:button text="Next" id="b2" action="#{ManagedBean.registerNextListener}"
+                               rendered="#{pageFlowScope.detailMode == null}"/>
+                </trh:cellFormat>
+            </trh:rowLayout>
+            <trh:rowLayout id="rl3">
+                <trh:cellFormat id="cf4">
+                    <af:spacer width="10" height="10" id="s6"/>
+                </trh:cellFormat>
+            </trh:rowLayout>
+            <trh:rowLayout id="rl1">
+                <trh:cellFormat id="cf1" width="25%" halign="left" valign="top">
+                    <af:panelGroupLayout id="pgl5" layout="vertical" halign="left">
+                        <af:image id="i3" inlineStyle="width:200px" binding="#{pageFlowScope.RegisterBean.profilePic}"
+                                  source="#{bindings.ImageUrl.inputValue == null || bindings.ImageUrl.inputValue == '' ? '/com/bidServ/resource/images/defaultProfile.png' : bindings.ImageUrl.inputValue}"/>
+                        <af:inputFile id="if1" binding="#{pageFlowScope.RegisterBean.profilePicFile}"
+                                      valueChangeListener="#{ManagedBean.uploadProfilePicListener}" autoSubmit="true"
+                                      rendered="#{pageFlowScope.detailMode == null}"/>
+                        <af:link text="Report User" id="l1" icon="/com/bidServ/resource/images/report.png"
+                                 rendered="#{pageFlowScope.mode == 'PROFILE' &amp;&amp; bindings.UserId.inputValue != bindings.UserId1.inputValue}"
+                                 actionListener="#{ManagedBean.reportUserListener}"/>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s3"/>
+                        </f:facet>
+                    </af:panelGroupLayout>
+                </trh:cellFormat>
+                <trh:cellFormat id="cf2" width="75%" halign="left" valign="top">
+                    <af:panelGroupLayout id="pgl2" layout="vertical" halign="left"
+                                         rendered="#{pageFlowScope.detailMode == null}">
+                        <af:inputText id="it10" simple="true" placeholder="Name" value="#{bindings.Name.inputValue}"
+                                      columns="75" binding="#{pageFlowScope.RegisterBean.userName}"/>
+                        <af:inputText value="#{bindings.Phone.inputValue}" simple="true" columns="75"
+                                      maximumLength="#{bindings.Phone.hints.precision}"
+                                      shortDesc="#{bindings.Phone.hints.tooltip}" id="it11" placeholder="Phone"
+                                      binding="#{pageFlowScope.RegisterBean.userPhone}"/>
+                        <af:inputText value="#{bindings.Email.inputValue}" id="it3" placeholder="Email" simple="true"
+                                      columns="75"
+                                      disabled="#{pageFlowScope.mode == 'PROFILE' || (pageFlowScope.email != null &amp;&amp; pageFlowScope.invitationCode != null) }"
+                                      binding="#{pageFlowScope.RegisterBean.userEmail}"/>
+                        <af:inputText value="#{bindings.Address.inputValue}" id="it1" placeholder="Address"
+                                      simple="true" columns="75" rows="5"
+                                      binding="#{pageFlowScope.RegisterBean.userAddress}"/>
+                        <af:inputText id="it2" placeholder="Password" simple="true" secret="true" columns="75"
+                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"/>
+                        <af:inputText id="it4" secret="true" placeholder="Confirm Password" columns="75" simple="true"
+                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"/>
+                        <af:panelGroupLayout id="pgl6" layout="horizontal">
+                            <f:facet name="separator">
+                                <af:spacer width="10" height="10" id="s4"/>
+                            </f:facet>
+                        </af:panelGroupLayout>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s1"/>
+                        </f:facet>
+                    </af:panelGroupLayout>
+                    <af:panelFormLayout id="pfl1" rendered="#{pageFlowScope.detailMode != null}">
+                        <f:facet name="footer"/>
+                        <af:panelLabelAndMessage label="Name" id="plam1">
+                            <af:outputText value="#{bindings.Name.inputValue}" id="ot3"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Phone" id="plam2">
+                            <af:outputText value="#{bindings.Phone.inputValue}" id="ot4"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Email" id="plam3">
+                            <af:outputText value="#{bindings.Email.inputValue}" id="ot5"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Address" id="plam4">
+                            <af:outputText value="#{bindings.Address.inputValue}" id="ot6"/>
+                        </af:panelLabelAndMessage>
+                    </af:panelFormLayout>
+                </trh:cellFormat>
+            </trh:rowLayout>
+        </trh:tableLayout>
+    </af:panelHeader>
+</jsp:root>

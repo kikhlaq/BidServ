@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ReportedEntity"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="Reported_entity"
+  AliasName="ReportedEntity"
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.ReportedEntityImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="ReportId"
+    IsUpdateable="while_insert"
+    ColumnName="report_id"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    TableName="Reported_entity"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Type"
+    Precision="10"
+    ColumnName="type"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Reported_entity">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="EntityId"
+    ColumnName="entity_id"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    TableName="Reported_entity">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Status"
+    Precision="100"
+    ColumnName="status"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Reported_entity">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <AccessorAttribute
+    Name="User"
+    Association="com.bidServ.model.entity.association.ReportedEntityToUser"
+    AssociationEnd="com.bidServ.model.entity.association.ReportedEntityToUser.User"
+    AssociationOtherEnd="com.bidServ.model.entity.association.ReportedEntityToUser.ReportedEntity"
+    Type="com.bidServ.model.entity.UserImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="Company"
+    Association="com.bidServ.model.entity.association.ReportedEntityToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.ReportedEntityToCompany.Company"
+    AssociationOtherEnd="com.bidServ.model.entity.association.ReportedEntityToCompany.ReportedEntity"
+    Type="com.bidServ.model.entity.CompanyImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="Primary1"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRIMARY"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.ReportedEntity.ReportId"/>
+    </AttrArray>
+  </Key>
+</Entity>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Association SYSTEM "jbo_03_01.dtd">
+<!---->
+<Association
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="VerificationReqToUser"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <AssociationEnd
+    Name="VerificationRequest"
+    Cardinality="-1"
+    Source="true"
+    Owner="com.bidServ.model.entity.VerificationRequest"
+    LockLevel="NONE">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="VerificationRequest"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.VerificationRequest.UserId"/>
+    </AttrArray>
+  </AssociationEnd>
+  <AssociationEnd
+    Name="User"
+    Cardinality="1"
+    Owner="com.bidServ.model.entity.User">
+    <DesignTime>
+      <Attr Name="_isUpdateable" Value="true"/>
+      <Attr Name="_aggregation" Value="0"/>
+      <Attr Name="_finderName" Value="User"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.User.UserId"/>
+    </AttrArray>
+  </AssociationEnd>
+</Association>

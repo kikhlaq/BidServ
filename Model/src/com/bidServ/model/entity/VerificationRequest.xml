@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE Entity SYSTEM "jbo_03_01.dtd">
+<!---->
+<Entity
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="VerificationRequest"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  DBObjectType="table"
+  DBObjectName="Verification_request"
+  AliasName="VerificationRequest"
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.VerificationRequestImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
+  <Attribute
+    Name="RequestId"
+    IsUpdateable="while_insert"
+    ColumnName="request_id"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    TableName="Verification_request"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="UserId"
+    ColumnName="user_id"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    TableName="Verification_request">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="CompanyId"
+    ColumnName="company_id"
+    SQLType="INTEGER"
+    Type="java.lang.Integer"
+    ColumnType="INT"
+    TableName="Verification_request">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="Status"
+    Precision="100"
+    ColumnName="status"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Verification_request">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="RequestDate"
+    ColumnName="request_date"
+    SQLType="DATE"
+    Type="java.sql.Date"
+    ColumnType="DATE"
+    TableName="Verification_request"/>
+  <AccessorAttribute
+    Name="Company"
+    Association="com.bidServ.model.entity.association.VerificationReqToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.VerificationReqToCompany.Company"
+    AssociationOtherEnd="com.bidServ.model.entity.association.VerificationReqToCompany.VerificationRequest"
+    Type="com.bidServ.model.entity.CompanyImpl"
+    IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="User"
+    Association="com.bidServ.model.entity.association.VerificationReqToUser"
+    AssociationEnd="com.bidServ.model.entity.association.VerificationReqToUser.User"
+    AssociationOtherEnd="com.bidServ.model.entity.association.VerificationReqToUser.VerificationRequest"
+    Type="com.bidServ.model.entity.UserImpl"
+    IsUpdateable="true"/>
+  <Key
+    Name="Primary1"
+    PrimaryKey="true">
+    <DesignTime>
+      <Attr Name="_DBObjectName" Value="PRIMARY"/>
+    </DesignTime>
+    <AttrArray Name="Attributes">
+      <Item Value="com.bidServ.model.entity.VerificationRequest.RequestId"/>
+    </AttrArray>
+  </Key>
+</Entity>
