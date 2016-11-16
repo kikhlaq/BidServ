@@ -7,6 +7,7 @@
     <iterator Binds="SupplierNetworkVO" RangeSize="25" DataControl="BidServAMDataControl" id="SupplierNetworkVOIterator"/>
     <iterator Binds="SecondaryConnVO" RangeSize="25" DataControl="BidServAMDataControl" id="SecondaryConnVOIterator"/>
     <iterator Binds="PrimaryConnVO" RangeSize="25" DataControl="BidServAMDataControl" id="PrimaryConnVOIterator"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
   </executables>
   <bindings>
     <tree IterBinding="SupplierNetworkVOIterator" id="SupplierNetworkVO">
@@ -33,6 +34,7 @@
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
           <Item Value="LogoUrl"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -60,6 +62,7 @@
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
           <Item Value="LogoUrl"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -87,6 +90,7 @@
           <Item Value="VisibilityCode"/>
           <Item Value="DaysLeft"/>
           <Item Value="LogoUrl"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -96,5 +100,10 @@
       <NamedData NDName="voName" NDValue="#{requestScope.voName}" NDType="java.lang.String"/>
       <NamedData NDName="keyword" NDValue="#{requestScope.keyword}" NDType="java.lang.String"/>
     </methodAction>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

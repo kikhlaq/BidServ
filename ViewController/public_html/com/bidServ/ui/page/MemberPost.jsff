@@ -27,8 +27,9 @@
                          partialTriggers="np1:ni1 np1:ni2 np1:ni3"
                          visible="#{pageFlowScope.selectedTab == 'supplierNetwork' || pageFlowScope.selectedTab == null}">
       <af:group id="g1">
-        <af:inputText label="Search box" id="it1" simple="true" styleClass="AFStretchWidth"
-                      value="#{pageFlowScope.entireNetworkKeyword}" placeholder="#{viewcontrollerBundle.keywordSearch}"/>
+        <af:inputText label="Search box" id="it1" simple="true"
+                      value="#{pageFlowScope.entireNetworkKeyword}" placeholder="#{viewcontrollerBundle.keywordSearch}"
+                      styleClass="AFStretchWidth"/>
         <af:spacer width="10" id="s2"/>
         <af:button text="Search" id="b2" actionListener="#{bindings.searchPost.execute}">
           <af:setPropertyListener from="#{pageFlowScope.entireNetworkKeyword}" to="#{requestScope.keyword}"
@@ -36,23 +37,34 @@
           <af:setPropertyListener to="#{requestScope.voName}" from="#{'E'}" type="action"/>
         </af:button>
       </af:group>
+      <af:selectBooleanCheckbox text="Show Open Posts" label="Label 1" id="sbc1" simple="true"
+                                value="#{pageFlowScope.openPostsAll}" autoSubmit="true"/>
       <af:listView value="#{bindings.SupplierNetworkVO.collectionModel}" var="item"
                    emptyText="#{bindings.SupplierNetworkVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.SupplierNetworkVO.rangeSize}" id="lv1" partialTriggers="::b2"
+                   fetchSize="10" id="lv1" partialTriggers="::b2 ::sbc1"
                    selection="single">
-        <af:listItem id="li1">
+        <af:listItem id="li1"
+                     visible="#{pageFlowScope.openPostsAll == true ? (item.PostStatusCode == 'OPEN' &amp;&amp; item.DaysLeft > 0 ? true : false) : true }"
+                     rendered="#{item.UserId != bindings.UserId.inputValue}">
           <af:panelGridLayout id="pgl3" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr1">
               <af:gridCell width="10%" id="gc1" valign="middle" halign="center">
-                <af:panelGroupLayout id="pgl2" layout="vertical">
-                  <af:image source="#{item.LogoUrl}" id="i1" styleClass="image"/>
-                  <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+                <af:panelGroupLayout id="pgl8" layout="horizontal" valign="bottom">
+                  <af:image shortDesc="Not Verified" id="i311"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>
+                  
+                  <af:panelGroupLayout id="pgl2" layout="vertical">
+                    <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                              id="i1" styleClass="image"/>
+                    <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+                  </af:panelGroupLayout>
                 </af:panelGroupLayout>
               </af:gridCell>
               <af:gridCell width="70%" id="gc2">
                 <af:panelGroupLayout id="pgl4" layout="vertical">
                   <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }:  #{item.Product}" id="l1" styleClass="postLink" action="postDetail">
-                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'B'}" type="action"/>
                     <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
                     <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
                                             type="action"/>
@@ -67,7 +79,7 @@
                 <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                   <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
+                    <af:outputText value="#{item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : (item.DaysLeft == 0 ? viewcontrollerBundle.EXPIRED : viewcontrollerBundle.OPEN  )}" id="ot3"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s4"/>
@@ -97,22 +109,33 @@
           <af:setPropertyListener to="#{requestScope.voName}" from="#{'S'}" type="action"/>
         </af:button>
       </af:group>
+      <af:selectBooleanCheckbox text="Show Open Posts" label="Label 2" id="sbc2" simple="true"
+                                value="#{pageFlowScope.openPostsSecondary}" autoSubmit="true"/>
       <af:listView value="#{bindings.SecondaryConnVO.collectionModel}" var="item"
                    emptyText="#{bindings.SecondaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.SecondaryConnVO.rangeSize}" id="lv11" partialTriggers="::b21">
-        <af:listItem id="li11">
+                   fetchSize="10" id="lv11" partialTriggers="::b21 ::sbc2">
+        <af:listItem id="li11"
+                     visible="#{pageFlowScope.openPostsSecondary == true ? (item.PostStatusCode == 'OPEN' &amp;&amp; item.DaysLeft > 0 ? true : false) : true }"
+                     rendered="#{item.UserId != bindings.UserId.inputValue}">
           <af:panelGridLayout id="pgl31" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr11">
               <af:gridCell width="10%" id="gc11" valign="middle" halign="center">
-                <af:panelGroupLayout id="pgl21" layout="vertical">
-                  <af:image source="#{item.LogoUrl}" id="i11" styleClass="image"/>
-                  <af:image source="/com/bidServ/resource/images/2.png" id="i21" styleClass="stars"/>
+                <af:panelGroupLayout id="pgl9" layout="horizontal" valign="bottom">
+                  <af:image shortDesc="Not Verified" id="i321"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>
+                  
+                  <af:panelGroupLayout id="pgl21" layout="vertical">
+                    <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                              id="i11" styleClass="image"/>
+                    <af:image source="/com/bidServ/resource/images/2.png" id="i21" styleClass="stars"/>
+                  </af:panelGroupLayout>
                 </af:panelGroupLayout>
               </af:gridCell>
               <af:gridCell width="70%" id="gc21">
                 <af:panelGroupLayout id="pgl41" layout="vertical">
                   <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }: #{item.Product}" id="l11" styleClass="postLink" action="postDetail">
-                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'B'}" type="action"/>
                     <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
                     <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
                                             type="action"/>                  
@@ -127,7 +150,7 @@
                 <af:panelGroupLayout id="pgl51" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot21"/>
                   <af:panelGroupLayout id="pgl16" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot123"/>
+                    <af:outputText value="#{item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : (item.DaysLeft == 0 ? viewcontrollerBundle.EXPIRED : viewcontrollerBundle.OPEN  )}" id="ot123"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s41"/>
@@ -155,22 +178,32 @@
           <af:setPropertyListener to="#{requestScope.voName}" from="#{'P'}" type="action"/>
         </af:button>
       </af:group>
+      <af:selectBooleanCheckbox text="Show Open Posts" label="Label 3" id="sbc3" simple="true" autoSubmit="true"
+                                value="#{pageFlowScope.openPostsPrimary}"/>
       <af:listView value="#{bindings.PrimaryConnVO.collectionModel}" var="item"
                    emptyText="#{bindings.PrimaryConnVO.viewable ? 'No data to display.' : 'Access Denied.'}"
-                   fetchSize="#{bindings.PrimaryConnVO.rangeSize}" id="lv111" partialTriggers="::b211">
-        <af:listItem id="li211">
+                   fetchSize="10" id="lv111" partialTriggers="::b211 ::sbc3">
+        <af:listItem id="li211"
+                     visible="#{pageFlowScope.openPostsPrimary == true ? (item.PostStatusCode == 'OPEN' &amp;&amp; item.DaysLeft > 0 ? true : false) : true }"
+                     rendered="#{item.UserId != bindings.UserId.inputValue}">
           <af:panelGridLayout id="pgl311" styleClass="AFStretchWidth">
             <af:gridRow height="60px" id="gr111">
               <af:gridCell width="10%" id="gc111" valign="middle" halign="center">
-                <af:panelGroupLayout id="pgl211" layout="vertical">
-                  <af:image source="#{item.LogoUrl}" id="i111" styleClass="image"/>
-                  <af:image source="/com/bidServ/resource/images/2.png" id="i211" styleClass="stars"/>
+                <af:panelGroupLayout id="pgl7" layout="horizontal" valign="bottom">
+                  <af:image shortDesc="Not Verified" id="i3"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>
+                  <af:panelGroupLayout id="pgl211" layout="vertical">
+                    <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                              id="i111" styleClass="image"/>
+                    <af:image source="/com/bidServ/resource/images/2.png" id="i211" styleClass="stars"/>
+                  </af:panelGroupLayout>
                 </af:panelGroupLayout>
               </af:gridCell>
               <af:gridCell width="70%" id="gc211">
                 <af:panelGroupLayout id="pgl411" layout="vertical">
                   <af:link text="#{item.PostType == 'BUY' ? viewcontrollerBundle.BUY : viewcontrollerBundle.SELL }: #{item.Product}" id="l111" styleClass="postLink" action="postDetail">
-                    <af:setPropertyListener to="#{requestScope.source}" from="#{'P'}" type="action"/>
+                    <af:setPropertyListener to="#{requestScope.source}" from="#{'B'}" type="action"/>
                     <af:setPropertyListener to="#{requestScope.userId}" from="#{item.UserId}" type="action"/>
                     <af:setPropertyListener from="#{item.PostId}" to="#{requestScope.postId}"
                                             type="action"/>                  
@@ -185,7 +218,7 @@
                 <af:panelGroupLayout id="pgl511" layout="vertical" halign="center">
                   <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot211"/>
                   <af:panelGroupLayout id="pgl26" styleClass="statusLayout">
-                    <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot133"/>
+                    <af:outputText value="#{item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : (item.DaysLeft == 0 ? viewcontrollerBundle.EXPIRED : viewcontrollerBundle.OPEN  )}" id="ot133"/>
                   </af:panelGroupLayout>
                   <f:facet name="separator">
                     <af:spacer height="3" id="s411"/>

@@ -8,7 +8,7 @@
             <af:form id="f1">
                 <af:panelGroupLayout id="pgl1" layout="vertical" inlineStyle="margin:100px;">
                     <af:outputText value="This is a dummy login page. Please select the seeded user to login." id="ot1"
-                                   inlineStyle="font-size:large;"/>
+                                   inlineStyle="font-size:large;" rendered="false"/>
                     <af:table value="#{bindings.SampleUser.collectionModel}" var="row"
                               rows="#{bindings.SampleUser.rangeSize}"
                               emptyText="#{bindings.SampleUser.viewable ? 'No data to display.' : 'Access Denied.'}"
@@ -16,7 +16,7 @@
                               selectedRowKeys="#{bindings.SampleUser.collectionModel.selectedRow}"
                               selectionListener="#{bindings.SampleUser.collectionModel.makeCurrent}"
                               rowSelection="single" fetchSize="#{bindings.SampleUser.rangeSize}" id="t1"
-                              inlineStyle="width:500px;" columnStretching="column:c3">
+                              inlineStyle="width:500px;" columnStretching="column:c3" rendered="false">
                         <af:column headerText="User" id="c1">
                             <af:outputText value="#{row.User}" shortDesc="#{bindings.SampleUser.hints.User.tooltip}"
                                            id="ot3"/>
@@ -44,12 +44,14 @@
                             </af:outputText>
                         </af:column>
                     </af:table>
+                    <af:outputText value="- OR -" id="ot2" rendered="false"/>
+                    <af:inputText id="it1" simple="true" placeholder="Username" value="#{requestScope.username}"/>
                     <af:panelGroupLayout id="pgl3" layout="horizontal">
                         <af:button text="Login" id="b1" action="login">
                             <af:setPropertyListener from="#{'Y'}" to="#{requestScope.isLogin}" type="action"/>
                         </af:button>
                         <af:spacer width="10" height="10" id="s3"/>
-                        <af:button text="Register" id="b2"/>
+                        <af:button text="Register" id="b2" action="register"/>
                     </af:panelGroupLayout>
                     <f:facet name="separator">
                         <af:spacer width="10" height="10" id="s1"/>

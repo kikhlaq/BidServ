@@ -12,19 +12,28 @@
         <af:setPropertyListener from="#{'B'}" to="#{requestScope.voName}" type="action"/>
       </af:button>
     </af:group> 
+    <af:selectBooleanCheckbox text="Show Open Posts" label="Label 3" id="sbc23" simple="true" autoSubmit="true"
+                                value="#{pageFlowScope.openPostForMyBids}"/>
     <f:facet name="separator">
       <af:spacer height="10" id="s2"/>
     </f:facet>
     <af:listView value="#{bindings.MyBidsVO1.collectionModel}" var="item"
                  emptyText="#{bindings.MyBidsVO1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                 fetchSize="#{bindings.MyBidsVO1.rangeSize}" id="lv1" partialTriggers="::b1">
-      <af:listItem id="li1">
+                 fetchSize="#{bindings.MyBidsVO1.rangeSize}" id="lv1" partialTriggers="::b1 ::sbc23">
+      <af:listItem id="li1"
+                   visible="#{pageFlowScope.openPostForMyBids == true ? (item.PostStatusCode == 'OPEN' &amp;&amp; item.DaysLeft > 0 ? true : false) : true }">
         <af:panelGridLayout id="pgl2" styleClass="AFStretchWidth">
           <af:gridRow height="60px" id="gr1">
             <af:gridCell marginStart="5px" width="10%" id="gc1" valign="middle" halign="center">
-              <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="#{item.LogoUrl}" id="i1" styleClass="image"/>
-                <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+              <af:panelGroupLayout id="pgl3" layout="horizontal" valign="bottom">
+                <af:image shortDesc="Not Verified" id="i321"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>
+                <af:panelGroupLayout id="pgl903" layout="vertical">
+                  <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                            id="i1" styleClass="image"/>
+                  <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+                </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:gridCell>  
             <af:gridCell width="70%" id="gc2">
@@ -67,7 +76,7 @@
       </af:listItem>
     </af:listView>
   </af:panelGroupLayout>
-  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{ShellBackingBean.myBidsChatPopup}"
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{pageFlowScope.ShellBackingBean.myBidsChatPopup}"
             contentDelivery="lazyUncached">
     <af:dialog id="d1" type="none" contentWidth="400" closeIconVisible="false">
       <f:facet name="buttonBar">
@@ -104,7 +113,7 @@
           <af:spacer height="10" id="s6"/>
         </f:facet>
         <af:inputText id="it2" placeholder="Add Comment..." rows="3" styleClass="AFStretchWidth" simple="true"
-                      value="#{requestScope.comment}" binding="#{ShellBackingBean.comment}"/>
+                      value="#{requestScope.comment}" binding="#{pageFlowScope.ShellBackingBean.comment}"/>
       </af:panelGroupLayout>
     </af:dialog>
   </af:popup>

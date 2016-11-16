@@ -49,6 +49,22 @@
     </DesignTime>
   </Containee>
   <Containee
+    Name="common"
+    PackageName="com.bidServ.model.view.common"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="dashboard"
+    PackageName="com.bidServ.model.view.dashboard"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
     Name="link"
     PackageName="com.bidServ.model.view.link"
     ObjectType="JboPackage">
@@ -59,6 +75,14 @@
   <Containee
     Name="post"
     PackageName="com.bidServ.model.view.post"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_VO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="setup"
+    PackageName="com.bidServ.model.view.setup"
     ObjectType="JboPackage">
     <DesignTime>
       <Attr Name="_VO" Value="true"/>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="MainAreaTF">
+    <default-activity>initLoggedInUser</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <input-parameter-definition id="__1">
+      <name>username</name>
+      <value>#{pageFlowScope.username}</value>
+      <class>java.lang.String</class>
+    </input-parameter-definition>
+    <managed-bean id="__9">
+      <managed-bean-name>ShellBackingBean</managed-bean-name>
+      <managed-bean-class>com.bidServ.bean.ShellBackingBean</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <method-call id="initLoggedInUser">
+      <method>#{bindings.initLoggedInUser.execute}</method>
+      <return-value>#{pageFlowScope.userId}</return-value>
+      <outcome>
+        <fixed-outcome>initLoggedInUser</fixed-outcome>
+      </outcome>
+    </method-call>
+    <router id="router1">
+      <case id="__8">
+        <expression>#{pageFlowScope.userId == null}</expression>
+        <outcome>error</outcome>
+      </case>
+      <case id="__24">
+        <expression>#{requestScope.toAdmin == 'Y'}</expression>
+        <outcome>admin</outcome>
+      </case>
+      <case id="__34">
+        <expression>#{pageFlowScope.userId == 1}</expression>
+        <outcome>invite</outcome>
+      </case>
+      <default-outcome>success</default-outcome>
+    </router>
+    <view id="Error">
+      <page>/com/bidServ/ui/page/Error.jsff</page>
+    </view>
+    <view id="Home">
+      <page>/com/bidServ/ui/page/Home.jsff</page>
+    </view>
+    <view id="Profile">
+      <page>/com/bidServ/ui/page/Profile.jsff</page>
+    </view>
+    <view id="Admin">
+      <page>/com/bidServ/ui/page/Admin.jsff</page>
+    </view>
+    <method-call id="logout">
+      <method>#{ManagedBean.logout}</method>
+      <outcome>
+        <fixed-outcome>logout</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="logout1">
+      <method>#{ManagedBean.logout}</method>
+      <outcome>
+        <fixed-outcome>logout1</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="loadAdminData">
+      <method>#{bindings.loadAdminData.execute}</method>
+      <outcome>
+        <fixed-outcome>loadAdminData</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="loadAdminData1">
+      <method>#{bindings.loadAdminData.execute}</method>
+      <outcome>
+        <fixed-outcome>loadAdminData</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="return">
+      <outcome>
+        <name>return</name>
+      </outcome>
+    </task-flow-return>
+    <task-flow-return id="return1">
+      <outcome>
+        <name>return1</name>
+      </outcome>
+    </task-flow-return>
+    <view id="Invitation">
+      <page>/com/bidServ/ui/page/Invitation.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>router1</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>success</from-outcome>
+        <to-activity-id>Home</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__5">
+        <from-outcome>error</from-outcome>
+        <to-activity-id>Error</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__25">
+        <from-outcome>admin</from-outcome>
+        <to-activity-id>loadAdminData1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__23">
+        <from-outcome>invite</from-outcome>
+        <to-activity-id>Invitation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__6">
+      <from-activity-id>initLoggedInUser</from-activity-id>
+      <control-flow-case id="__7">
+        <from-outcome>initLoggedInUser</from-outcome>
+        <to-activity-id>router1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>Profile</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome>profileToHome</from-outcome>
+        <to-activity-id>Home</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__17">
+        <from-outcome>profileToLogout</from-outcome>
+        <to-activity-id>logout</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__20">
+        <from-outcome>profileToAdmin</from-outcome>
+        <to-activity-id>loadAdminData</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__41">
+        <from-outcome>profileToInvite</from-outcome>
+        <to-activity-id>Invitation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__11">
+      <from-activity-id>Home</from-activity-id>
+      <control-flow-case id="__12">
+        <from-outcome>profile</from-outcome>
+        <to-activity-id>Profile</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__18">
+        <from-outcome>homeToLogout</from-outcome>
+        <to-activity-id>logout1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__19">
+        <from-outcome>admin</from-outcome>
+        <to-activity-id>loadAdminData</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__40">
+        <from-outcome>homtToInvite</from-outcome>
+        <to-activity-id>Invitation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id>Admin</from-activity-id>
+      <control-flow-case id="__14">
+        <from-outcome>home</from-outcome>
+        <to-activity-id>Home</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__15">
+        <from-outcome>adminToProfile</from-outcome>
+        <to-activity-id>Profile</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__16">
+        <from-outcome>adminToLogout</from-outcome>
+        <to-activity-id>logout1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__42">
+        <from-outcome>adminToInvite</from-outcome>
+        <to-activity-id>Invitation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id>loadAdminData</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome>loadAdminData</from-outcome>
+        <to-activity-id>Admin</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__26">
+      <from-activity-id>loadAdminData1</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome>loadAdminData</from-outcome>
+        <to-activity-id>Admin</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__28">
+      <from-activity-id>logout</from-activity-id>
+      <control-flow-case id="__29">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>return</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__30">
+      <from-activity-id>logout1</from-activity-id>
+      <control-flow-case id="__31">
+        <from-outcome>logout1</from-outcome>
+        <to-activity-id>return1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__32">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__33">
+        <from-outcome>toHome</from-outcome>
+        <to-activity-id>initLoggedInUser</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__35">
+      <from-activity-id>Invitation</from-activity-id>
+      <control-flow-case id="__36">
+        <from-outcome>inviteToLogout</from-outcome>
+        <to-activity-id>logout1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__37">
+        <from-outcome>inviteToAdmin</from-outcome>
+        <to-activity-id>loadAdminData1</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__38">
+        <from-outcome>inviteToHome</from-outcome>
+        <to-activity-id>Home</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__39">
+        <from-outcome>inviteToProfile</from-outcome>
+        <to-activity-id>Profile</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41"
+                id="MainAreaTF_MainAreaTF_loadAdminDataPageDef" Package="com.bidServ.ui.flow" SkipValidation="true">
+  <parameters/>
+  <executables/>
+  <bindings>
+    <methodAction id="loadAdminData" RequiresUpdateModel="true" Action="invokeMethod" MethodName="loadAdminData"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"/>
+  </bindings>
+</pageDefinition>
