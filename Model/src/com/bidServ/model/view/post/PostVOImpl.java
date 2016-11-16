@@ -1,6 +1,5 @@
-package com.bidServ.model.view;
+package com.bidServ.model.view.post;
 
-import com.bidServ.model.view.post.PostCriteriaAdaptor;
 
 import java.math.BigDecimal;
 
