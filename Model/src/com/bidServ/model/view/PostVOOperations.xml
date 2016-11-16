@@ -4,5 +4,5 @@
   <ExpressionCodeSource
     Name="PostVORow"
     Type="Static"
-    URI="com/bidServ/model/view/PostVORow.bcs"/>
+    URI="com/bidServ/model/view/post/PostVORow.bcs"/>
 </OperationDefinitions>
