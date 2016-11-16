@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+ 
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" 
+          xmlns:f="http://java.sun.com/jsf/core" xmlns:trh="http://myfaces.apache.org/trinidad/html">
+    <af:panelHeader text="Company Details" id="ph1">
+        <f:facet name="context"/>
+        <f:facet name="toolbar"/>
+        <f:facet name="menuBar"/>
+        <f:facet name="legend"/>
+        <f:facet name="info"/>
+        <af:spacer width="10" height="10" id="s4"/>
+        <af:panelGroupLayout id="pgl1" layout="horizontal">
+            <af:button actionListener="#{ManagedBean.submitRegistrationListener}"
+                       text="#{pageFlowScope.mode == 'PROFILE' ? 'Done' : 'Submit'}" id="b11"
+                       action="#{ManagedBean.registerNavigationListener}"
+                       rendered="#{pageFlowScope.detailMode == null}">
+                <af:setPropertyListener to="#{requestScope.username}" from="#{bindings.Email.inputValue}"
+                                        type="action"/>
+            </af:button>
+            <af:button text="Ok" id="b1" rendered="#{pageFlowScope.detailMode != null}" action="done"/>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="10" id="s8"/>
+        <af:panelLabelAndMessage label="Enter Company Details" id="plam1"
+                                 rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}">
+            <af:navigationPane hint="buttons" id="np1" title="Enter Company Details">
+                <af:commandNavigationItem id="ni1" text="Select Existing Company"
+                                          selected="#{pageFlowScope.companyMode == 'EXISTING'}">
+                    <af:setPropertyListener from="#{'EXISTING'}" to="#{pageFlowScope.companyMode}" type="action"/>
+                </af:commandNavigationItem>
+                <af:commandNavigationItem id="ni2" text="Create New Company"
+                                          selected="#{pageFlowScope.companyMode == 'NEW'}">
+                    <af:setPropertyListener from="#{'NEW'}" to="#{pageFlowScope.companyMode}" type="action"/>
+                </af:commandNavigationItem>
+            </af:navigationPane>
+        </af:panelLabelAndMessage>
+        <af:spacer width="10" height="10" id="s6"/>
+        <af:selectOneChoice value="#{bindings.CompanyId1.inputValue}" label="Select Company"
+                            required="#{bindings.CompanyId1.hints.mandatory}"
+                            shortDesc="#{bindings.CompanyId1.hints.tooltip}" id="soc1"
+                            visible="#{pageFlowScope.companyMode == 'EXISTING'}" autoSubmit="true"
+                            rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}">
+            <f:selectItems value="#{bindings.CompanyId1.items}" id="si1"/>
+            <f:validator binding="#{bindings.CompanyId1.validator}"/>
+        </af:selectOneChoice>
+        <af:spacer width="10" height="10" id="s7"/>
+        <trh:tableLayout id="tl1" width="100%">
+            <trh:rowLayout id="rl4">
+                <trh:cellFormat id="cf6">
+                    <af:spacer width="10" height="10" id="s2"/>
+                </trh:cellFormat>
+            </trh:rowLayout>
+            <trh:rowLayout id="rl2" partialTriggers="np1:ni1 np1:ni2 soc1">
+                <trh:cellFormat id="cf2" halign="left" width="35%" valign="top">
+                    <af:panelGroupLayout id="pgl5" layout="vertical" halign="left"
+                                         visible="#{pageFlowScope.companyMode == 'NEW'}"
+                                         rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}">
+                        <af:image id="i3" inlineStyle="height:200px"
+                                  source="#{bindings.LogoUrl.inputValue == null || bindings.LogoUrl.inputValue == '' ? '/com/bidServ/resource/images/companyLogo.png' : bindings.LogoUrl.inputValue}"
+                                  binding="#{pageFlowScope.RegisterBean.companyLogo}"/>
+                        <af:inputFile id="if1" autoSubmit="true"
+                                      valueChangeListener="#{ManagedBean.uploadCompLogoListener}"/>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s3"/>
+                        </f:facet>
+                        <af:link text="Report Company" id="l1" icon="/com/bidServ/resource/images/report.png"/>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl51" layout="vertical" halign="left"
+                                         visible="#{(pageFlowScope.companyMode == 'EXISTING' &amp;&amp;   bindings.CompanyId1.inputValue != null) || pageFlowScope.mode == 'PROFILE'}">
+                        <af:image id="i13" inlineStyle="height:200px"
+                                  source="#{bindings.LogoUrl1.inputValue == null || bindings.LogoUrl1.inputValue == '' ? '/com/bidServ/resource/images/companyLogo.png' : bindings.LogoUrl1.inputValue}"/>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s31"/>
+                        </f:facet>
+                        <af:link text="Report Company" id="la12" icon="/com/bidServ/resource/images/report.png"
+                                 rendered="#{pageFlowScope.detailMode != null &amp;&amp; bindings.CompanyId1.inputValue != bindings.CompanyId3.inputValue}"
+                                 actionListener="#{ManagedBean.reportCompanyListener}"/>
+                        <af:link text="Request Verification" id="l2"
+                                 rendered="#{pageFlowScope.mode == 'PROFILE' &amp;&amp; bindings.IsVerified.inputValue == null &amp;&amp; bindings.CompanyId1.inputValue == bindings.CompanyId3.inputValue}"
+                                 actionListener="#{ManagedBean.requestVerificationListener}"/>
+                        <af:link text="Not Verified" id="l3" disabled="true"
+                                 icon="/com/bidServ/resource/images/error-inv.png"
+                                 rendered="#{pageFlowScope.detailMode != null &amp;&amp; bindings.IsVerified.inputValue != 'Y' &amp;&amp; bindings.CompanyId1.inputValue != bindings.CompanyId3.inputValue}"/>
+                        <af:link text="Verification Pending" id="l4" icon="/com/bidServ/resource/images/pending.png"
+                                 disabled="true"
+                                 rendered="#{pageFlowScope.mode == 'PROFILE' &amp;&amp;  bindings.IsVerified.inputValue == 'N' &amp;&amp;  bindings.CompanyId1.inputValue == bindings.CompanyId3.inputValue}"
+                                 partialTriggers="l2"/>
+                    </af:panelGroupLayout>
+                </trh:cellFormat>
+                <trh:cellFormat id="cf3" halign="left" width="65%" valign="top">
+                    <af:panelGroupLayout id="pgl2" layout="vertical" halign="left"
+                                         rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"
+                                         visible="#{pageFlowScope.companyMode == 'NEW'}">
+                        <af:inputText value="#{bindings.Name.inputValue}" id="it5" simple="true" placeholder="Name"
+                                      columns="75" binding="#{pageFlowScope.RegisterBean.companyName}"/>
+                        <af:inputText value="#{bindings.Address.inputValue}" id="it1" simple="true"
+                                      placeholder="Address" columns="75" rows="5"
+                                      binding="#{pageFlowScope.RegisterBean.address}"/>
+                        <af:inputText value="#{bindings.CompanyKey.inputValue}" id="it3" placeholder="Company ID"
+                                      simple="true" columns="75"/>
+                        <af:inputText value="#{bindings.Phone.inputValue}" id="it6" simple="true" placeholder="Phone"
+                                      columns="75" binding="#{pageFlowScope.RegisterBean.phone}"/>
+                        <af:inputText value="#{bindings.Website.inputValue}" id="it9" simple="true"
+                                      placeholder="Website" columns="75"/>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s1"/>
+                        </f:facet>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl21" layout="vertical" halign="left"
+                                         visible="#{(pageFlowScope.companyMode == 'EXISTING' &amp;&amp;   bindings.CompanyId1.inputValue != null) || pageFlowScope.mode == 'PROFILE'}">
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s11"/>
+                        </f:facet>
+                        <af:panelFormLayout id="pfl1">
+                            <f:facet name="footer"/>
+                            <af:panelLabelAndMessage label="Name" id="plam2">
+                                <af:outputText value="#{bindings.Name1.inputValue}" id="it51"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Address" id="plam3">
+                                <af:outputText value="#{bindings.Address1.inputValue}" id="iat11"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Company Key" id="plam4">
+                                <af:outputText value="#{bindings.CompanyKey1.inputValue}" id="it31"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Phone" id="plam5">
+                                <af:outputText value="#{bindings.Phone1.inputValue}" id="it61"/>
+                            </af:panelLabelAndMessage>
+                            <af:panelLabelAndMessage label="Website" id="plam6">
+                                <af:outputText value="#{bindings.Website1.inputValue}" id="it91"/>
+                            </af:panelLabelAndMessage>
+                        </af:panelFormLayout>
+                    </af:panelGroupLayout>
+                </trh:cellFormat>
+            </trh:rowLayout>
+        </trh:tableLayout>
+    </af:panelHeader>
+</jsp:root>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="HomePageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <taskFlow id="MainTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/memberPostTF.xml#MainTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding" RefreshCondition="#{requestScope.isLogin == 'Y'}">
+      <parameters>
+        <parameter id="flow" value="memberPosts"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="createPost1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/createPostTF.xml#createPost" xmlns="http://xmlns.oracle.com/adf/controller/binding"
+              RefreshCondition="#{requestScope.refreshNewPost == 'Y'}" activation="conditional"
+              active="#{pageFlowScope.activateNewPost  == 'Y' &amp;&amp; requestScope.newPostCreated != 'Y'}"/>
+    <taskFlow id="myPostTF1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myPostTF.xml#myPostTF" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding"
+              RefreshCondition="#{requestScope.newPostCreated == 'Y'}">
+      <parameters>
+        <parameter id="userId" value="#{pageFlowScope.userId}"/>
+      </parameters>
+    </taskFlow>
+    <taskFlow id="myBids1" taskFlowId="/WEB-INF/com/bidServ/ui/flow/myBidsTF.xml#myBids" activation="deferred"
+              xmlns="http://xmlns.oracle.com/adf/controller/binding">
+      <parameters>
+        <parameter id="userId" value="#{pageFlowScope.userId}"/>
+      </parameters>    
+    </taskFlow>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+    <iterator Binds="DashBoard" RangeSize="25" DataControl="BidServAMDataControl" id="DashBoardIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="LoggedInUserIterator" id="CompanyName">
+      <AttrNames>
+        <Item Value="CompanyName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="IsAdmin">
+      <AttrNames>
+        <Item Value="IsAdmin"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="handleNewPostEvent" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="handleNewPostEvent" IsViewObjectMethod="false" DataControl="CommonManagedBean"
+                  InstanceName="data.CommonManagedBean.dataProvider"/>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <attributeValues IterBinding="DashBoardIterator" id="PostCount">
+      <AttrNames>
+        <Item Value="PostCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="BidCount">
+      <AttrNames>
+        <Item Value="BidCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="ContactCount">
+      <AttrNames>
+        <Item Value="ContactCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="CreditCount">
+      <AttrNames>
+        <Item Value="CreditCount"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+  <eventMap xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+    <event name="fireNewPostEvent">
+      <producer region="createPost1.CreateNewPostPageDef.eventBinding">
+        <consumer region="" handler="handleNewPostEvent"/>
+      </producer>
+    </event>
+  </eventMap>
+</pageDefinition>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="CompanyPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="Company" RangeSize="25" DataControl="BidServAMDataControl" id="CompanyIterator"/>
+    <iterator Binds="User" RangeSize="25" DataControl="BidServAMDataControl" id="UserIterator"/>
+    <iterator Binds="UserCompany" RangeSize="25" DataControl="BidServAMDataControl" id="UserCompanyIterator"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="CompanyIterator" id="Address">
+      <AttrNames>
+        <Item Value="Address"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="CompanyKey">
+      <AttrNames>
+        <Item Value="CompanyKey"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="LogoUrl">
+      <AttrNames>
+        <Item Value="LogoUrl"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="Name">
+      <AttrNames>
+        <Item Value="Name"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="Phone">
+      <AttrNames>
+        <Item Value="Phone"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="Status">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="ThumbnailUrl">
+      <AttrNames>
+        <Item Value="ThumbnailUrl"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="Website">
+      <AttrNames>
+        <Item Value="Website"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="UserIterator" StaticList="false" Uses="LOV_CompanyId" id="CompanyId1" DTSupportsMRU="true"
+          SelectItemValueMode="ListObject"/>
+    <attributeValues IterBinding="UserCompanyIterator" id="Address1">
+      <AttrNames>
+        <Item Value="Address"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="CompanyKey1">
+      <AttrNames>
+        <Item Value="CompanyKey"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="LogoUrl1">
+      <AttrNames>
+        <Item Value="LogoUrl"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="Name1">
+      <AttrNames>
+        <Item Value="Name"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="Phone1">
+      <AttrNames>
+        <Item Value="Phone"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="Status1">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="ThumbnailUrl1">
+      <AttrNames>
+        <Item Value="ThumbnailUrl"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserCompanyIterator" id="Website1">
+      <AttrNames>
+        <Item Value="Website"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <methodAction id="deleteNewCompanay" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteNewCompanay"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"/>
+    <attributeValues IterBinding="UserIterator" id="Email">
+      <AttrNames>
+        <Item Value="Email"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserIterator" id="IsAdmin">
+      <AttrNames>
+        <Item Value="IsAdmin"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserIterator" id="Status2">
+      <AttrNames>
+        <Item Value="Status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="CompanyIterator" id="CompanyId">
+      <AttrNames>
+        <Item Value="CompanyId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserIterator" id="CompanyId2">
+      <AttrNames>
+        <Item Value="CompanyId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="invitationAccepted" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="invitationAccepted" IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="code" NDValue="#{pageFlowScope.invitationCode}" NDType="java.lang.String"/>
+      <NamedData NDName="email" NDValue="#{pageFlowScope.email}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="UserCompanyIterator" id="IsVerified">
+      <AttrNames>
+        <Item Value="IsVerified"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="CompanyId3">
+      <AttrNames>
+        <Item Value="CompanyId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="requestVerification" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="requestVerification" IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"/>
+    <methodAction id="reportCompany" RequiresUpdateModel="true" Action="invokeMethod" MethodName="reportCompany"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="companyId" NDValue="#{bindings.CompanyId1.inputValue}" NDType="int"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

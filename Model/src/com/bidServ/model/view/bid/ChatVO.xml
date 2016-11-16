@@ -109,4 +109,9 @@
       Attribute="ChatTime"
       Ascending="false"/>
   </SortCriteria>
+  <SortCriteria>
+    <Sort
+      Attribute="ChatTime"
+      Ascending="false"/>
+  </SortCriteria>
 </ViewObject>

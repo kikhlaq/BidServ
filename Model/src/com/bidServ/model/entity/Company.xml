@@ -9,16 +9,20 @@
   DBObjectType="table"
   DBObjectName="Company_info"
   AliasName="Company"
-  BindingStyle="JDBC">
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.CompanyImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <Attribute
     Name="CompanyId"
-    IsNotNull="true"
     ColumnName="COMPANY_ID"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
     TableName="Company_info"
-    PrimaryKey="true">
+    PrimaryKey="true"
+    IsUpdateable="while_insert">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -160,6 +164,18 @@
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="IsVerified"
+    Precision="10"
+    ColumnName="IS_VERIFIED"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    TableName="Company_info">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Post"
     Association="com.bidServ.model.entity.association.PostToCompany"
@@ -174,6 +190,20 @@
     AssociationOtherEnd="com.bidServ.model.entity.association.BidToCompany.Company"
     Type="oracle.jbo.server.EntityImpl"
     IsUpdateable="true"/>
+  <AccessorAttribute
+    Name="VerificationRequest"
+    Association="com.bidServ.model.entity.association.VerificationReqToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.VerificationReqToCompany.VerificationRequest"
+    AssociationOtherEnd="com.bidServ.model.entity.association.VerificationReqToCompany.Company"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="ReportedEntity"
+    Association="com.bidServ.model.entity.association.ReportedEntityToCompany"
+    AssociationEnd="com.bidServ.model.entity.association.ReportedEntityToCompany.ReportedEntity"
+    AssociationOtherEnd="com.bidServ.model.entity.association.ReportedEntityToCompany.Company"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <Key
     Name="Primary1"
     PrimaryKey="true">

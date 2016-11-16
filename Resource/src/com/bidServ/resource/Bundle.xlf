@@ -156,6 +156,14 @@
       <trans-unit id="WON">
         <source>Won</source>
         <target/>
+      </trans-unit> 
+      <trans-unit id="REGISTRATION">
+        <source>Registration</source>
+        <target/>
+      </trans-unit> 
+      <trans-unit id="ADMIN">
+        <source>Administration</source>
+        <target/>
       </trans-unit>       
     </body>
   </file>
