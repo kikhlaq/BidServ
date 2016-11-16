@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="AdministrationPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="Connection" RangeSize="25" DataControl="BidServAMDataControl" id="ConnectionIterator"/>
+    <iterator Binds="CompanyUser" RangeSize="25" DataControl="BidServAMDataControl" id="CompanyUserIterator"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+    <iterator Binds="Company" RangeSize="25" DataControl="BidServAMDataControl" id="CompanyIterator"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="ConnectionIterator" id="Connection">
+      <nodeDefinition DefName="com.bidServ.model.view.setup.ConnectionVO" Name="Connection0">
+        <AttrNames>
+          <Item Value="ComanyId"/>
+          <Item Value="CompanyName"/>
+          <Item Value="Status"/>
+          <Item Value="Url"/>
+          <Item Value="ConId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="CompanyUserIterator" id="CompanyUser">
+      <nodeDefinition DefName="com.bidServ.model.view.setup.UserVO" Name="CompanyUser0">
+        <AttrNames>
+          <Item Value="Name"/>
+          <Item Value="IsAdmin"/>
+          <Item Value="Status"/>
+          <Item Value="ImageUrl"/>
+          <Item Value="UserId"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="CompanyIterator" id="Company">
+      <nodeDefinition DefName="com.bidServ.model.view.setup.CompanyVO" Name="Company0">
+        <AttrNames>
+          <Item Value="Address"/>
+          <Item Value="Name"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="searchCompany" RequiresUpdateModel="true" Action="invokeMethod" MethodName="searchCompany"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="name" NDValue="#{requestScope.name}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="createConnection" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createConnection"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"
+                  ReturnName="data.BidServAMDataControl.methodResults.createConnection_BidServAMDataControl_dataProvider_createConnection_result">
+      <NamedData NDName="keys" NDValue="#{requestScope.selectedKeys}" NDType="java.util.ArrayList"/>
+    </methodAction>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <methodAction id="updateConnectionRequest" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateConnectionRequest" IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="connectionId" NDValue="#{requestScope.conId}" NDType="java.math.BigDecimal"/>
+      <NamedData NDName="responseCode" NDValue="#{requestScope.respCode}" NDType="java.lang.String"/>
+    </methodAction>
+    <methodAction id="updateUserRequest" RequiresUpdateModel="true" Action="invokeMethod" MethodName="updateUserRequest"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="userId" NDValue="#{requestScope.userId}" NDType="java.math.BigDecimal"/>
+      <NamedData NDName="actionCode" NDValue="#{requestScope.actionCode}" NDType="java.lang.String"/>
+    </methodAction>
+  </bindings>
+</pageDefinition>

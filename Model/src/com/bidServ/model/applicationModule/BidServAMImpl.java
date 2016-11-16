@@ -1,9 +1,10 @@
 package com.bidServ.model.applicationModule;
 
 import com.bidServ.model.applicationModule.common.BidServAM;
-import com.bidServ.model.view.LoggedInUserVOImpl;
-import com.bidServ.model.view.LoggedInUserVORowImpl;
-import com.bidServ.model.view.PostVOImpl;
+import com.bidServ.model.view.setup.CompanyVOImpl;
+import com.bidServ.model.view.common.LoggedInUserVOImpl;
+import com.bidServ.model.view.common.LoggedInUserVORowImpl;
+import com.bidServ.model.view.post.PostVOImpl;
 import com.bidServ.model.view.bid.MyBidsVOImpl;
 import com.bidServ.model.view.post.EntireNetworkPostVOImpl;
 import com.bidServ.model.view.post.PrimaryConnPostVOImpl;
@@ -11,7 +12,23 @@ import com.bidServ.model.view.post.SecondaryConnPostVOImpl;
 
 import java.math.BigDecimal;
 
+import java.util.ArrayList;
+
+import java.util.Calendar;
+
+import java.util.Properties;
+import java.util.UUID;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import oracle.jbo.Key;
 import oracle.jbo.Row;
+import oracle.jbo.RowSetIterator;
 import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.DBTransactionImpl;
 import oracle.jbo.server.RowImpl;
@@ -93,6 +110,19 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
              vo.executeQuery();
         }
     }
+    
+    
+    public void searchCompany(String name){
+        ViewObjectImpl vo = getCompany();
+        if (name == null || name.length() == 0) {
+            vo.removeApplyViewCriteriaName("ByNameVC");
+        } else {
+            vo.setApplyViewCriteriaName("ByNameVC", true);
+            vo.setNamedWhereClauseParam("bindName", name);
+        }
+        vo.executeQuery();
+       
+    }
 
     /**
      * Container's getter for PostVO2.
@@ -125,14 +155,51 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
 
 
     public void postDetails(String source, String userId, String postId){
+        System.out.println("====================postDetails "+userId+", "+postId);
         getPost().setNamedWhereClauseParam("bindPostId", postId);
         if("B".equals(source)){
             getBids().setApplyViewCriteriaName("MyBidsVC");
-            getBids().setNamedWhereClauseParam("bindUserId", userId);
+            getBids().setNamedWhereClauseParam("bindUserId", getLoggedInUser().getCurrentRow().getAttribute("UserId"));
         }else{
             getBids().removeApplyViewCriteriaName("MyBidsVC");
         }
         getPost().executeQuery();
+        Row row = getPost().first();
+        if(row != null){
+            Long currCompId=((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId();
+            BigDecimal postCompId = (BigDecimal)row.getAttribute("CompanyId");
+            String postStatus = (String)row.getAttribute("PostStatusCode");
+            String bidExists = "N";
+            RowSetIterator iterator = getBids().createRowSetIterator("BidIterator");
+            Long daysLeft = (Long)row.getAttribute("DaysLeft");
+            try {
+                while (iterator.hasNext()) {
+                    Row bidRow = iterator.next();
+                    System.out.println("====================BidIterator "+bidRow.getAttribute("UserId")+","+ getLoggedInUser().getCurrentRow().getAttribute("UserId"));
+                    if (((BigDecimal)bidRow.getAttribute("UserId")).longValue() == ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getUserId().longValue()){
+                        System.out.println("=================bid exists");
+                        bidExists = "Y";
+                        break;
+                    }
+                }
+            }
+            finally {
+                iterator.closeRowSetIterator();
+            }
+            System.out.println("====================postCompId "+postCompId+", "+currCompId+", "+postStatus+", "+bidExists);
+            if (postCompId.longValue() != currCompId.longValue() && "OPEN".equals(postStatus) && (daysLeft != null && daysLeft > 0)
+                && "N".equals(bidExists)){
+                    row.setAttribute("IsBidAllowed", "Y");
+            }else{
+                row.setAttribute("IsBidAllowed", "N");
+            }
+            if ("OPEN".equals(postStatus) && (daysLeft != null && daysLeft > 0) && "N".equals(row.getAttribute("IsBidAllowed"))
+                && "B".equals(source)){
+                row.setAttribute("IsAttachmentAllowed", "Y");
+            }else{
+                row.setAttribute("IsAttachmentAllowed", "N");
+            }
+        }
     }
 
     /**
@@ -181,6 +248,8 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         getcreatePostVO().insertRow(row);
         row.setAttribute("CompanyId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId());
         row.setAttribute("UserId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getUserId());
+        //row.setAttribute("ModifiedByUser", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getName());
+        row.setAttribute("PostStatusCode", "OPEN");
         row.setNewRowState(Row.STATUS_INITIALIZED);
         System.out.println("====================createPostRow later "+ getcreatePostVO().getRowCount());
     }
@@ -223,12 +292,54 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         LoggedInUserVORowImpl userRow = (LoggedInUserVORowImpl)userVO.createRow();
         userVO.insertRow(userRow);
         
+        
+        
         userRow.setUserId((Long)getSampleUser().getCurrentRow().getAttribute("UserId"));
         userRow.setName((String)getSampleUser().getCurrentRow().getAttribute("User"));
         userRow.setCompanyId((Long)getSampleUser().getCurrentRow().getAttribute("CompanyId"));
         userRow.setCompanyName((String)getSampleUser().getCurrentRow().getAttribute("Company"));
         userRow.setLogoURL((String)getSampleUser().getCurrentRow().getAttribute("LogoURL"));
         
+        System.out.println("===================="+userRow.getUserId()+", "+userRow.getCompanyId());
+        return userRow.getUserId();
+        
+    }
+    
+    public Long initLoggedInUser(String username){
+        System.out.println("====================initLoggedInUser = "+username);
+        LoggedInUserVOImpl userVO = getLoggedInUser();
+        LoggedInUserVORowImpl userRow = (LoggedInUserVORowImpl)userVO.createRow();
+        userVO.insertRow(userRow);
+        
+        
+        if (username == null){
+        userRow.setUserId((Long)getSampleUser().getCurrentRow().getAttribute("UserId"));
+        userRow.setName((String)getSampleUser().getCurrentRow().getAttribute("User"));
+        userRow.setCompanyId((Long)getSampleUser().getCurrentRow().getAttribute("CompanyId"));
+        userRow.setCompanyName((String)getSampleUser().getCurrentRow().getAttribute("Company"));
+        userRow.setLogoURL((String)getSampleUser().getCurrentRow().getAttribute("LogoURL"));
+        userRow.setIsAdmin("Y");
+        }else{
+            ViewObjectImpl vo = getUser();
+            vo.setApplyViewCriteriaName("ByEmailVC");
+            vo.setNamedWhereClauseParam("bindEmail", username);
+            vo.executeQuery();
+            Row row = vo.first();
+            if (row  == null)
+                return null;
+            userRow.setUserId(((BigDecimal)row.getAttribute("UserId")).longValue());
+            userRow.setName((String)row.getAttribute("Name"));
+            System.out.println("==================comp VL=="+row.getAttribute("CompanyVO"));
+            System.out.println("==================comp VL=="+row.getAttribute("CompanyVO").getClass());
+            System.out.println("==================comp VL=="+((Row)row.getAttribute("CompanyVO")).getAttribute("Name"));
+            userRow.setCompanyId(((BigDecimal)row.getAttribute("CompanyId")).longValue());
+            userRow.setCompanyName((String)((Row)row.getAttribute("CompanyVO")).getAttribute("Name"));
+            userRow.setLogoURL((String)((Row)row.getAttribute("CompanyVO")).getAttribute("LogoUrl"));
+            userRow.setIsAdmin((String)row.getAttribute("IsAdmin"));
+            userRow.setStatus((String)row.getAttribute("Status"));
+        }
+        
+        loadDashboardData(userRow.getUserId());
         System.out.println("===================="+userRow.getUserId()+", "+userRow.getCompanyId());
         return userRow.getUserId();
         
@@ -251,6 +362,508 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         System.out.println("====================initChatforBid");
         getBidChats().clearCache();
         getBidChats().setNamedWhereClauseParam("bindBidId", bindBidId);
+    }
+
+    /**
+     * Container's getter for UserVO1.
+     * @return UserVO1
+     */
+    public ViewObjectImpl getUser() {
+        return (ViewObjectImpl) findViewObject("User");
+    }
+
+    /**
+     * Container's getter for CompanyVO1.
+     * @return CompanyVO1
+     */
+    public CompanyVOImpl getCompany() {
+        return (CompanyVOImpl) findViewObject("Company");
+    }
+
+    /**
+     * Container's getter for CompanyVO1.
+     * @return CompanyVO1
+     */
+    public CompanyVOImpl getUserCompany() {
+        return (CompanyVOImpl) findViewObject("UserCompany");
+    }
+
+    /**
+     * Container's getter for UserToCompanyVL1.
+     * @return UserToCompanyVL1
+     */
+    public ViewLinkImpl getUserToCompanyVL1() {
+        return (ViewLinkImpl) findViewLink("UserToCompanyVL1");
+    }
+    
+    public void deleteNewCompanay(){
+        getCompany().removeCurrentRow();
+    }
+
+    /**
+     * Container's getter for ConnectionVO1.
+     * @return ConnectionVO1
+     */
+    public ViewObjectImpl getConnection() {
+        return (ViewObjectImpl) findViewObject("Connection");
+    }
+
+    /**
+     * Container's getter for UserVO1.
+     * @return UserVO1
+     */
+    public ViewObjectImpl getCompanyUser() {
+        return (ViewObjectImpl) findViewObject("CompanyUser");
+    }
+    
+    public void loadAdminData(){
+        System.out.println("====================loadAdminData");
+        getConnection().setApplyViewCriteriaName("BySrcCompIdVC");
+        getConnection().setNamedWhereClauseParam("bindCompId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId());
+        getConnection().executeQuery();
+        
+        getCompanyUser().setApplyViewCriteriaName(null);
+        getCompanyUser().setApplyViewCriteriaName("ByCompIdVC");
+        getCompanyUser().setApplyViewCriteriaName("FilterRejectedUserVC", true);
+        getCompanyUser().setNamedWhereClauseParam("bindCompId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId());
+        getCompanyUser().setNamedWhereClauseParam("bindUserId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getUserId());
+        getCompanyUser().executeQuery();
+    }
+    
+    public void createNewUser(String invId, String email){
+        Row user = getUser().createRow();
+        getUser().insertRow(user);
+       // user.setAttribute("InvitationId", invId);
+        user.setAttribute("Email", email);
+    }
+    
+    public void queryUser(Long userId){
+        ViewObjectImpl vo = getUser();
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("ByUserIdVC");
+        vo.setNamedWhereClauseParam("bindUserId", new BigDecimal( userId));
+        vo.executeQuery();
+        Row row = vo.first();
+    }
+    
+    public String createConnection(ArrayList keys){
+        String existingConn = null;
+        System.out.println("====================createConnection "+keys.size());
+        Long srcCompId=((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId();
+        System.out.println("====================createConnection "+srcCompId);
+        ViewObjectImpl connections = getConnection();
+        for (int i=0; i<keys.size();i++){
+            System.out.println("====================createConnection "+keys.get(i));
+            System.out.println("====================createConnection "+((Key)keys.get(i)).getAttribute(0));
+            Key compKey = (Key)keys.get(i);
+            Row[] row = connections.findByKey( compKey, 1);
+            if (row != null && row.length >0){
+                if(existingConn == null){
+                    existingConn = (String)row[0].getAttribute("CompanyName");
+                }else{
+                    existingConn = existingConn+", "+(String)row[0].getAttribute("CompanyName");
+                }
+            }else{
+                Row newConn = getCreateConnection().createRow();
+                newConn.setAttribute("ConnectionStatusCode", "PENDING");
+                newConn.setAttribute("DestCompanyId", compKey.getAttribute(0));
+                newConn.setAttribute("SourceCompanyId", srcCompId);
+            }
+            
+            
+        }
+       // if (existingConn == null)
+         //   existingConn = "SUCCESS";
+        return existingConn;
+    }
+
+    /**
+     * Container's getter for CreateConnectionVO1.
+     * @return CreateConnectionVO1
+     */
+    public ViewObjectImpl getCreateConnection() {
+        return (ViewObjectImpl) findViewObject("CreateConnection");
+    }
+    
+    public void updateConnectionRequest(BigDecimal connectionId, String responseCode){
+        System.out.println("====================updateConnectionRequest "+connectionId+", "+responseCode);
+        ViewObjectImpl conn = getCreateConnection();
+        conn.setApplyViewCriteriaName(null);
+        conn.setApplyViewCriteriaName("ByConnIdVC");
+        conn.setNamedWhereClauseParam("bindConnId", connectionId);
+        conn.executeQuery();
+        Row row = conn.first();
+        if(row != null){
+            if ("ACCEPT".equals(responseCode)) {
+                row.setAttribute("ConnectionStatusCode", "APPROVED");
+            }else if ("DECLINE".equals(responseCode)) {
+                row.setAttribute("ConnectionStatusCode", "DECLINED");
+            }  else if ("WITHDRAW".equals(responseCode) || "DELETE".equals(responseCode)) {
+                conn.removeCurrentRow();
+            }
+
+            System.out.println("====================updateConnectionRequest 2");
+        }
+        
+        
+    }
+    
+    public void updateUserRequest(BigDecimal userId, String actionCode){
+        System.out.println("====================updateUserRequest "+userId+", "+actionCode);
+        ViewObjectImpl conn = getUser();
+        conn.setApplyViewCriteriaName(null);
+        conn.setApplyViewCriteriaName("ByUserIdVC");
+        conn.setNamedWhereClauseParam("bindUserId", userId);
+        conn.executeQuery();
+        Row row = conn.first();
+        if(row != null){
+            if ("APPROVE".equals(actionCode)) {
+                row.setAttribute("Status", "APPROVED");
+            }else if ("REJECT".equals(actionCode) || "DELETE".equals(actionCode)) {
+                row.setAttribute("Status", "REJECTED");
+            }  else if ("MAKE_ADMIN".equals(actionCode) ) {
+                row.setAttribute("IsAdmin", "Y");
+            }
+
+            System.out.println("====================updateUserRequest 2");
+        }
+        
+        
+    }
+    
+    public void createBid(String desc, String amt){
+        Row post = getPost().getCurrentRow();
+        System.out.println("====================post 2"+post.getAttribute("PostId"));
+        
+        System.out.println("====================post 2"+desc+", "+amt);
+        
+        System.out.println("====================post 2"+getLoggedInUser().getCurrentRow().getAttribute("CompanyId")+", "+getLoggedInUser().getCurrentRow().getAttribute("UserId"));
+        Row bidRow = getBids().createRow();
+        bidRow.setAttribute("CompanyId", getLoggedInUser().getCurrentRow().getAttribute("CompanyId"));
+        bidRow.setAttribute("PostId", post.getAttribute("PostId"));
+        bidRow.setAttribute("UserId", getLoggedInUser().getCurrentRow().getAttribute("UserId"));
+        bidRow.setAttribute("BidDescription", desc);
+        bidRow.setAttribute("BidStatusCode", "PENDING");
+        bidRow.setAttribute("Amount", amt);
+        bidRow.setAttribute("ModifiedDate", new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        
+    }
+    
+    public void grantBid(BigDecimal bidId){
+        System.out.println("====================grantBid "+bidId);
+        Row bidRow = getBids().first();
+        BigDecimal id = null;
+        while (bidRow != null){
+            id = (BigDecimal)bidRow.getAttribute("BidId");
+            if(id != null && id.equals(bidId)){
+                bidRow.setAttribute("BidStatusCode", "WON");
+            }else{
+                bidRow.setAttribute("BidStatusCode", "LOST");
+            }
+            bidRow = getBids().next();
+        }
+        getPost().getCurrentRow().setAttribute("PostStatusCode", "CLOSED");
+    }
+    
+    public void sendInvites(String emailList){
+        System.out.println("============emailList = " + emailList);
+        ViewObjectImpl vo = getInvitation();
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("ExistsVC");
+        if(emailList != null){
+            String email[] = emailList.split(",");
+            Row row = null, inviteExist = null;
+            for(int i=0; i< email.length;i++){
+                vo.setNamedWhereClauseParam("email", email[i].trim());
+                vo.executeQuery();
+                inviteExist = vo.first();
+                if(inviteExist != null)
+                    continue;
+                
+                row = vo.createRow();
+                row.setAttribute("InvitedById", getLoggedInUser().getCurrentRow().getAttribute("UserId"));
+                row.setAttribute("InviteeEmail", email[i].trim());
+                row.setAttribute("Status", "PENDING");
+                row.setAttribute("CreationDate", new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+                String uuid = UUID.randomUUID().toString();
+                System.out.println("============uuid = " + uuid);
+                row.setAttribute("InvitationCode", uuid);
+                
+               // sendEmail(uuid, email[i].trim());
+            }
+        }
+        
+        
+    }
+
+    /**
+     * Container's getter for InvitationVO1.
+     * @return InvitationVO1
+     */
+    public ViewObjectImpl getInvitation() {
+        return (ViewObjectImpl) findViewObject("Invitation");
+    }
+    
+    public String validateRegistration(String code, String email){
+        System.out.println("============code = " + code+", "+email);
+        String result = "N";
+        ViewObjectImpl vo = getInvitation();
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("ValdiateVC");
+        vo.setNamedWhereClauseParam("email", email);
+        vo.setNamedWhereClauseParam("code", code);
+        vo.executeQuery();
+        Row validRow = vo.first();
+        if(validRow != null)
+            result = "Y";
+        return result;
+    }
+    
+    public void  invitationAccepted(String code, String email){
+        System.out.println("============invitationAccepted = " + code+", "+email);
+        String result = "N";
+        ViewObjectImpl vo = getInvitation();
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("ValdiateVC");
+        vo.setNamedWhereClauseParam("email", email);
+        vo.setNamedWhereClauseParam("code", code);
+        vo.executeQuery();
+        Row row = vo.first();
+        if(row != null)
+            row.setAttribute("Status", "ACCEPTED");
+    }
+    
+    private void sendEmail(String code, String email){
+        //TODO send email
+        String to = "khalil.ikhlaq@oracle.com";
+        String from = "khalilikhlaq@gmail.com";
+        
+        System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
+                System.setProperty("http.proxyPort", "80");
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "stbeehive.oracle.com");
+        props.put("mail.debug", "true"); 
+        //props.put("mail.smtp.starttls.enable", true);
+                       // props.put("mail.smtp.socketFactory.port", "465");
+                        props.put("mail.smtp.auth", "true");
+                        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.ssl.enable", "true");
+
+
+        Session mailSession = Session.getInstance(props);
+
+        mailSession.setDebug(true); 
+        try {
+            MimeMessage message = new MimeMessage(mailSession);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("You have been invited to join BidServ!");
+            message.setContent("<HTML>\n" + 
+            "<BODY>\n" + 
+            "Hello Amol,\n" + 
+            "<br><br>\n" + 
+            "You have been invited to Join BidServ. Click the link below to join.<br>\n" + 
+            "<a href=\"http://127.0.0.1:7101/bidServ/faces/Registration?code=eb5f1224-1d04-4f37-a464-b231cdb5eb8c&email=ok8\">Join</a>\n" + 
+            "<br><br>\n" + 
+            "Regards,\n" + 
+            "<br>\n" + 
+            "Team BidServ\n" + 
+            "</BODY>\n" + 
+            "</HTML>\n", "text/html");
+            Transport.send(message, "username", "password");
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+
+    /**
+     * Container's getter for VerificationRequestVO1.
+     * @return VerificationRequestVO1
+     */
+    public ViewObjectImpl getVerificationRequest() {
+        return (ViewObjectImpl) findViewObject("VerificationRequest");
+    }
+    
+    public void completeVerificationRequest(int requestId, String outcome){
+        ViewObjectImpl vo = getVerificationRequest();
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("ByRequestId");
+        vo.setNamedWhereClauseParam("bindRequestId", requestId);
+        vo.executeQuery();
+        Row row = vo.first();
+        if(row != null){
+            row.setAttribute("Status", outcome);
+        }
+        
+        ViewObjectImpl compVO = getCompanyRequest();
+        compVO.setApplyViewCriteriaName("ByCompanyIdVC");
+        compVO.setNamedWhereClauseParam("bindCompId", row.getAttribute("CompanyId"));
+        compVO.executeQuery();
+        Row comp = compVO.first();
+        if(comp != null){
+            if ("PASS".equals(outcome)){
+                comp.setAttribute("IsVerified", "Y");
+            }else{
+                comp.setAttribute("IsVerified", "F");
+            }
+        }
+        
+        vo.setApplyViewCriteriaName(null);
+        vo.setApplyViewCriteriaName("PendingVC");
+        
+    }
+    
+    public void requestVerification(){
+        ViewObjectImpl vo = getVerificationRequest();
+        Row row = vo.createRow();
+        row.setAttribute("CompanyId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getCompanyId());
+        row.setAttribute("RequestDate", new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        row.setAttribute("Status", "PENDING");
+        row.setAttribute("UserId", ((LoggedInUserVORowImpl) getLoggedInUser().getCurrentRow()).getUserId());
+        
+    }
+
+    /**
+     * Container's getter for CompanyVO1.
+     * @return CompanyVO1
+     */
+    public CompanyVOImpl getCompanyRequest() {
+        return (CompanyVOImpl) findViewObject("CompanyRequest");
+    }
+
+
+    public void reportUser(int userId){
+        ViewObjectImpl vo = getReportEntity();
+        Row row = vo.createRow();
+        row.setAttribute("Type", "USER");
+        row.setAttribute("EntityId", userId);
+        row.setAttribute("Status", "PENDING");
+    }
+    
+    public void reportCompany(int companyId){
+        ViewObjectImpl vo = getReportEntity();
+        Row row = vo.createRow();
+        row.setAttribute("Type", "COMPANY");
+        row.setAttribute("EntityId", companyId);
+        row.setAttribute("Status", "PENDING");
+    }
+
+    /**
+     * Container's getter for ReportEntity1.
+     * @return ReportEntity1
+     */
+    public ViewObjectImpl getReportEntity() {
+        return (ViewObjectImpl) findViewObject("ReportEntity");
+    }
+
+    /**
+     * Container's getter for ReportedUser1.
+     * @return ReportedUser1
+     */
+    public ViewObjectImpl getReportedUser() {
+        return (ViewObjectImpl) findViewObject("ReportedUser");
+    }
+
+    /**
+     * Container's getter for ReportedComany1.
+     * @return ReportedComany1
+     */
+    public ViewObjectImpl getReportedComany() {
+        return (ViewObjectImpl) findViewObject("ReportedComany");
+    }
+    
+    public void handlReportedEntity(String type, int id, String outcome){
+        ViewObjectImpl vo = getReportEntity();
+        vo.setApplyViewCriteriaName(null);
+        Row row = null;
+        if("USER".equals(type)){
+            vo.setApplyViewCriteriaName("ByUserIdVC");
+        }else{
+            vo.setApplyViewCriteriaName("ByCompanyIdVC");
+        }
+        vo.setNamedWhereClauseParam("bindId", id);
+        vo.executeQuery();
+        while(vo.hasNext()){
+            row = vo.next();
+            row.setAttribute("Status", outcome);
+        }
+        if("SUSPEND".equals(outcome)){
+            if("USER".equals(type)){
+                ViewObjectImpl userVO = getUser();
+                userVO.setApplyViewCriteriaName(null);
+                userVO.setApplyViewCriteriaName("ByUserIdVC");
+                userVO.setNamedWhereClauseParam("bindUserId", id);
+                userVO.executeQuery();
+                Row user = userVO.first();
+                if(user != null){
+                   user.setAttribute("Status", "SUSPENDED");
+                }
+            }else{
+                ViewObjectImpl compVO = getCompanyRequest();
+                compVO.setApplyViewCriteriaName("ByCompanyIdVC");
+                compVO.setNamedWhereClauseParam("bindCompId", id);
+                compVO.executeQuery();
+                Row comp = compVO.first();
+                if(comp != null)
+                    comp.setAttribute("Status", "SUSPENDED");
+            }
+        }
+        
+    }
+    
+    private void loadDashboardData(Long userId){
+        Row dashboard = getDashBoard().createRow();
+        getDashBoard().insertRow(dashboard);
+        dashboard.setAttribute("PostCount",0);
+        dashboard.setAttribute("BidCount",0);
+        dashboard.setAttribute("ContactCount",0);
+        dashboard.setAttribute("CreditCount",0);
+        
+        ViewObjectImpl vo = getPostCount();
+        vo.setApplyViewCriteriaName("ByUserIdVC");
+        vo.setNamedWhereClauseParam("bindUserId", BigDecimal.valueOf(userId));
+        vo.executeQuery();
+        
+        if(vo.first() != null){
+            dashboard.setAttribute("PostCount", vo.first().getAttribute("PostCount"));
+            System.out.println("============loadDashboardData post = " + vo.first().getAttribute("PostCount"));
+        }
+        
+        vo = getBidCount();
+        vo.setApplyViewCriteriaName("ByUserIdVC");
+        vo.setNamedWhereClauseParam("bindUserId", BigDecimal.valueOf(userId));
+        vo.executeQuery();
+        if(vo.first() != null){
+            dashboard.setAttribute("BidCount", vo.first().getAttribute("BidCount"));
+            System.out.println("============loadDashboardData bid = " + vo.first().getAttribute("BidCount"));
+        }
+        
+    }
+
+    /**
+     * Container's getter for BidCount1.
+     * @return BidCount1
+     */
+    public ViewObjectImpl getBidCount() {
+        return (ViewObjectImpl) findViewObject("BidCount");
+    }
+
+    /**
+     * Container's getter for PostCount1.
+     * @return PostCount1
+     */
+    public ViewObjectImpl getPostCount() {
+        return (ViewObjectImpl) findViewObject("PostCount");
+    }
+
+    /**
+     * Container's getter for DashBoardVO1.
+     * @return DashBoardVO1
+     */
+    public ViewObjectImpl getDashBoard() {
+        return (ViewObjectImpl) findViewObject("DashBoard");
     }
 }
 

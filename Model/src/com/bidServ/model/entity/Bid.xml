@@ -9,16 +9,20 @@
   DBObjectType="table"
   DBObjectName="Bids"
   AliasName="Bid"
-  BindingStyle="JDBC">
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.BidImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <Attribute
     Name="BidId"
-    IsNotNull="true"
     ColumnName="BID_ID"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
     TableName="Bids"
-    PrimaryKey="true">
+    PrimaryKey="true"
+    IsUpdateable="while_insert">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>

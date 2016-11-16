@@ -281,6 +281,15 @@ af|inputText::content {
     font-weight: bold;
 }
 
+.reportLayout, reportLayout af|outputText{
+    background-color: #F8311A;
+    color:white;
+    border-radius: 2px;
+    padding: 2px 8px 2px 8px; 
+    font-size: x-small;
+    font-weight: bold;
+}
+
 .bidHeader{
     color:#00008B;
     font-size: x-large;
