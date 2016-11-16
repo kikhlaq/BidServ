@@ -13,16 +13,25 @@
         <af:setPropertyListener from="#{'M'}" to="#{requestScope.voName}" type="action"/>
       </af:button>
     </af:group>
+    <af:selectBooleanCheckbox text="Show Open Posts" label="Label 3" id="sbc23" simple="true" autoSubmit="true"
+                                value="#{pageFlowScope.myOpenPost}"/>
     <af:listView value="#{bindings.MyPost.collectionModel}" var="item"
                  emptyText="#{bindings.MyPost.viewable ? 'No data to display.' : 'Access Denied.'}"
-                 fetchSize="#{bindings.MyPost.rangeSize}" id="lv1" partialTriggers="::b1">
-      <af:listItem id="li1">
+                 fetchSize="10" id="lv1" partialTriggers="::b1 ::sbc23">
+      <af:listItem id="li1"
+                   visible="#{pageFlowScope.myOpenPost == true ? (item.PostStatusCode == 'OPEN' &amp;&amp; item.DaysLeft > 0 ? true : false) : true }">
         <af:panelGridLayout id="pgl2" styleClass="AFStretchWidth">
           <af:gridRow height="60px" id="gr1">
             <af:gridCell marginStart="5px" width="10%" id="gc1" valign="middle" halign="center">
-              <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:image source="#{bindings.LogoURL.inputValue}" id="i1" styleClass="image"/>
-                <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+              <af:panelGroupLayout id="pgl9" layout="horizontal" valign="bottom">
+                <af:image shortDesc="Not Verified" id="i321"
+                            visible="#{item.IsVerified != 'Y'}"
+                            source="/com/bidServ/resource/images/error-inv.png"/>
+                <af:panelGroupLayout id="pgl3" layout="vertical">
+                  <af:image source="#{bindings.LogoURL.inputValue == null ? '/com/bidServ/resource/images/companyLogo.png' : bindings.LogoURL.inputValue}"
+                            id="i1" styleClass="image"/>
+                  <af:image source="/com/bidServ/resource/images/2.png" id="i2" styleClass="stars"/>
+                </af:panelGroupLayout>
               </af:panelGroupLayout>
             </af:gridCell>
             <af:gridCell marginStart="5px" width="70%" id="gc2">
@@ -61,7 +70,7 @@
                       <af:panelGroupLayout id="pgl5" layout="vertical" halign="center">
                         <af:outputText value="#{item.DaysLeft} #{viewcontrollerBundle.daysLeft}" id="ot2"/>
                         <af:panelGroupLayout id="pgl6" styleClass="statusLayout">
-                          <af:outputText value="#{item.PostStatusCode == 'OPEN' ? viewcontrollerBundle.OPEN : (item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : viewcontrollerBundle.EXPIRED)}" id="ot3"/>
+                          <af:outputText value="#{item.PostStatusCode == 'CLOSED' ? viewcontrollerBundle.CLOSED : (item.DaysLeft == 0 ? viewcontrollerBundle.EXPIRED : viewcontrollerBundle.OPEN  )}" id="ot3"/>
                         </af:panelGroupLayout>
                         <f:facet name="separator">
                           <af:spacer id="s4" height="3"/>

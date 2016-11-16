@@ -43,6 +43,7 @@
           <Item Value="DaysLeft"/>
           <Item Value="LogoUrl"/>
           <Item Value="ChatCount"/>
+          <Item Value="IsVerified"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

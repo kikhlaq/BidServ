@@ -203,7 +203,8 @@
     PrecisionRule="true"
     EntityAttrName="BidId"
     EntityUsage="Bid"
-    AliasName="BID_ID"/>
+    AliasName="BID_ID"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="BidStatusCode"
     PrecisionRule="true"
@@ -233,7 +234,8 @@
     PrecisionRule="true"
     EntityAttrName="CompanyId"
     EntityUsage="Company"
-    AliasName="Company_Id1"/>
+    AliasName="Company_Id1"
+    IsUpdateable="while_insert"/>
   <ViewAttribute
     Name="ChatCount"
     IsUpdateable="false"
@@ -249,6 +251,12 @@
       trustMode="untrusted"
       CodeSourceName="MyBidsVORow"/>
   </ViewAttribute>
+  <ViewAttribute
+    Name="IsVerified"
+    PrecisionRule="true"
+    EntityAttrName="IsVerified"
+    EntityUsage="Company"
+    AliasName="IS_VERIFIED"/>
   <ViewCriteria
     Name="MyBidsVC"
     ViewObjectName="com.bidServ.model.view.bid.MyBidsVO"
