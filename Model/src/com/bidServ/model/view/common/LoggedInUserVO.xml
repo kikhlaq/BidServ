@@ -8,8 +8,8 @@
   InheritPersonalization="merge"
   BindingStyle="JDBC"
   CustomQuery="true"
-  RowClass="com.bidServ.model.view.LoggedInUserVORowImpl"
-  ComponentClass="com.bidServ.model.view.LoggedInUserVOImpl"
+  RowClass="com.bidServ.model.view.common.LoggedInUserVORowImpl"
+  ComponentClass="com.bidServ.model.view.common.LoggedInUserVOImpl"
   PageIterMode="Full">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|Prog"/>
@@ -19,7 +19,7 @@
   <Properties>
     <SchemaBasedProperties>
       <LABEL
-        ResId="com.bidServ.model.view.LoggedInUserVO_LABEL"/>
+        ResId="com.bidServ.model.view.common.LoggedInUserVO_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
   <ViewAttribute
@@ -55,6 +55,24 @@
     SQLType="VARCHAR"/>
   <ViewAttribute
     Name="LogoURL"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="IsAdmin"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="Status"
     IsSelected="false"
     IsPersistent="false"
     PrecisionRule="true"

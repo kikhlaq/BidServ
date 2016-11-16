@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich" xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <c:set var="viewcontrollerBundle1" value="#{adfBundle['com.bidServ.resource.Bundle']}"/>
+    <c:set var="viewcontrollerBundle" value="#{adfBundle['viewcontroller.com.bidServ.ui.page.ShellBundle']}"/>
+    <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="AFStretchWidth">
+                    <af:panelGroupLayout id="pgl2" layout="vertical"
+                                         styleClass="banner" valign="middle">
+                        <trh:tableLayout id="tl1" width="100%">
+                            <trh:rowLayout id="rl1" width="100%" valign="middle">
+                                <trh:cellFormat id="cf1" width="15%"/>
+                                <trh:cellFormat id="cf2" width="35%" halign="start" valign="middle">
+                                    <af:panelGroupLayout id="pgl10" layout="horizontal">
+                                        <af:image source="/com/bidServ/resource/images/bid.png" id="i1"/>
+                                        <af:link text="#{viewcontrollerBundle1.bidServ}" id="l3"
+                                                 styleClass="bannerLink"/>
+                                        <f:facet name="separator">
+                                            <af:spacer width="5" id="s4"/>
+                                        </f:facet>
+                                    </af:panelGroupLayout>
+                                </trh:cellFormat>
+                                <trh:cellFormat id="cf33" width="35%" halign="right">
+                                    <af:panelGroupLayout id="pgl333">
+                                        <f:facet name="separator">
+                                            <af:spacer width="30" id="s33331"/>
+                                        </f:facet>
+                                        <af:link text="Home" id="l5" styleClass="globalLink" action="inviteToHome"
+                                                 rendered="#{pageFlowScope.userId != 1}"/>
+                                        <af:link text="My Profile" id="l331" styleClass="globalLink"
+                                                 action="inviteToProfile" rendered="#{pageFlowScope.userId != 1}">
+                                            <af:setPropertyListener to="#{requestScope.openProfile}" from="#{'Y'}"
+                                                                    type="action"/>
+                                            <af:setPropertyListener from="#{bindings.UserId.inputValue}"
+                                                                    to="#{requestScope.userId}" type="action"/>
+                                            <af:setPropertyListener to="#{pageFlowScope.mode}" from="#{'PROFILE'}"
+                                                                    type="action"/>
+                                        </af:link>
+                                        <af:link text="Administration" id="l336" styleClass="globalLink"
+                                                 rendered="#{pageFlowScope.userId != 1 &amp;&amp;   bindings.IsAdmin.inputValue == 'Y'}" action="inviteToAdmin"/>
+                                        <af:link text="Logout" id="l332" styleClass="globalLink"
+                                                 action="inviteToLogout"/>
+                                    </af:panelGroupLayout>
+                                </trh:cellFormat>
+                                <trh:cellFormat id="cf4" width="15%" halign="center" valign="middle">
+                                    <af:statusIndicator id="si1"/>
+                                </trh:cellFormat>
+                            </trh:rowLayout>
+                        </trh:tableLayout>
+                    </af:panelGroupLayout>
+                    <af:panelGroupLayout id="pgl5" layout="horizontal" styleClass="AFStretchWidth" valign="top">
+                        <af:panelTabbed position="above" id="pt2" inlineStyle="width:250px;">
+                        
+                            <af:showDetailItem id="tab4" disclosed="true" displayIndex="-1" disabled="true"
+                                               inlineStyle="background-color:white;">
+                                <trh:tableLayout id="tl3" width="100%">
+                                    <trh:rowLayout id="rl6">
+                                        <trh:cellFormat id="cf9" width="100%" styleClass="headerCell" halign="center">
+                                            <af:panelGroupLayout id="pgl6" layout="vertical">
+                                                <af:outputText value="#{viewcontrollerBundle1.dashboard}" id="ot901"
+                                                               inlineStyle="font-size:large;"/>
+                                            </af:panelGroupLayout>
+                                        </trh:cellFormat>
+                                    </trh:rowLayout>
+                                    <trh:rowLayout id="rl5">
+                                        <trh:cellFormat id="cf8" width="100%" halign="center" styleClass="dataCell">
+                                            <trh:tableLayout id="tl2" width="60%" cellSpacing="20">
+                                                <trh:rowLayout id="rl3">
+                                                    <trh:cellFormat id="cf6" halign="center" styleClass="postCell"
+                                                                    width="100%">
+                                                        <af:panelGroupLayout id="pgl7" layout="vertical">
+                                                            <af:outputFormatted value="#{bindings.PostCount.inputValue}" id="of2"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Posts" id="of3"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s2"/>
+                                                            </f:facet>
+                                                </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl4">
+                                                    <trh:cellFormat id="cf7" styleClass="bidCell" halign="center">
+                                                        <af:panelGroupLayout id="pgl8" layout="vertical">
+                                                            <af:outputFormatted value="#{bindings.BidCount.inputValue}" id="of8"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Bids" id="of4"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s3"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl2" inlineStyle="padding-bottom:20px;">
+                                                    <trh:cellFormat id="cf5" height="50" halign="center"
+                                                                    styleClass="contactCell" width="100%">
+                                                        <af:panelGroupLayout id="pgl9" layout="vertical">
+                                                            <af:outputFormatted value="#{bindings.ContactCount.inputValue}" id="of9"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Contacts" id="of10"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s6"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                                <trh:rowLayout id="rl7">
+                                                    <trh:cellFormat id="cf10" halign="center" width="100%"
+                                                                    styleClass="creditCell">
+                                                        <af:panelGroupLayout id="pg20" layout="vertical">
+                                                            <af:outputFormatted value="#{bindings.CreditCount.inputValue}" id="of11"
+                                                                                inlineStyle="font-size:xx-large;"/>
+                                                            <af:outputFormatted value="Credits" id="of12"
+                                                                                inlineStyle="font-size:large;"/>
+                                                            <f:facet name="separator">
+                                                                <af:spacer height="15" id="s7"/>
+                                                            </f:facet>
+                                                        </af:panelGroupLayout>
+                                                    </trh:cellFormat>
+                                                </trh:rowLayout>
+                                            </trh:tableLayout>
+                                        </trh:cellFormat>
+                                    </trh:rowLayout>
+                                </trh:tableLayout>
+                            </af:showDetailItem>
+                        </af:panelTabbed>
+                        <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth"
+                                        >
+                            <af:showDetailItem id="sdi1" disabled="true" styleClass="deadPadItem"/>
+                            <af:showDetailItem text="Invitation" id="sdi2" disclosed="true">
+                    <af:panelGroupLayout id="pgl3" layout="vertical">
+                        <af:outputText value="Enter the email Id of  Invitee. You can enter multiple email Ids separated by comma." id="ot1"/>
+                        <f:facet name="separator">
+                            <af:spacer width="10" height="10" id="s1"/>
+                        </f:facet>
+                        <af:inputText id="it1" simple="true" placeholder="Email(s) of Invitee" columns="150"
+                                      value="#{requestScope.invitees}"/>
+                        <af:button text="Invite" id="b1" actionListener="#{ManagedBean.inviteListener}"/>
+                        <af:panelHeader text="Pending Verification Requests" id="ph1"
+                                        rendered="#{pageFlowScope.userId == 1}">
+                            <f:facet name="context"/>
+                            <f:facet name="toolbar"/>
+                            <f:facet name="menuBar"/>
+                            <f:facet name="legend"/>
+                            <f:facet name="info"/>
+                            
+                            <af:listView value="#{bindings.VerificationRequest.collectionModel}" var="item"
+                   emptyText="#{bindings.VerificationRequest.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="10" id="lv11" >
+        <af:listItem id="li11" >
+          <af:panelGridLayout id="pgl31" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr11">
+              <af:gridCell width="40%" id="gc11" valign="middle" halign="start">
+                 <af:panelGroupLayout id="pgl21" layout="horizontal" halign="left">
+                                                    <af:spacer width="10" height="10" id="s8"/>
+                                                    <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                              id="i11" styleClass="image"/>
+                                                    <af:spacer width="10" height="10" id="s5"/>
+                                                    <af:outputText value="#{item.Name1}" id="ot2"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="40%" id="gc21" valign="middle">
+                <af:panelGroupLayout id="pgl41" layout="horizontal" halign="left">
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s31"/>
+                  </f:facet>
+                                                    <af:image id="i3"
+                                                              source="#{item.ImageUrl == null || item.ImageUrl == '' ? '/com/bidServ/resource/images/defaultProfile.png' : item.ImageUrl}"
+                                                              styleClass="image"/>
+                                                    <af:spacer width="10" height="10" id="s9"/>
+                                                    <af:outputText value="#{item.Name}" id="ot11"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc31" valign="middle">
+                <af:panelGroupLayout id="pgl51" layout="vertical" halign="left">
+                                                    <af:link text="Verification Successful" id="l1"
+                                                             actionListener="#{ManagedBean.completeVerificationListener}"
+                                                             inlineStyle="color:green;">
+                                                        <af:setPropertyListener from="#{'PASS'}"
+                                                                                to="#{requestScope.outcome}"
+                                                                                type="action"/>
+                                                        <af:setPropertyListener from="#{item.RequestId}"
+                                                                                to="#{requestScope.requestId}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                    <af:link text="Verification Failed" id="l2"
+                                                             actionListener="#{ManagedBean.completeVerificationListener}"
+                                                             inlineStyle="color:red;">
+                                                        <af:setPropertyListener to="#{requestScope.outcome}"
+                                                                                from="#{'FAIL'}" type="action"/>
+                                                        <af:setPropertyListener from="#{item.RequestId}"
+                                                                                to="#{requestScope.requestId}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                </af:panelGroupLayout>
+                                            </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+                            
+                        </af:panelHeader>
+                        <af:panelHeader text="Reported Users" id="ph2" rendered="#{pageFlowScope.userId == 1}">
+                            <f:facet name="context"/>
+                            <f:facet name="toolbar"/>
+                            <f:facet name="menuBar"/>
+                            <f:facet name="legend"/>
+                            <f:facet name="info"/>
+                            <af:listView value="#{bindings.ReportedUser.collectionModel}" var="item"
+                   emptyText="#{bindings.ReportedUser.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="10" id="l5v11" >
+        <af:listItem id="li511" >
+          <af:panelGridLayout id="pgl531" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr511">
+              <af:gridCell width="40%" id="gc511" valign="middle" halign="start">
+                 <af:panelGroupLayout id="pgl521" layout="horizontal" halign="left">
+                                                    <af:spacer width="10" height="10" id="s58"/>
+                                                    <af:image source="#{item.ImageUrl == null ? '/com/bidServ/resource/images/defaultProfile.png' : item.ImageUrl}"
+                              id="i511" styleClass="image"/>
+                                                    <af:spacer width="10" height="10" id="s55"/>
+                                                    <af:outputText value="#{item.Name}" id="ot52"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="40%" id="gc521" valign="middle" halign="start">
+                <af:panelGroupLayout id="pgl541" layout="horizontal" halign="left" styleClass="reportLayout">
+                  <f:facet name="separator"/>
+                                                    <af:outputText value="#{item.ReportCount} time(s)" id="ot511"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc531" valign="middle">
+                <af:panelGroupLayout id="pgl551" layout="vertical" halign="left">
+                                                    <af:link text="Resume" id="l6" inlineStyle="color:green;"
+                                                             actionListener="#{ManagedBean.handleReportResponse}">
+                                                        <af:setPropertyListener from="#{'RESUME'}"
+                                                                                to="#{requestScope.reportOutcome}"
+                                                                                type="action"/>
+                                                        <af:setPropertyListener to="#{requestScope.entityId}"
+                                                                                type="action" from="#{item.UserId}"/>
+                                                        <af:setPropertyListener from="#{'USER'}"
+                                                                                to="#{requestScope.reportType}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                    <af:link text="Suspend" id="l4" inlineStyle="color:red;"
+                                                             actionListener="#{ManagedBean.handleReportResponse}">
+                                                        <af:setPropertyListener from="#{'SUSPEND'}"
+                                                                                to="#{requestScope.reportOutcome}"
+                                                                                type="action"/>
+                                                        <af:setPropertyListener to="#{requestScope.entityId}"
+                                                                                type="action" from="#{item.UserId}"/>
+                                                        <af:setPropertyListener from="#{'USER'}"
+                                                                                to="#{requestScope.reportType}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                </af:panelGroupLayout>
+                                            </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+                        </af:panelHeader>
+                        <af:panelHeader text="Reported Companies" id="ph3" rendered="#{pageFlowScope.userId == 1}">
+                            <f:facet name="context"/>
+                            <f:facet name="toolbar"/>
+                            <f:facet name="menuBar"/>
+                            <f:facet name="legend"/>
+                            <f:facet name="info"/>
+                            <af:listView value="#{bindings.ReportedComany.collectionModel}" var="item"
+                   emptyText="#{bindings.ReportedComany.viewable ? 'No data to display.' : 'Access Denied.'}"
+                   fetchSize="10" id="l15v11" >
+        <af:listItem id="li1511" >
+          <af:panelGridLayout id="pgl1531" styleClass="AFStretchWidth">
+            <af:gridRow height="60px" id="gr5111">
+              <af:gridCell width="40%" id="gc5111" valign="middle" halign="start">
+                 <af:panelGroupLayout id="pgl5121" layout="horizontal" halign="left">
+                                                    <af:spacer width="10" height="10" id="s18"/>
+                                                    <af:image source="#{item.LogoUrl == null ? '/com/bidServ/resource/images/companyLogo.png' : item.LogoUrl}"
+                              id="i5011" styleClass="image"/>
+                                                    <af:spacer width="10" height="10" id="s515"/>
+                                                    <af:outputText value="#{item.Name}" id="o1t2"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell width="40%" id="gc5121" valign="middle">
+                <af:panelGroupLayout id="pgl1541" layout="horizontal" halign="left" styleClass="reportLayout">
+                  <f:facet name="separator">
+                    <af:spacer height="3" id="s1531"/>
+                  </f:facet>
+                                                    <af:outputText value="#{item.ReportCount} time(s)" id="ot1511"/>
+                                                </af:panelGroupLayout>
+              </af:gridCell>
+              <af:gridCell marginStart="5px" width="20%" marginEnd="5px" id="gc1531" valign="middle">
+                <af:panelGroupLayout id="pgl1551" layout="vertical" halign="left">
+                                                    <af:link text="Resume" id="l7" inlineStyle="color:green;"
+                                                             actionListener="#{ManagedBean.handleReportResponse}">
+                                                        <af:setPropertyListener from="#{'RESUME'}"
+                                                                                to="#{requestScope.reportOutcome}"
+                                                                                type="action"/>
+                                                        <af:setPropertyListener to="#{requestScope.entityId}"
+                                                                                type="action" from="#{item.CompanyId}"/>
+                                                        <af:setPropertyListener from="#{'COMPANY'}"
+                                                                                to="#{requestScope.reportType}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                    <af:link text="Suspend" id="l8" inlineStyle="color:red;"
+                                                             actionListener="#{ManagedBean.handleReportResponse}">
+                                                        <af:setPropertyListener from="#{'SUSPEND'}"
+                                                                                to="#{requestScope.reportOutcome}"
+                                                                                type="action"/>
+                                                        <af:setPropertyListener to="#{requestScope.entityId}"
+                                                                                type="action" from="#{item.CompanyId}"/>
+                                                        <af:setPropertyListener from="#{'COMPANY'}"
+                                                                                to="#{requestScope.reportType}"
+                                                                                type="action"/>
+                                                    </af:link>
+                                                </af:panelGroupLayout>
+                                            </af:gridCell>
+            </af:gridRow>
+          </af:panelGridLayout>
+        </af:listItem>
+      </af:listView>
+                        </af:panelHeader>
+                    </af:panelGroupLayout>
+                </af:showDetailItem>
+                        </af:panelTabbed>
+                        <af:panelTabbed position="above" id="pt13" inlineStyle="width:250px;">
+                            <af:showDetailItem id="tab14" disclosed="true" displayIndex="-1" disabled="true"
+                                               >
+                                <trh:tableLayout id="tl13" width="100%" >
+                                    <trh:rowLayout id="rl16">
+                                        <trh:cellFormat id="cf19" width="100%" halign="start" styleClass="adv">
+                                            <af:image source="/com/bidServ/resource/images/ad11.png" id="i2"/>
+                                        </trh:cellFormat>
+                                    </trh:rowLayout>
+                                </trh:tableLayout>
+                            </af:showDetailItem>
+                        </af:panelTabbed>
+                    </af:panelGroupLayout>
+                    <f:facet name="separator"/>
+        </af:panelGroupLayout>
+</jsp:root>

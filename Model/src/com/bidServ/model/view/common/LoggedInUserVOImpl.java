@@ -1,4 +1,4 @@
-package com.bidServ.model.view;
+package com.bidServ.model.view.common;
 
 import java.sql.ResultSet;
 

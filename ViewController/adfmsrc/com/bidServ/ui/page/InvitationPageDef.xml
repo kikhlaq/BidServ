@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.8.41" id="InvitationPageDef"
+                Package="com.bidServ.ui.page">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+    <iterator Binds="VerificationRequest" RangeSize="25" DataControl="BidServAMDataControl"
+              id="VerificationRequestIterator"/>
+    <iterator Binds="ReportedUser" RangeSize="25" DataControl="BidServAMDataControl" id="ReportedUserIterator"/>
+    <iterator Binds="ReportedComany" RangeSize="25" DataControl="BidServAMDataControl" id="ReportedComanyIterator"/>
+    <iterator Binds="DashBoard" RangeSize="25" DataControl="BidServAMDataControl" id="DashBoardIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="LoggedInUserIterator" id="IsAdmin">
+      <AttrNames>
+        <Item Value="IsAdmin"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="LoggedInUserIterator" id="UserId">
+      <AttrNames>
+        <Item Value="UserId"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="sendInvites" RequiresUpdateModel="true" Action="invokeMethod" MethodName="sendInvites"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="emailList" NDValue="#{requestScope.invitees}" NDType="java.lang.String"/>
+    </methodAction>
+    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
+    <tree IterBinding="VerificationRequestIterator" id="VerificationRequest">
+      <nodeDefinition DefName="com.bidServ.model.view.common.VerificationRequestVO" Name="VerificationRequest0">
+        <AttrNames>
+          <Item Value="CompanyId"/>
+          <Item Value="RequestDate"/>
+          <Item Value="RequestId"/>
+          <Item Value="Status"/>
+          <Item Value="UserId"/>
+          <Item Value="Name"/>
+          <Item Value="Email"/>
+          <Item Value="ImageUrl"/>
+          <Item Value="UserId1"/>
+          <Item Value="Name1"/>
+          <Item Value="LogoUrl"/>
+          <Item Value="CompanyId1"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="completeVerificationRequest" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="completeVerificationRequest" IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="requestId" NDValue="#{requestScope.requestId}" NDType="int"/>
+      <NamedData NDName="outcome" NDValue="#{requestScope.outcome}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="ReportedUserIterator" id="ReportedUser">
+      <nodeDefinition DefName="com.bidServ.model.view.common.ReportedUser" Name="ReportedUser0">
+        <AttrNames>
+          <Item Value="ReportCount"/>
+          <Item Value="UserId"/>
+          <Item Value="Name"/>
+          <Item Value="ImageUrl"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="ReportedComanyIterator" id="ReportedComany">
+      <nodeDefinition DefName="com.bidServ.model.view.common.ReportedComany" Name="ReportedComany0">
+        <AttrNames>
+          <Item Value="ReportCount"/>
+          <Item Value="CompanyId"/>
+          <Item Value="Name"/>
+          <Item Value="LogoUrl"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="handlReportedEntity" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="handlReportedEntity" IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="type" NDValue="#{requestScope.reportType}" NDType="java.lang.String"/>
+      <NamedData NDName="id" NDValue="#{requestScope.entityId}" NDType="int"/>
+      <NamedData NDName="outcome" NDValue="#{requestScope.reportOutcome}" NDType="java.lang.String"/>
+    </methodAction>
+    <attributeValues IterBinding="DashBoardIterator" id="PostCount">
+      <AttrNames>
+        <Item Value="PostCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="BidCount">
+      <AttrNames>
+        <Item Value="BidCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="ContactCount">
+      <AttrNames>
+        <Item Value="ContactCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="DashBoardIterator" id="CreditCount">
+      <AttrNames>
+        <Item Value="CreditCount"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>
