@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ConnectionVO"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  BindingStyle="JDBC"
+  CustomQuery="true"
+  PageIterMode="Full">
+  <DesignTime>
+    <Attr Name="_isExpertMode" Value="true"/>
+  </DesignTime>
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.view.setup.ConnectionVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="bindCompId"
+    Kind="viewcriteria"
+    Type="java.lang.Long"/>
+  <SQLQuery><![CDATA[select con.dest_company_id comany_id ,comp.name company_name,con.connection_status_code status,comp.logo_url url, con.source_company_id src_company_id, con.connection_id con_id from Connections con, Company_info comp where con.connection_status_code<>'PENDING' and con.dest_company_id=comp.company_id 
+UNION 
+select con.source_company_id comany_id ,comp.name company_name,con.connection_status_code status,comp.logo_url url, con.dest_company_id src_company_id, con.connection_id con_id from Connections con, Company_info comp where con.connection_status_code<>'PENDING' and con.source_company_id=comp.company_id 
+UNION 
+select con.dest_company_id comany_id ,comp.name company_name,'WAITING' status,comp.logo_url url, con.source_company_id src_company_id, con.connection_id con_id from Connections con, Company_info comp where con.connection_status_code='PENDING' and con.dest_company_id=comp.company_id 
+UNION 
+select con.source_company_id comany_id ,comp.name company_name,'PENDING' status, comp.logo_url url, con.dest_company_id src_company_id, con.connection_id con_id from Connections con, Company_info comp where con.connection_status_code='PENDING' and con.source_company_id=comp.company_id]]></SQLQuery>
+  <ViewAttribute
+    Name="ComanyId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="BIGINT"
+    AliasName="comany_id"
+    Expression="comany_id"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CompanyName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="250"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="company_name"
+    Expression="company_name"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="250"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="9"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="status"
+    Expression="status"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="9"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Url"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="1000"
+    Type="java.lang.String"
+    ColumnType="VARCHAR"
+    AliasName="url"
+    Expression="url"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1000"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="SrcCompanyId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="src_company_id"
+    Expression="src_company_id"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ConId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.math.BigDecimal"
+    ColumnType="DECIMAL"
+    AliasName="con_id"
+    Expression="con_id"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewCriteria
+    Name="BySrcCompIdVC"
+    ViewObjectName="com.bidServ.model.view.setup.ConnectionVO"
+    Conjunction="AND">
+    <Properties Name="_Props">
+      <CustomProperties>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="true"/>
+        <Property
+          Name="showInList"
+          Value="true"/>
+        <Property
+          Name="displayOperators"
+          Value="InAdvancedMode"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="ConnectionVOCriteria_row_0"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="SrcCompanyId"
+        ViewAttribute="SrcCompanyId"
+        Operator="="
+        Conjunction="AND"
+        Value=":bindCompId"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
+  <AttrArray Name="KeyAttributes">
+    <Item Value="ComanyId"/>
+  </AttrArray>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

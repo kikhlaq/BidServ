@@ -18,13 +18,13 @@
       </af:commandNavigationItem>
     </af:navigationPane>
     <af:inputText value="#{bindings.Product.inputValue}" placeholder="#{viewcontrollerBundle.product}"
-                  required="#{bindings.Product.hints.mandatory}" 
+                  required="true" 
                   maximumLength="#{bindings.Product.hints.precision}" shortDesc="#{viewcontrollerBundle.product}"
                   id="it12" styleClass="AFStretchWidth" simple="true" autoSubmit="true">
       <f:validator binding="#{bindings.Product.validator}"/>
     </af:inputText>
     <af:inputText value="#{bindings.PostDescription.inputValue}" placeholder="#{viewcontrollerBundle.description}"
-                  required="#{bindings.PostDescription.hints.mandatory}" 
+                  required="true" 
                   maximumLength="#{bindings.PostDescription.hints.precision}"
                   shortDesc="#{viewcontrollerBundle.description}" id="it8" clientComponent="true" rows="3"
                   styleClass="AFStretchWidth" simple="true">
@@ -34,7 +34,7 @@
       <trh:rowLayout id="rl1" width="100%">
         <trh:cellFormat id="cf1" width="50%" halign="right">
           <af:inputText value="#{bindings.Quantity.inputValue}" placeholder="#{viewcontrollerBundle.quantity}"
-                        required="#{bindings.Quantity.hints.mandatory}"
+                        required="true"
                         maximumLength="#{bindings.Quantity.hints.precision}"
                         shortDesc="#{viewcontrollerBundle.quantity}" id="it13" styleClass="AFStretchWidth"
                         simple="true">
@@ -47,7 +47,7 @@
         </trh:cellFormat>
         <trh:cellFormat id="cf2" width="50%" halign="start">
           <af:inputText value="#{bindings.Uom.inputValue}" placeholder="#{viewcontrollerBundle.units}"
-                        required="#{bindings.Uom.hints.mandatory}" maximumLength="#{bindings.Uom.hints.precision}"
+                        required="true" maximumLength="#{bindings.Uom.hints.precision}"
                         shortDesc="#{viewcontrollerBundle.units}" id="it14" styleClass="AFStretchWidth" simple="true">
             <f:validator binding="#{bindings.Uom.validator}"/>
           </af:inputText>
@@ -55,7 +55,7 @@
       </trh:rowLayout>
     </trh:tableLayout>  
     <af:inputDate value="#{bindings.DeliveryDate.inputValue}" label="#{viewcontrollerBundle.expiry}"
-                  required="#{bindings.DeliveryDate.hints.mandatory}" columns="#{bindings.DeliveryDate.hints.displayWidth}"
+                  required="true" columns="#{bindings.DeliveryDate.hints.displayWidth}"
                   shortDesc="#{viewcontrollerBundle.expiry}" id="id2">
       <f:validator binding="#{bindings.DeliveryDate.validator}"/>
       <af:convertDateTime pattern="#{bindings.DeliveryDate.format}"/>
@@ -69,12 +69,12 @@
           <af:setPropertyListener type="action" from="ENTIRE_NETWORK" to="#{bindings.VisibilityCode.inputValue}"/>
         </af:commandNavigationItem>
         <af:commandNavigationItem id="ni22" text="#{viewcontrollerBundle.primaryNetwork}"
-                                  selected="#{bindings.VisibilityCode.inputValue == 'SECONDARY'}" partialSubmit="true">
-          <af:setPropertyListener type="action" from="SECONDARY" to="#{bindings.VisibilityCode.inputValue}"/>
-        </af:commandNavigationItem>
-        <af:commandNavigationItem id="ni223" text="#{viewcontrollerBundle.secondaryNetwork}"
                                   selected="#{bindings.VisibilityCode.inputValue == 'PRIMARY'}" partialSubmit="true">
           <af:setPropertyListener type="action" from="PRIMARY" to="#{bindings.VisibilityCode.inputValue}"/>
+        </af:commandNavigationItem>
+        <af:commandNavigationItem id="ni223" text="#{viewcontrollerBundle.secondaryNetwork}"
+                                  selected="#{bindings.VisibilityCode.inputValue == 'SECONDARY'}" partialSubmit="true">
+          <af:setPropertyListener type="action" from="SECONDARY" to="#{bindings.VisibilityCode.inputValue}"/>
         </af:commandNavigationItem>
       </af:navigationPane>
     </af:panelGroupLayout>
@@ -82,7 +82,7 @@
       <af:spacer height="10" id="s1"/>
     </f:facet>
     <af:button  text="#{viewcontrollerBundle.SUBMIT}"
-               id="b2" actionListener="#{ManagedBean.submitPost}">
+               id="b2" actionListener="#{ManagedBean.submitPost}" rendered="false">
       <af:setPropertyListener from="#{'Y'}" to="#{requestScope.newPostCreated}" type="action"/>
     </af:button>
   </af:panelGroupLayout>

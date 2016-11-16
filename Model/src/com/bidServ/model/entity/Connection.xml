@@ -9,16 +9,20 @@
   DBObjectType="table"
   DBObjectName="Connections"
   AliasName="Connection"
-  BindingStyle="JDBC">
+  BindingStyle="JDBC"
+  RowClass="com.bidServ.model.entity.ConnectionImpl">
+  <DesignTime>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <Attribute
     Name="ConnectionId"
-    IsNotNull="true"
     ColumnName="CONNECTION_ID"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
     TableName="Connections"
-    PrimaryKey="true">
+    PrimaryKey="true"
+    IsUpdateable="while_insert">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>

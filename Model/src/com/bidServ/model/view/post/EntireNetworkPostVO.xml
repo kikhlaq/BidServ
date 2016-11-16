@@ -195,7 +195,14 @@
     PrecisionRule="true"
     EntityAttrName="CompanyId"
     EntityUsage="Company"
-    AliasName="Company_Id1"/>
+    AliasName="Company_Id1"
+    IsUpdateable="while_insert"/>
+  <ViewAttribute
+    Name="IsVerified"
+    PrecisionRule="true"
+    EntityAttrName="IsVerified"
+    EntityUsage="Company"
+    AliasName="IS_VERIFIED"/>
   <ViewCriteria
     Name="EntireNetworkVC"
     ViewObjectName="com.bidServ.model.view.post.EntireNetworkPostVO"

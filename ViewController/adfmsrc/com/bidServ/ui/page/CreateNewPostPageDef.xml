@@ -108,5 +108,10 @@
       </AttrNames>
     </attributeValues>
     <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction" DataControl="BidServAMDataControl"/>
-  </bindings>
+  
+    <eventBinding id="eventBinding" Listener="javax.faces.event.ActionListener">
+      <events xmlns="http://xmlns.oracle.com/adfm/contextualEvent">
+        <event name="fireNewPostEvent" eventType="Action Event"/>
+      </events>
+    </eventBinding></bindings>
 </pageDefinition>
