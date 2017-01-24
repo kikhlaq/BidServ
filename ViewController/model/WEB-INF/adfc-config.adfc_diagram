@@ -25,7 +25,7 @@
       <property
          name="fromOutcome">login</property>
       <property
-         name="sdm:polyPoints">T44,29.0,141.74707,28.700195,62.591797,B50</property>
+         name="sdm:polyPoints">T44,29.0,141.74707,28.700195,67.18945,B50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -35,18 +35,18 @@
       <property
          name="fromOutcome">initLoggedInUser</property>
       <property
-         name="sdm:polyPoints">R50,69.700195,8.591797,184.0,10.292969,L46</property>
+         name="sdm:polyPoints">R50,69.700195,13.189453,180.71712,10.292969,L46</property>
    </ControlFlowCase>
    <View
       id="View7">
       <property
          name="activityId">Registration</property>
       <property
-         name="x">232.01562</property>
+         name="x">218.01562</property>
       <property
          name="description">&lt;html>&lt;p>&lt;b>Registration&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
-         name="y">196.39648</property>
+         name="y">195.29297</property>
       <property
          name="page">/com/bidServ/ui/page/Registration.jspx</property>
       <property
@@ -60,7 +60,7 @@
       <property
          name="fromOutcome">register</property>
       <property
-         name="sdm:polyPoints">R50,73.5,195.74707,191.01562,196.0459,L50</property>
+         name="sdm:polyPoints">R50,73.5,195.74707,177.01562,194.94238,L50</property>
    </ControlFlowCase>
    <MethodCall
       id="MethodCall25">
@@ -71,7 +71,7 @@
       <property
          name="description">&lt;html>&lt;p>&lt;b>initLoggedInUser1&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
       <property
-         name="y">8.942383</property>
+         name="y">13.540039</property>
       <property
          name="exceptionHandler">false</property>
    </MethodCall>
@@ -102,11 +102,11 @@
       islink="true"
       id="ControlFlowCase32"
       from="Router30"
-      to="View2">
+      to="MethodCall17">
       <property
          name="fromOutcome">failure</property>
       <property
-         name="sdm:polyPoints">L54,184.0,17.292969,36.0,141.74707,T56</property>
+         name="sdm:polyPoints">L54,184.0,17.292969,178.0,94.49414,R50</property>
    </ControlFlowCase>
    <WildcardControlFlowRule
       id="WildcardControlFlowRule35">
@@ -164,5 +164,28 @@
          name="fromOutcome">home</property>
       <property
          name="sdm:polyPoints">B56,319.5,-87.75293,430.5,-41.655273,T50</property>
+   </ControlFlowCase>
+   <MethodCall
+      id="MethodCall17">
+      <property
+         name="activityId">loginFail</property>
+      <property
+         name="x">137.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>loginFail&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">94.84473</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase18"
+      from="MethodCall17"
+      to="View2">
+      <property
+         name="fromOutcome">fail</property>
+      <property
+         name="sdm:polyPoints">L50,96.0,94.49414,36.0,141.74707,T56</property>
    </ControlFlowCase>
 </SDM>

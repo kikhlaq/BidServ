@@ -63,7 +63,7 @@
     <filter-name>authenticate</filter-name>
     <filter-class>com.bidServ.bean.AuthenticateFilter</filter-class>
   </filter>
-  <filter-mapping>
+ <filter-mapping>
     <filter-name>trinidad</filter-name>
     <servlet-name>Faces Servlet</servlet-name>
     <dispatcher>FORWARD</dispatcher>
@@ -128,7 +128,7 @@
     <param-value>oracle.adfinternal.view.faces.facelets.rich.AdfFaceletsResourceResolver</param-value>
   </context-param>
   <session-config>
-    <session-timeout>5</session-timeout>
+    <session-timeout>15</session-timeout>
   </session-config>
   <mime-mapping>
     <extension>swf</extension>
@@ -153,4 +153,6 @@
       <is-xml>true</is-xml>
     </jsp-property-group>
   </jsp-config>
+  
+  
 </web-app>

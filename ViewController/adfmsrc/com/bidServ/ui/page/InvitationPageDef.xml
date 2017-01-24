@@ -10,6 +10,7 @@
     <iterator Binds="ReportedUser" RangeSize="25" DataControl="BidServAMDataControl" id="ReportedUserIterator"/>
     <iterator Binds="ReportedComany" RangeSize="25" DataControl="BidServAMDataControl" id="ReportedComanyIterator"/>
     <iterator Binds="DashBoard" RangeSize="25" DataControl="BidServAMDataControl" id="DashBoardIterator"/>
+    <iterator Binds="Configuration" RangeSize="25" DataControl="BidServAMDataControl" id="ConfigurationIterator"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="LoggedInUserIterator" id="IsAdmin">
@@ -97,6 +98,46 @@
     <attributeValues IterBinding="DashBoardIterator" id="CreditCount">
       <AttrNames>
         <Item Value="CreditCount"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="BidCost">
+      <AttrNames>
+        <Item Value="BidCost"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="Config1">
+      <AttrNames>
+        <Item Value="Config1"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="Config2">
+      <AttrNames>
+        <Item Value="Config2"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="Config3">
+      <AttrNames>
+        <Item Value="Config3"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="Config4">
+      <AttrNames>
+        <Item Value="Config4"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="Config5">
+      <AttrNames>
+        <Item Value="Config5"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="PostCost">
+      <AttrNames>
+        <Item Value="PostCost"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ConfigurationIterator" id="PromoCredit">
+      <AttrNames>
+        <Item Value="PromoCredit"/>
       </AttrNames>
     </attributeValues>
   </bindings>

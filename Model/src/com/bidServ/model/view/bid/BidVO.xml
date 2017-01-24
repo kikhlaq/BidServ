@@ -188,6 +188,16 @@
     EntityAttrName="IsVerified"
     EntityUsage="Company"
     AliasName="IS_VERIFIED"/>
+  <ViewAttribute
+    Name="AttachmentType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Expression="'BID'"/>
   <ViewCriteria
     Name="MyBidsVC"
     ViewObjectName="com.bidServ.model.view.bid.BidVO"
@@ -230,6 +240,11 @@
   <ViewLinkAccessor
     Name="ChatVO"
     ViewLink="com.bidServ.model.view.link.BidToChatVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AttachmentVO"
+    ViewLink="com.bidServ.model.view.link.BidToAttachmentVL"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ResourceBundle>

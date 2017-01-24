@@ -46,7 +46,7 @@
        Company.LOGO_URL,   
        Company.COMPANY_ID  Company_Id1 , 
        Company.IS_VERIFIED Is_Verified 
-FROM  mysql.posts Post  
+FROM  posts Post  
 INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.DEST_COMPANY_ID AND Connection.connection_status_code = 'APPROVED')  
 INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID)  
 LEFT OUTER JOIN Connections Connection1 ON (Connection.SOURCE_COMPANY_ID = Connection1.DEST_COMPANY_ID AND Connection1.connection_status_code = 'APPROVED')  
@@ -77,7 +77,7 @@ SELECT Post.BASE_PRICE,
        Company.LOGO_URL,   
        Company.COMPANY_ID  Company_Id1 , 
        Company.IS_VERIFIED Is_Verified 
-FROM  mysql.posts Post  
+FROM  posts Post  
 INNER JOIN Connections Connection ON (Post.COMPANY_ID = Connection.SOURCE_COMPANY_ID  AND Connection.connection_status_code = 'APPROVED')  
 INNER JOIN Company_info Company ON (Post.COMPANY_ID = Company.COMPANY_ID)  
 LEFT OUTER JOIN Connections Connection1 ON (Connection.DEST_COMPANY_ID = Connection1.SOURCE_COMPANY_ID AND Connection1.connection_status_code = 'APPROVED') 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AttachmentVO"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  SelectListFlags="1"
+  FromListFlags="1"
+  WhereFlags="1"
+  BindingStyle="JDBC"
+  CustomQuery="false"
+  SelectAllAttributes="false"
+  PageIterMode="Full">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.view.common.AttachmentVO_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <EntityUsage
+    Name="Attachment"
+    Entity="com.bidServ.model.entity.Attachment"/>
+  <ViewAttribute
+    Name="DocumentId"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="DocumentId"
+    EntityUsage="Attachment"
+    AliasName="document_id"/>
+  <ViewAttribute
+    Name="DocumentUrl"
+    PrecisionRule="true"
+    EntityAttrName="DocumentUrl"
+    EntityUsage="Attachment"
+    AliasName="document_url"/>
+  <ViewAttribute
+    Name="EntityId"
+    PrecisionRule="true"
+    EntityAttrName="EntityId"
+    EntityUsage="Attachment"
+    AliasName="entity_id"/>
+  <ViewAttribute
+    Name="Type"
+    PrecisionRule="true"
+    EntityAttrName="Type"
+    EntityUsage="Attachment"
+    AliasName="type"/>
+  <ViewAttribute
+    Name="DocumentName"
+    PrecisionRule="true"
+    EntityAttrName="DocumentName"
+    EntityUsage="Attachment"
+    AliasName="document_name"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="BidHistory"
+  Version="12.2.1.8.41"
+  InheritPersonalization="merge"
+  SelectListFlags="1"
+  FromListFlags="1"
+  WhereFlags="1"
+  BindingStyle="JDBC"
+  CustomQuery="false"
+  SelectAllAttributes="false"
+  PageIterMode="Full">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="com.bidServ.model.view.bid.BidHistory_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <EntityUsage
+    Name="BidHistory"
+    Entity="com.bidServ.model.entity.BidHistory"/>
+  <ViewAttribute
+    Name="BidId"
+    PrecisionRule="true"
+    EntityAttrName="BidId"
+    EntityUsage="BidHistory"
+    AliasName="bid_id"/>
+  <ViewAttribute
+    Name="FieldName"
+    PrecisionRule="true"
+    EntityAttrName="FieldName"
+    EntityUsage="BidHistory"
+    AliasName="field_name"/>
+  <ViewAttribute
+    Name="HistoryId"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="HistoryId"
+    EntityUsage="BidHistory"
+    AliasName="history_id"/>
+  <ViewAttribute
+    Name="NewValue"
+    PrecisionRule="true"
+    EntityAttrName="NewValue"
+    EntityUsage="BidHistory"
+    AliasName="new_value"/>
+  <ViewAttribute
+    Name="OldValue"
+    PrecisionRule="true"
+    EntityAttrName="OldValue"
+    EntityUsage="BidHistory"
+    AliasName="old_value"/>
+  <ViewAttribute
+    Name="UpdateDate"
+    PrecisionRule="true"
+    EntityAttrName="UpdateDate"
+    EntityUsage="BidHistory"
+    AliasName="update_date"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="com.bidServ.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

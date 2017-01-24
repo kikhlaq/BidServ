@@ -8,6 +8,8 @@
     <iterator Binds="Bids" RangeSize="25" DataControl="BidServAMDataControl" id="BidsIterator"/>
     <iterator Binds="BidChats" RangeSize="25" DataControl="BidServAMDataControl" id="ChatsIterator" Refresh="always"/>
     <iterator Binds="LoggedInUser" RangeSize="25" DataControl="BidServAMDataControl" id="LoggedInUserIterator"/>
+    <iterator Binds="PostAttachment" RangeSize="25" DataControl="BidServAMDataControl" id="PostAttachmentIterator"/>
+    <iterator Binds="BidAttachment" RangeSize="25" DataControl="BidServAMDataControl" id="BidAttachmentIterator"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="PostIterator" id="BasePrice">
@@ -178,5 +180,53 @@
         <Item Value="IsAttachmentAllowed"/>
       </AttrNames>
     </attributeValues>
+    <methodAction id="createAttachment" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createAttachment"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="type" NDValue="#{pageFlowScope.attachmentType}" NDType="java.lang.String"/>
+      <NamedData NDName="id" NDValue="#{pageFlowScope.attachmentId}" NDType="int"/>
+      <NamedData NDName="url" NDValue="#{pageFlowScope.attachmentUrl}" NDType="java.lang.String"/>
+      <NamedData NDName="name" NDValue="#{pageFlowScope.attachmentName}" NDType="java.lang.String"/>
+    </methodAction>
+    <tree IterBinding="PostAttachmentIterator" id="PostAttachment">
+      <nodeDefinition DefName="com.bidServ.model.view.common.AttachmentVO" Name="PostAttachment0">
+        <AttrNames>
+          <Item Value="DocumentUrl"/>
+          <Item Value="DocumentName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="BidAttachmentIterator" id="BidAttachment">
+      <nodeDefinition DefName="com.bidServ.model.view.common.AttachmentVO" Name="BidAttachment0">
+        <AttrNames>
+          <Item Value="DocumentUrl"/>
+          <Item Value="DocumentName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="BidsIterator" id="BidId">
+      <AttrNames>
+        <Item Value="BidId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BidAttachmentIterator" id="BidAttachment1">
+      <nodeDefinition DefName="com.bidServ.model.view.common.AttachmentVO" Name="BidAttachment10">
+        <AttrNames>
+          <Item Value="DocumentUrl"/>
+          <Item Value="DocumentName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <methodAction id="setBidRow" RequiresUpdateModel="true" Action="invokeMethod" MethodName="setBidRow"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="bidId" NDValue="#{requestScope.bidId}" NDType="java.math.BigDecimal"/>
+    </methodAction>
+    <methodAction id="editBid" RequiresUpdateModel="true" Action="invokeMethod" MethodName="editBid"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider">
+      <NamedData NDName="desc" NDValue="#{requestScope.bidDesc}" NDType="java.lang.String"/>
+      <NamedData NDName="amt" NDValue="#{requestScope.bidAmount}" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

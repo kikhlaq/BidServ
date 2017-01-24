@@ -50,6 +50,7 @@
     <page path="/com/bidServ/ui/page/Invitation.jsff" usageId="com_bidServ_view_InvitationPageDef"/>
     <page path="/WEB-INF/com/bidServ/ui/flow/registerTF.xml#registerTF@validateRegistration"
           usageId="com_bidServ_view_registerTF_registerTF_validateRegistrationPageDef"/>
+    <page path="PageFlow#initLoggedInUser" usageId="com_bidServ_view_adfc_config___initLoggedInUserPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="com_bidServ_view_MemberPostPageDef" path="com.bidServ.ui.page.MemberPostPageDef"/>
@@ -96,6 +97,8 @@
     <page id="com_bidServ_view_InvitationPageDef" path="com.bidServ.ui.page.InvitationPageDef"/>
     <page id="com_bidServ_view_registerTF_registerTF_validateRegistrationPageDef"
           path="com.bidServ.ui.flow.registerTF_registerTF_validateRegistrationPageDef"/>
+    <page id="com_bidServ_view_adfc_config___initLoggedInUserPageDef"
+          path="com.bidServ.view.pageDefs.adfc_config___initLoggedInUserPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <dc id="CommonManagedBean" path="com.bidServ.view.CommonManagedBean"/>

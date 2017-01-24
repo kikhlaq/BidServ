@@ -20,7 +20,7 @@ public class AuthenticateFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         // TODO Implement this method
     }
-
+     
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
@@ -28,15 +28,20 @@ public class AuthenticateFilter implements Filter {
        String username =(String)( (HttpServletRequest)servletRequest).getSession().getAttribute("user");
         System.out.println("====================doFilter "+username);
         System.out.println("====================doFilter "+( (HttpServletRequest)servletRequest).getPathInfo());
+        System.out.println("====================server  "+( (HttpServletRequest)servletRequest).getServerName()+", "+( (HttpServletRequest)servletRequest).getServerPort());
         if(username == null){
-            ((HttpServletResponse) servletResponse).sendRedirect("/bidServ/faces/Login");
+            ((HttpServletResponse) servletResponse).sendRedirect("/faces/Login");
         }else{
             filterChain.doFilter(servletRequest, servletResponse);
         }
         
 
-    }
+    }     
+        
 
+    
+    
+    
     @Override
     public void destroy() {
         // TODO Implement this method

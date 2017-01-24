@@ -11,27 +11,33 @@ import oracle.adf.view.rich.component.rich.nav.RichLink;
 import oracle.adf.view.rich.component.rich.output.RichImage;
 
 public class ShellBackingBean {
-    private RichShowDetailItem myPosts;
-    private RichShowDetailItem createPost;
-    private RichPanelTabbed panelTab;
-    private RichPopup chatPopup;
-    private RichPopup myBidsChatPopup;
-    private RichInputText comment;
-    private RichInputFile profilePicFile;
-    private RichImage profilePic;
-    private RichInputFile companyLogoFile;
-    private RichImage companyLogo;
-    private RichTable companyTable;
-    private RichTable connectionTable;
-    private RichInputText companyName;
-    private RichInputText address;
-    private RichInputText phone;
-    private RichInputText userName;
-    private RichInputText userPhone;
-    private RichInputText userEmail;
-    private RichInputText userAddress;
-    private RichListView bids;
-    private RichLink createBidButton;
+    private transient RichShowDetailItem myPosts;
+    private transient RichShowDetailItem createPost;
+    private transient RichPanelTabbed panelTab;
+    private transient RichPopup chatPopup;
+    private transient RichPopup myBidsChatPopup;
+    private transient RichInputText comment;
+    private transient RichInputFile profilePicFile;
+    private transient RichImage profilePic;
+    private transient RichInputFile companyLogoFile;
+    private transient RichImage companyLogo;
+    private transient RichTable companyTable;
+    private transient RichTable connectionTable;
+    private transient RichInputText companyName;
+    private transient RichInputText address;
+    private transient RichInputText phone;
+    private transient RichInputText userName;
+    private transient RichInputText userPhone;
+    private transient RichInputText userEmail;
+    private transient RichInputText userAddress;
+    private transient RichListView bids;
+    private transient RichLink createBidButton;
+    private transient RichPopup postAttachmentPopup;
+    private transient RichPopup bidAttachmentPopup;
+    private transient RichPopup allBidAttachmentPopup;
+    private transient RichPopup editBidPopup;
+    private RichInputText userPassword;
+    private RichInputText userResetPassword;
 
     public void setMyPosts(RichShowDetailItem myPosts) {
         this.myPosts = myPosts;
@@ -199,5 +205,54 @@ public class ShellBackingBean {
 
     public RichLink getCreateBidButton() {
         return createBidButton;
+    }
+
+    public void setPostAttachmentPopup(RichPopup postAttachmentPopup) {
+        this.postAttachmentPopup = postAttachmentPopup;
+    }
+
+    public RichPopup getPostAttachmentPopup() {
+        return postAttachmentPopup;
+    }
+
+    public void setBidAttachmentPopup(RichPopup bidAttachmentPopup) {
+        this.bidAttachmentPopup = bidAttachmentPopup;
+    }
+
+    public RichPopup getBidAttachmentPopup() {
+        return bidAttachmentPopup;
+    }
+
+    public void setAllBidAttachmentPopup(RichPopup allBidAttachmentPopup) {
+        this.allBidAttachmentPopup = allBidAttachmentPopup;
+    }
+
+    public RichPopup getAllBidAttachmentPopup() {
+        return allBidAttachmentPopup;
+    }
+
+
+    public void setEditBidPopup(RichPopup editBidPopup) {
+        this.editBidPopup = editBidPopup;
+    }
+
+    public RichPopup getEditBidPopup() {
+        return editBidPopup;
+    }
+
+    public void setUserPassword(RichInputText userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public RichInputText getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserResetPassword(RichInputText userResetPassword) {
+        this.userResetPassword = userResetPassword;
+    }
+
+    public RichInputText getUserResetPassword() {
+        return userResetPassword;
     }
 }

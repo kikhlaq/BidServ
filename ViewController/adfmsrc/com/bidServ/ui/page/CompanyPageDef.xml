@@ -145,5 +145,11 @@
                   InstanceName="data.BidServAMDataControl.dataProvider">
       <NamedData NDName="companyId" NDValue="#{bindings.CompanyId1.inputValue}" NDType="int"/>
     </methodAction>
+    <methodAction id="storePassword" RequiresUpdateModel="true" Action="invokeMethod" MethodName="storePassword"
+                  IsViewObjectMethod="false" DataControl="BidServAMDataControl"
+                  InstanceName="data.BidServAMDataControl.dataProvider"
+                  ReturnName="data.BidServAMDataControl.methodResults.storePassword_BidServAMDataControl_dataProvider_storePassword_result">
+      <NamedData NDName="password" NDValue="#{pageFlowScope.password}" NDType="java.lang.String"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

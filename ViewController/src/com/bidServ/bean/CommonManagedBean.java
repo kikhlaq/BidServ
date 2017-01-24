@@ -6,26 +6,32 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import java.util.Properties;
 
+
+
 import javax.el.ELContext;
 
 import javax.el.ExpressionFactory;
 
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.faces.event.ActionEvent;
 
 import javax.faces.event.ActionListener;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import javax.mail.Message;
@@ -37,7 +43,22 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Transport;
 
+import javax.naming.Context;
+
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
+import javax.naming.directory.InitialDirContext;
+
+import javax.naming.ldap.InitialLdapContext;
+
+import javax.naming.ldap.LdapContext;
+
 import javax.servlet.ServletContext;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import oracle.adf.model.AttributeBinding;
 import oracle.adf.model.BindingContext;
@@ -46,6 +67,7 @@ import oracle.adf.model.binding.DCBindingContainer;
 import oracle.adf.model.binding.DCIteratorBinding;
 import oracle.adf.share.ADFContext;
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.fragment.RichRegion;
 import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 
@@ -216,6 +238,7 @@ public class CommonManagedBean {
 
     public void uploadProfilePicListener(ValueChangeEvent valueChangeEvent) {
         System.out.println("====================uploadProfilePicListener");
+        
         UploadedFile file = (UploadedFile) valueChangeEvent.getNewValue();
         String fileName = file.getFilename();
         
@@ -300,6 +323,9 @@ public class CommonManagedBean {
         if("PROFILE".equals(mode)){
             commit();
             return;
+        }else{
+            OperationBinding operationBinding = bindings.getOperationBinding("storePassword");
+            Object result = operationBinding.execute();
         }
         
         if(!"NEW".equals(companyMode)){
@@ -345,7 +371,7 @@ public class CommonManagedBean {
         getPageFlowScope().clear();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/bidServ/faces/Login");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/faces/Login");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -521,6 +547,26 @@ public class CommonManagedBean {
         
         
     }
+    
+    private void navigate(FacesEvent event, String outcome) {
+        RichRegion regionComponent = null;
+
+        for (UIComponent uic = event.getComponent().getParent(); uic != null; uic = uic.getParent()) {
+            if (uic instanceof RichRegion) {
+                regionComponent = (RichRegion) uic;
+                break;
+            }
+        }
+
+        if (regionComponent != null) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            ExpressionFactory ef = fc.getApplication().getExpressionFactory();
+            ELContext elc = fc.getELContext();
+            MethodExpression me = ef.createMethodExpression(elc, outcome, String.class, new Class[] { });
+            regionComponent.queueActionEventInRegion(me, null, null, false, -1, -1, event.getPhaseId());
+        }
+
+    }
 
     public String registerNavigationListener() {
         System.out.println("====================registerNavigationListener 1");
@@ -568,6 +614,30 @@ public class CommonManagedBean {
             fc.addMessage(null, message);
             errorFound = true;
             System.out.println("====================registerNextListener errorFound");
+        }
+        if (shellBean.getUserPassword() != null && shellBean.getUserPassword().getValue() == null) {
+            message = new FacesMessage("Password is mandatory.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, message);
+            errorFound = true;
+            System.out.println("====================registerNextListener errorFound");
+        }
+        if (shellBean.getUserResetPassword() != null && shellBean.getUserResetPassword().getValue() == null) {
+            message = new FacesMessage("Reset password is mandatory.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, message);
+            errorFound = true;
+            System.out.println("====================registerNextListener errorFound");
+        }
+        if (shellBean.getUserPassword() != null  && shellBean.getUserResetPassword() != null &&
+            shellBean.getUserPassword().getValue() != null && shellBean.getUserResetPassword().getValue() != null) {
+            if(!shellBean.getUserPassword().getValue().equals(shellBean.getUserResetPassword().getValue())){
+                message = new FacesMessage("Password and Reset password does not match");
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                fc.addMessage(null, message);
+                errorFound = true;
+                System.out.println("====================registerNextListener errorFound");
+            }
         }
                 
         if (errorFound){
@@ -696,5 +766,196 @@ public class CommonManagedBean {
              iter.executeQuery();
         }
         
+    }
+
+    public void uploadPostAttachmentListener(ValueChangeEvent valueChangeEvent) {
+        System.out.println("====================uploadPostAttachmentListener ");
+        UploadedFile file = (UploadedFile) valueChangeEvent.getNewValue();
+        String fileName = file.getFilename();
+        String path = null;
+        String id = getPageFlowScope().get("attachmentId").toString();
+        
+        InputStream inputStream = null;
+        try{
+            inputStream = file.getInputStream();
+            path = AttachmentHelper.uploadAttachment("POST", id, fileName, inputStream);
+            System.out.println("====================uploadPostAttachmentListener ="+path);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(path != null){
+            getPageFlowScope().put("attachmentUrl", path);
+            getPageFlowScope().put("attachmentName", fileName);
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("createAttachment");
+            String result = (String)operationBinding.execute();
+            commit();
+            DCIteratorBinding iter = ((DCBindingContainer)bindings).findIteratorBinding("PostAttachmentIterator");
+             iter.executeQuery();
+            System.out.println("====================doneeeeeeeeeeeeeee ="+path);
+        }
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        shellBean.getPostAttachmentPopup().hide();
+        
+        getPageFlowScope().put("attachmentType", null);
+        getPageFlowScope().put("attachmentId", null);
+        getPageFlowScope().put("attachmentUrl", null);
+        getPageFlowScope().put("attachmentName", null);
+        
+        // Add event code here...
+    }
+
+    public void openPostAttachmentListener(ActionEvent actionEvent) {
+        // Add event code here...
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getPostAttachmentPopup().show(hints);
+    }
+
+    public void openBidAttachmentPopup(ActionEvent actionEvent) {
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getBidAttachmentPopup().show(hints);
+        // Add event code here...
+    }
+
+    public void uploadBidAttachmentListener(ValueChangeEvent valueChangeEvent) {
+        System.out.println("====================uploadBidAttachmentListener ");
+        UploadedFile file = (UploadedFile) valueChangeEvent.getNewValue();
+        String fileName = file.getFilename();
+        String path = null;
+        String id = getPageFlowScope().get("attachmentId").toString();
+        
+        InputStream inputStream = null;
+        try{
+            inputStream = file.getInputStream();
+            path = AttachmentHelper.uploadAttachment("BID", id, fileName, inputStream);
+            System.out.println("====================uploadBidAttachmentListener ="+path);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(path != null){
+            getPageFlowScope().put("attachmentUrl", path);
+            getPageFlowScope().put("attachmentName", fileName);
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("createAttachment");
+            String result = (String)operationBinding.execute();
+            commit();
+            DCIteratorBinding iter = ((DCBindingContainer)bindings).findIteratorBinding("BidAttachmentIterator");
+             iter.executeQuery();
+            System.out.println("==========uploadBidAttachmentListener==========doneeeeeeeeeeeeeee ="+path);
+        }
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        shellBean.getBidAttachmentPopup().hide();
+        
+        getPageFlowScope().put("attachmentType", null);
+        getPageFlowScope().put("attachmentId", null);
+        getPageFlowScope().put("attachmentUrl", null);
+        getPageFlowScope().put("attachmentName", null);
+        // Add event code here...
+    }
+
+    public void showBidAttachmentListener(ActionEvent actionEvent) {
+        // Add event code here...
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        OperationBinding operationBinding = bindings.getOperationBinding("setBidRow");
+        String result = (String)operationBinding.execute();
+        DCIteratorBinding iter = ((DCBindingContainer)bindings).findIteratorBinding("BidAttachmentIterator");
+        iter.executeQuery();
+        
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getAllBidAttachmentPopup().show(hints);
+    }
+
+    public void openBidPopup(ActionEvent actionEvent) {
+        // Add event code here...
+        ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+        RichPopup.PopupHints hints = new RichPopup.PopupHints();
+        shellBean.getEditBidPopup().show(hints);
+    }
+
+    public void editBidListener(DialogEvent dialogEvent) {
+        // Add event code here...
+        if (dialogEvent.getOutcome().equals(DialogEvent.Outcome.ok)){
+            // Add event code here...
+            ShellBackingBean shellBean = (ShellBackingBean)getPageFlowScope().get("ShellBackingBean");
+            BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+            OperationBinding operationBinding = bindings.getOperationBinding("editBid");
+            String result = (String)operationBinding.execute();
+            commit();
+            
+            DCIteratorBinding iter = ((DCBindingContainer)bindings).findIteratorBinding("BidsIterator");
+             iter.executeQuery();
+             
+             
+            AdfFacesContext.getCurrentInstance().addPartialTarget(shellBean.getBids());
+        }
+    }
+
+    public void loginListener(ActionEvent actionEvent) {
+        // Add event code here...
+        
+        
+    }
+
+    public void closePostListener(ActionEvent actionEvent) {
+        // Add event code here...
+        BindingContainer bindings = BindingContext.getCurrent().getCurrentBindingsEntry();
+        AttributeBinding attrBinding = (AttributeBinding)bindings.getControlBinding("PostStatusCode");
+        attrBinding.setInputValue("CLOSED");
+        
+//         attrBinding = (AttributeBinding)bindings.getControlBinding("ImageUrl");
+//        attrBinding.setInputValue(path);
+        commit();
+        
+    }
+
+    public String login() {
+        // Add event code here...
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesMessage message = null;
+        boolean errorFound = false;
+        if(getRequestScope().get("username") == null){
+            message = new FacesMessage("Username is mandatory.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, message);
+            errorFound = true;
+            System.out.println("====================registerNextListener errorFound");
+            
+        }
+        if(getRequestScope().get("password") == null){
+            message = new FacesMessage("Password is mandatory.");
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, message);
+            errorFound = true;
+            System.out.println("====================registerNextListener errorFound");
+            
+        }
+        if(getRequestScope().get("username") != null && getRequestScope().get("password") != null){
+            return "login";
+        }else{
+            return null;    
+        }
+        
+    }
+
+    public void loginFailed() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesMessage message = new FacesMessage("Username or Password is incorrect.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        fc.addMessage(null, message);
     }
 }

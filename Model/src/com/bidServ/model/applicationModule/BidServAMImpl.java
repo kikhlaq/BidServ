@@ -12,6 +12,11 @@ import com.bidServ.model.view.post.SecondaryConnPostVOImpl;
 
 import java.math.BigDecimal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import java.security.SecureRandom;
+
 import java.util.ArrayList;
 
 import java.util.Calendar;
@@ -327,6 +332,56 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
             Row row = vo.first();
             if (row  == null)
                 return null;
+            
+            userRow.setUserId(((BigDecimal)row.getAttribute("UserId")).longValue());
+            userRow.setName((String)row.getAttribute("Name"));
+            System.out.println("==================comp VL=="+row.getAttribute("CompanyVO"));
+            System.out.println("==================comp VL=="+row.getAttribute("CompanyVO").getClass());
+            System.out.println("==================comp VL=="+((Row)row.getAttribute("CompanyVO")).getAttribute("Name"));
+            userRow.setCompanyId(((BigDecimal)row.getAttribute("CompanyId")).longValue());
+            userRow.setCompanyName((String)((Row)row.getAttribute("CompanyVO")).getAttribute("Name"));
+            userRow.setLogoURL((String)((Row)row.getAttribute("CompanyVO")).getAttribute("LogoUrl"));
+            userRow.setIsAdmin((String)row.getAttribute("IsAdmin"));
+            userRow.setStatus((String)row.getAttribute("Status"));
+        }
+        
+        loadDashboardData(userRow.getUserId());
+        System.out.println("===================="+userRow.getUserId()+", "+userRow.getCompanyId());
+        return userRow.getUserId();
+        
+    }
+    
+    public Long initLoggedInUser(String username,String enteredPassword){
+        System.out.println("====================initLoggedInUser = "+username);
+        LoggedInUserVOImpl userVO = getLoggedInUser();
+        LoggedInUserVORowImpl userRow = (LoggedInUserVORowImpl)userVO.createRow();
+        userVO.insertRow(userRow);
+        
+        
+        if (username == null){
+        userRow.setUserId((Long)getSampleUser().getCurrentRow().getAttribute("UserId"));
+        userRow.setName((String)getSampleUser().getCurrentRow().getAttribute("User"));
+        userRow.setCompanyId((Long)getSampleUser().getCurrentRow().getAttribute("CompanyId"));
+        userRow.setCompanyName((String)getSampleUser().getCurrentRow().getAttribute("Company"));
+        userRow.setLogoURL((String)getSampleUser().getCurrentRow().getAttribute("LogoURL"));
+        userRow.setIsAdmin("Y");
+        }else{
+            ViewObjectImpl vo = getUser();
+            vo.setApplyViewCriteriaName("ByEmailVC");
+            vo.setNamedWhereClauseParam("bindEmail", username);
+            vo.executeQuery();
+            Row row = vo.first();
+            if (row  == null)
+                return null;
+            
+            //authenticate
+            String encryptedEnteredPassword = encryptPassword(enteredPassword,(String)row.getAttribute("Salt"));
+            String password = (String)row.getAttribute("Password");
+            System.out.println("==================password=="+password);
+            System.out.println("==================encryptedEnteredPassword=="+encryptedEnteredPassword);
+            if(!password.equals(encryptedEnteredPassword))
+                return null;
+            
             userRow.setUserId(((BigDecimal)row.getAttribute("UserId")).longValue());
             userRow.setName((String)row.getAttribute("Name"));
             System.out.println("==================comp VL=="+row.getAttribute("CompanyVO"));
@@ -519,6 +574,10 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
         if(row != null){
             if ("APPROVE".equals(actionCode)) {
                 row.setAttribute("Status", "APPROVED");
+                getConfiguration().executeQuery();
+                row.setAttribute("Credits", getConfiguration().first().getAttribute("PromoCredit"));
+                 
+                
             }else if ("REJECT".equals(actionCode) || "DELETE".equals(actionCode)) {
                 row.setAttribute("Status", "REJECTED");
             }  else if ("MAKE_ADMIN".equals(actionCode) ) {
@@ -589,7 +648,7 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
                 System.out.println("============uuid = " + uuid);
                 row.setAttribute("InvitationCode", uuid);
                 
-               // sendEmail(uuid, email[i].trim());
+                sendEmail(uuid, email[i].trim());
             }
         }
         
@@ -635,14 +694,15 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
     
     private void sendEmail(String code, String email){
         //TODO send email
-        String to = "khalil.ikhlaq@oracle.com";
-        String from = "khalilikhlaq@gmail.com";
+        //String to = "khalilikhlaq@gmail.com";
+        String to = email;
+        String from = "admin@bidkonnect.com";
         
         System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
                 System.setProperty("http.proxyPort", "80");
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", "stbeehive.oracle.com");
+        props.put("mail.smtp.host", "email-smtp.eu-west-1.amazonaws.com");
         props.put("mail.debug", "true"); 
         //props.put("mail.smtp.starttls.enable", true);
                        // props.put("mail.smtp.socketFactory.port", "465");
@@ -664,14 +724,15 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
             "Hello Amol,\n" + 
             "<br><br>\n" + 
             "You have been invited to Join BidServ. Click the link below to join.<br>\n" + 
-            "<a href=\"http://127.0.0.1:7101/bidServ/faces/Registration?code=eb5f1224-1d04-4f37-a464-b231cdb5eb8c&email=ok8\">Join</a>\n" + 
+            "<a href=\"http://127.0.0.1:7101/faces/Registration?code="+code+"&email="+email+"\">Join</a>\n" + 
             "<br><br>\n" + 
             "Regards,\n" + 
             "<br>\n" + 
             "Team BidServ\n" + 
             "</BODY>\n" + 
             "</HTML>\n", "text/html");
-            Transport.send(message, "username", "password");
+            //Transport.send(message, "AKIAJ65Q5OGGMHXSZL4Q", "AgsBo9xUnTnZrJTymzsM0nzlbN88LPuJzT2oafkZnZ6S"); // for khalil ID
+            Transport.send(message, "AKIAJ65Q5OGGMHXSZL4Q", "AgsBo9xUnTnZrJTymzsM0nzlbN88LPuJzT2oafkZnZ6S");
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
             mex.printStackTrace();
@@ -840,6 +901,13 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
             System.out.println("============loadDashboardData bid = " + vo.first().getAttribute("BidCount"));
         }
         
+        Row userRow = getUser().first();
+        if(userRow != null){
+            dashboard.setAttribute("CreditCount", userRow.getAttribute("Credits"));
+            System.out.println("============loadDashboardData credit = " + userRow.getAttribute("Credits"));
+        }
+        
+        
     }
 
     /**
@@ -864,6 +932,197 @@ public class BidServAMImpl extends ApplicationModuleImpl implements BidServAM {
      */
     public ViewObjectImpl getDashBoard() {
         return (ViewObjectImpl) findViewObject("DashBoard");
+    }
+
+    /**
+     * Container's getter for AttachmentVO1.
+     * @return AttachmentVO1
+     */
+    public ViewObjectImpl getPostAttachment() {
+        return (ViewObjectImpl) findViewObject("PostAttachment");
+    }
+
+    /**
+     * Container's getter for PostToAttachmentVL1.
+     * @return PostToAttachmentVL1
+     */
+    public ViewLinkImpl getPostToAttachmentVL1() {
+        return (ViewLinkImpl) findViewLink("PostToAttachmentVL1");
+    }
+
+    /**
+     * Container's getter for AttachmentVO1.
+     * @return AttachmentVO1
+     */
+    public ViewObjectImpl getBidAttachment() {
+        return (ViewObjectImpl) findViewObject("BidAttachment");
+    }
+
+    /**
+     * Container's getter for BidToAttachmentVL1.
+     * @return BidToAttachmentVL1
+     */
+    public ViewLinkImpl getBidToAttachmentVL1() {
+        return (ViewLinkImpl) findViewLink("BidToAttachmentVL1");
+    }
+
+    /**
+     * Container's getter for AttachmentVO1.
+     * @return AttachmentVO1
+     */
+    public ViewObjectImpl getAttachment() {
+        return (ViewObjectImpl) findViewObject("Attachment");
+    }
+    
+    public void createAttachment(String type, int id, String url, String name ){
+        Row row = getAttachment().createRow();
+        row.setAttribute("Type", type);
+        row.setAttribute("EntityId", id);
+        row.setAttribute("DocumentUrl", url);
+        row.setAttribute("DocumentName", name);
+    }
+    
+    public void setBidRow(BigDecimal bidId){
+        Key key = new Key(new Object[] { bidId });
+        getBids().findAndSetCurrentRowByKey(key, 1);
+    }
+
+    /**
+     * Container's getter for BidHistory1.
+     * @return BidHistory1
+     */
+    public ViewObjectImpl getBidHistory() {
+        return (ViewObjectImpl) findViewObject("BidHistory");
+    }
+    
+    public void editBid(String desc, String amt){
+        Row bid = getBids().getCurrentRow();
+        System.out.println("======editBid = "+desc+", "+amt);
+        Row history = null;
+        if(desc != null && !desc.equals(bid.getAttribute("BidDescription")) ){
+            System.out.println("======desc diff = "+desc+", "+bid.getAttribute("BidDescription"));
+            history = getBidHistory().createRow();
+            history.setAttribute("BidId", bid.getAttribute("BidId"));
+            history.setAttribute("FieldName", "DESC");
+            history.setAttribute("OldValue", bid.getAttribute("BidDescription"));
+            history.setAttribute("NewValue", desc);
+            history.setAttribute("UpdateDate", new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        }
+        
+        if(amt != null && bid.getAttribute("Amount") != null && !amt.equals(bid.getAttribute("Amount").toString()) ){
+            System.out.println("======amt  diff = "+amt+", "+bid.getAttribute("Amount"));
+            history = getBidHistory().createRow();
+            history.setAttribute("BidId", bid.getAttribute("BidId"));
+            history.setAttribute("FieldName", "AMOUNT");
+            history.setAttribute("OldValue", bid.getAttribute("Amount"));
+            history.setAttribute("NewValue", amt);
+            history.setAttribute("UpdateDate", new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+        }
+        
+        bid.setAttribute("BidDescription", desc);
+        bid.setAttribute("Amount", amt);
+        
+    }
+
+    /**
+     * Container's getter for ConfigurationVO1.
+     * @return ConfigurationVO1
+     */
+    public ViewObjectImpl getConfiguration() {
+        return (ViewObjectImpl) findViewObject("Configuration");
+    }
+    
+    public static void main(String s[]){
+        String to = "khalilikhlaq@gmail.com";
+        String from = "admin@bidkonnect.com";
+        
+        System.setProperty("http.proxyHost", "www-proxy.us.oracle.com");
+                System.setProperty("http.proxyPort", "80");
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "email-smtp.eu-west-1.amazonaws.com");
+        props.put("mail.debug", "true"); 
+        //props.put("mail.smtp.starttls.enable", true);
+                       // props.put("mail.smtp.socketFactory.port", "465");
+                        props.put("mail.smtp.auth", "true");
+                        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.ssl.enable", "true");
+
+
+        Session mailSession = Session.getInstance(props);
+
+        mailSession.setDebug(true); 
+        try {
+            MimeMessage message = new MimeMessage(mailSession);
+            message.setFrom(new InternetAddress(from));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("You have been invited to join BidServ!");
+            message.setContent("<HTML>\n" + 
+            "<BODY>\n" + 
+            "Hello Amol,\n" + 
+            "<br><br>\n" + 
+            "You have been invited to Join BidServ. Click the link below to join.<br>\n" + 
+            "<a href=\"http://127.0.0.1:7101/faces/Registration?code=eb5f1224-1d04-4f37-a464-b231cdb5eb8c&email=ok8\">Join</a>\n" + 
+            "<br><br>\n" + 
+            "Regards,\n" + 
+            "<br>\n" + 
+            "Team BidServ\n" + 
+            "</BODY>\n" + 
+            "</HTML>\n", "text/html");
+            Transport.send(message, "AKIAJ65Q5OGGMHXSZL4Q", "AgsBo9xUnTnZrJTymzsM0nzlbN88LPuJzT2oafkZnZ6S");
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+    
+    
+    
+    public boolean storePassword(String password){
+        System.out.println("======storePassword = "+password);
+        boolean result = false;
+        try {
+            String salt = new String(generateSalt());
+            System.out.println("======storePassword = "+salt);
+            String encryptedPassword = encryptPassword(password,salt);
+            System.out.println("======storePassword = "+encryptedPassword);
+            
+            Row user = getUser().getCurrentRow();
+            user.setAttribute("Password", encryptedPassword);
+            user.setAttribute("Salt", salt);
+            result = true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
+
+    private static byte[] generateSalt() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] bytes = new byte[16];
+        sr.nextBytes(bytes);
+        return bytes;
+    }
+    
+    private static String encryptPassword(String password, String salt) {
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(salt.getBytes());
+            byte[] bytes = md.digest(password.getBytes());
+            StringBuilder sb = new StringBuilder();
+
+            for (int i=0; i<bytes.length; i++) {
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generatedPassword;
     }
 }
 

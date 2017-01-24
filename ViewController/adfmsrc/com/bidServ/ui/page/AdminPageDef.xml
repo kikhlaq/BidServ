@@ -30,6 +30,7 @@
           <Item Value="Status"/>
           <Item Value="ImageUrl"/>
           <Item Value="UserId"/>
+          <Item Value="Credits"/>
         </AttrNames>
       </nodeDefinition>
     </tree>

@@ -46,8 +46,11 @@
                     </af:table>
                     <af:outputText value="- OR -" id="ot2" rendered="false"/>
                     <af:inputText id="it1" simple="true" placeholder="Username" value="#{requestScope.username}"/>
+                    <af:inputText id="it2" value="#{requestScope.password}" simple="true" placeholder="Password"
+                                  secret="true"/>
                     <af:panelGroupLayout id="pgl3" layout="horizontal">
-                        <af:button text="Login" id="b1" action="login">
+                        <af:button text="Login" id="b1"  actionListener="#{ManagedBean.loginListener}"
+                                   action="#{ManagedBean.login}">
                             <af:setPropertyListener from="#{'Y'}" to="#{requestScope.isLogin}" type="action"/>
                         </af:button>
                         <af:spacer width="10" height="10" id="s3"/>

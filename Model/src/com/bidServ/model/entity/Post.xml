@@ -7,7 +7,7 @@
   Version="12.2.1.8.41"
   InheritPersonalization="merge"
   DBObjectType="table"
-  DBObjectName="mysql.posts"
+  DBObjectName="posts"
   AliasName="Post"
   BindingStyle="JDBC"
   RowClass="com.bidServ.model.entity.PostImpl"
@@ -21,7 +21,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts"
+    TableName="posts"
     PrimaryKey="true"
     IsUpdateable="while_insert">
     <DesignTime>
@@ -35,7 +35,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -47,7 +47,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -59,7 +59,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="255"/>
     </DesignTime>
@@ -71,7 +71,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts"
+    TableName="posts"
     DefaultValue="BUY">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
@@ -84,7 +84,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
@@ -96,7 +96,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="1000"/>
     </DesignTime>
@@ -107,21 +107,21 @@
     SQLType="DATE"
     Type="java.sql.Date"
     ColumnType="DATE"
-    TableName="mysql.posts"/>
+    TableName="posts"/>
   <Attribute
     Name="DeliveryDate"
     ColumnName="DELIVERY_DATE"
     SQLType="DATE"
     Type="java.sql.Date"
     ColumnType="DATE"
-    TableName="mysql.posts"/>
+    TableName="posts"/>
   <Attribute
     Name="Quantity"
     ColumnName="QUANTITY"
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -133,7 +133,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
@@ -145,7 +145,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts"
+    TableName="posts"
     DefaultValue="ENTIRE_NETWORK">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
@@ -158,7 +158,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="1"/>
     </DesignTime>
@@ -169,7 +169,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -180,7 +180,7 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -191,7 +191,7 @@
     SQLType="DATE"
     Type="java.sql.Date"
     ColumnType="DATE"
-    TableName="mysql.posts"/>
+    TableName="posts"/>
   <Attribute
     Name="Language"
     Precision="10"
@@ -199,7 +199,7 @@
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR"
-    TableName="mysql.posts">
+    TableName="posts">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="10"/>
     </DesignTime>
@@ -210,7 +210,8 @@
     SQLType="DECIMAL"
     Type="java.math.BigDecimal"
     ColumnType="DECIMAL"
-    TableName="mysql.posts">
+    TableName="posts"
+    ChangeIndicator="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="3"/>
     </DesignTime>
@@ -222,7 +223,7 @@
     SQLType="BLOB"
     Type="java.sql.Blob"
     ColumnType="BLOB"
-    TableName="mysql.posts"/>
+    TableName="posts"/>
   <AccessorAttribute
     Name="PrimaryConnection"
     Association="com.bidServ.model.entity.association.PostToPrimaryConnection"

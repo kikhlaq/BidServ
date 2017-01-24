@@ -8,7 +8,8 @@
       <af:button text="Back" id="b1" action="done"/>
       <af:spacer width="10" height="10" id="s9"/>
       <af:button text="Close Post" id="b4"
-                 rendered="#{bindings.PostStatusCode.inputValue == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; bindings.UserId.inputValue == bindings.UserId1.inputValue}">
+                 rendered="#{bindings.PostStatusCode.inputValue == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; bindings.UserId.inputValue == bindings.UserId1.inputValue}"
+                 actionListener="#{ManagedBean.closePostListener}">
         <af:setPropertyListener from="#{'CLOSED'}" to="#{bindings.PostStatusCode.inputValue}" type="action"/>
       </af:button>
     </af:panelGroupLayout>
@@ -67,7 +68,19 @@
         <af:spacer height="10" id="s3"/>
       </f:facet>
       <af:link id="l6" icon="/com/bidServ/resource/images/attachment.png" shortDesc="Add Attachment"
-               rendered="#{bindings.UserId.inputValue == bindings.UserId1.inputValue &amp;&amp; bindings.PostStatusCode.inputValue == 'OPEN' and bindings.DaysLeft.inputValue > 0}"/>
+               rendered="#{bindings.UserId.inputValue == bindings.UserId1.inputValue &amp;&amp; bindings.PostStatusCode.inputValue == 'OPEN' and bindings.DaysLeft.inputValue > 0}"
+               actionListener="#{ManagedBean.openPostAttachmentListener}">
+        <af:setPropertyListener from="#{bindings.PostId.inputValue}" to="#{pageFlowScope.attachmentId}" type="action"/>
+        <af:setPropertyListener from="#{'POST'}" to="#{pageFlowScope.attachmentType}" type="action"/>
+      </af:link>
+      <af:table value="#{bindings.PostAttachment.collectionModel}" var="row" rows="#{bindings.PostAttachment.rangeSize}"
+                emptyText="#{bindings.PostAttachment.viewable ? 'No attachment to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" fetchSize="#{bindings.PostAttachment.rangeSize}" id="t1"
+                horizontalGridVisible="false" verticalGridVisible="false" columnStretching="last">
+        <af:column id="c2">
+          <tr:goLink text="#{row.DocumentName}" id="gl1" destination="#{row.DocumentUrl}" targetFrame="_blank"/>
+        </af:column>
+      </af:table>
     </af:panelGroupLayout>
     <af:panelGroupLayout id="pgl4" layout="vertical"
                          inlineStyle="background-color:white; margin-top:0px; margin-bottom:0px; padding-bottom:10px; padding-top:10px; padding-left:10px;" halign="center">
@@ -80,7 +93,12 @@
             <af:showPopupBehavior popupId="p2"/>
           </af:link>
           <af:link id="l5" icon="/com/bidServ/resource/images/attachment.png" shortDesc="Add Attachment"
-                   rendered="#{bindings.IsAttachmentAllowed.inputValue == 'Y'}"/>
+                   rendered="#{bindings.IsAttachmentAllowed.inputValue == 'Y'}"
+                   actionListener="#{ManagedBean.openBidAttachmentPopup}">
+            <af:setPropertyListener to="#{pageFlowScope.attachmentType}" from="#{'BID'}" type="action"/>
+            <af:setPropertyListener from="#{bindings.BidId.inputValue}" to="#{pageFlowScope.attachmentId}"
+                                    type="action"/>
+          </af:link>
         </trh:rowLayout>
         <trh:rowLayout id="rl4">
           <af:spacer width="10" height="10" id="s7"/>
@@ -125,6 +143,11 @@
             <af:gridCell width="75%" id="gc2">
               <af:panelGroupLayout id="pgl8" layout="vertical">
                 <af:outputText value="#{item.BidDescription}" id="ot12"/>
+                <af:spacer width="10" height="10" id="s11"/>
+                <af:link text="Show Attachments" id="l7" rendered="#{item.UserId != bindings.UserId1.inputValue}"
+                         actionListener="#{ManagedBean.showBidAttachmentListener}">
+                  <af:setPropertyListener from="#{item.BidId}" to="#{requestScope.bidId}" type="action"/>
+                </af:link>
               </af:panelGroupLayout>
             </af:gridCell>
             <af:gridCell width="10%" id="gc3">
@@ -150,7 +173,11 @@
                     <af:spacer height="3" id="s14"/>
                   </f:facet>
                 <af:link text="Edit" id="l3"
-                         rendered="#{bindings.UserId1.inputValue == item.UserId &amp;&amp; bindings.PostStatusCode == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; item.BidStatusCode == 'PENDING'}"/>
+                         rendered="#{bindings.UserId1.inputValue == item.UserId &amp;&amp; bindings.PostStatusCode == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; item.BidStatusCode == 'PENDING'}"
+                         actionListener="#{ManagedBean.openBidPopup}">
+                  <af:setPropertyListener from="#{item.BidDescription}" to="#{requestScope.bidDesc}" type="action"/>
+                  <af:setPropertyListener from="#{item.Amount}" to="#{requestScope.bidAmount}" type="action"/>
+                </af:link>
                 <af:link text="Grant" id="l4"
                          rendered="#{bindings.UserId1.inputValue == bindings.UserId.inputValue &amp;&amp; bindings.PostStatusCode.inputValue == 'OPEN' &amp;&amp; bindings.DaysLeft.inputValue > 0 &amp;&amp; item.BidStatusCode == 'PENDING'}"
                          actionListener="#{ManagedBean.grantBidListener}">
@@ -160,6 +187,16 @@
             </af:gridCell>
           </af:gridRow>
         </af:panelGridLayout>
+        <af:table value="#{bindings.BidAttachment.collectionModel}" var="row" rows="#{bindings.BidAttachment.rangeSize}"
+                  emptyText="#{bindings.BidAttachment.viewable ? 'No attachment to display.' : 'Access Denied.'}"
+                  rowBandingInterval="0" fetchSize="#{bindings.BidAttachment.rangeSize}" id="t2"
+                  horizontalGridVisible="false" verticalGridVisible="false" columnStretching="last"
+                  rendered="#{item.UserId == bindings.UserId1.inputValue}">
+          <af:column id="c3">
+            <tr:goLink text="#{row.bindings.DocumentName.inputValue}" id="gl2"
+                       destination="#{row.bindings.DocumentUrl.inputValue}" targetFrame="_blank"/>
+          </af:column>
+        </af:table>
       </af:listItem>
     </af:listView>
   </af:panelGroupLayout>
@@ -214,6 +251,50 @@
         <af:spacer width="10" height="10" id="s8"/>
         <af:inputText id="it3" placeholder="Amount" simple="true" value="#{requestScope.bidAmount}" columns="75"/>
       </af:panelGroupLayout>
+    </af:dialog>
+  </af:popup>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="p552" contentDelivery="lazyUncached"
+            binding="#{pageFlowScope.ShellBackingBean.editBidPopup}">
+    <af:dialog id="d552" closeIconVisible="false" contentWidth="400" title="Edit Bid"
+               dialogListener="#{ManagedBean.editBidListener}">
+      <f:facet name="buttonBar"/>
+      <af:panelGroupLayout id="p5gl518" layout="vertical">
+        <af:inputText id="it552" simple="true" placeholder="Description" value="#{requestScope.bidDesc}" rows="5"
+                      columns="75"/>
+        <af:spacer width="10" height="10" id="s558"/>
+        <af:inputText id="i5t3" placeholder="Amount" simple="true" value="#{requestScope.bidAmount}" columns="75"/>
+      </af:panelGroupLayout>
+    </af:dialog>
+  </af:popup>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="postAtt" contentDelivery="lazyUncached"
+            binding="#{pageFlowScope.ShellBackingBean.postAttachmentPopup}">
+    <af:dialog id="d3" type="none" closeIconVisible="false">
+      <f:facet name="buttonBar"/>
+      <af:inputFile id="if1" simple="true" label="Select File"
+                    valueChangeListener="#{ManagedBean.uploadPostAttachmentListener}" autoSubmit="true"/>
+    </af:dialog>
+  </af:popup>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="attach"
+            binding="#{pageFlowScope.ShellBackingBean.allBidAttachmentPopup}">
+    <af:dialog id="d5" type="none" inlineStyle="width:400px;" title="Attachments">
+      <f:facet name="buttonBar"/>
+      <af:table value="#{bindings.BidAttachment1.collectionModel}" var="row" rows="#{bindings.BidAttachment1.rangeSize}"
+                emptyText="#{bindings.BidAttachment1.viewable ? 'No attachment to display.' : 'Access Denied.'}"
+                rowBandingInterval="0" fetchSize="#{bindings.BidAttachment1.rangeSize}" id="t3"
+                horizontalGridVisible="false" verticalGridVisible="false" styleClass="AFStretchWidth"
+                columnStretching="last">
+        <af:column id="c4" minimumWidth="100">
+          <tr:goLink text="#{row.DocumentName}" id="gl3" destination="#{row.DocumentUrl}" targetFrame="_blank"/>
+        </af:column>
+      </af:table>
+    </af:dialog>
+  </af:popup>
+  <af:popup childCreation="deferred" autoCancel="disabled" id="bidAtt"
+            binding="#{pageFlowScope.ShellBackingBean.bidAttachmentPopup}">
+    <af:dialog id="d4" type="none" closeIconVisible="false">
+      <f:facet name="buttonBar"/>
+      <af:inputFile label="Label 1" id="if2" simple="true" autoSubmit="true"
+                    valueChangeListener="#{ManagedBean.uploadBidAttachmentListener}"/>
     </af:dialog>
   </af:popup>
 </jsp:root>

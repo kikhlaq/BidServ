@@ -56,9 +56,13 @@
                                       simple="true" columns="75" rows="5"
                                       binding="#{pageFlowScope.RegisterBean.userAddress}"/>
                         <af:inputText id="it2" placeholder="Password" simple="true" secret="true" columns="75"
-                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"/>
+                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"
+                                      value="#{pageFlowScope.password}"
+                                      binding="#{pageFlowScope.RegisterBean.userPassword}"/>
                         <af:inputText id="it4" secret="true" placeholder="Confirm Password" columns="75" simple="true"
-                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"/>
+                                      rendered="#{pageFlowScope.mode == 'PROFILE' ? false : true}"
+                                      value="#{pageFlowScope.resetPassword}"
+                                      binding="#{pageFlowScope.RegisterBean.userResetPassword}"/>
                         <af:panelGroupLayout id="pgl6" layout="horizontal">
                             <f:facet name="separator">
                                 <af:spacer width="10" height="10" id="s4"/>

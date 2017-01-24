@@ -271,6 +271,16 @@
     EntityAttrName="IsVerified"
     EntityUsage="Company"
     AliasName="IS_VERIFIED"/>
+  <ViewAttribute
+    Name="AttachmentType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Expression="'POST'"/>
   <ViewCriteria
     Name="MyPostVC"
     ViewObjectName="com.bidServ.model.view.post.PostVO"
@@ -385,6 +395,11 @@
   <ViewLinkAccessor
     Name="BidVO"
     ViewLink="com.bidServ.model.view.link.PostToBidVL"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AttachmentVO"
+    ViewLink="com.bidServ.model.view.link.PostToAttachmentVL"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ResourceBundle>

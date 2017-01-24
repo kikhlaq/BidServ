@@ -65,5 +65,15 @@ public interface BidServAM extends ApplicationModule {
     void reportUser(int userId);
 
     void handlReportedEntity(String type, int id, String outcome);
+
+    void createAttachment(String type, int id, String url, String name);
+
+    void setBidRow(BigDecimal bidId);
+
+    void editBid(String desc, String amt);
+
+    Long initLoggedInUser(String username, String enteredPassword);
+
+    boolean storePassword(String password);
 }
 

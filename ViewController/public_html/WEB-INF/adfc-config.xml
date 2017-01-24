@@ -33,6 +33,12 @@
       <fixed-outcome>home</fixed-outcome>
     </outcome>
   </method-call>
+  <method-call id="loginFail">
+    <method>#{ManagedBean.loginFailed}</method>
+    <outcome>
+      <fixed-outcome>fail</fixed-outcome>
+    </outcome>
+  </method-call>
   <control-flow-rule id="__3">
     <from-activity-id>Login</from-activity-id>
     <control-flow-case id="__4">
@@ -59,7 +65,7 @@
     </control-flow-case>
     <control-flow-case id="__32">
       <from-outcome>failure</from-outcome>
-      <to-activity-id>Login</to-activity-id>
+      <to-activity-id>loginFail</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <control-flow-rule id="__35">
@@ -74,6 +80,13 @@
     <control-flow-case id="__6">
       <from-outcome>home</from-outcome>
       <to-activity-id>Home</to-activity-id>
+    </control-flow-case>
+  </control-flow-rule>
+  <control-flow-rule id="__8">
+    <from-activity-id>loginFail</from-activity-id>
+    <control-flow-case id="__9">
+      <from-outcome>fail</from-outcome>
+      <to-activity-id>Login</to-activity-id>
     </control-flow-case>
   </control-flow-rule>
   <managed-bean id="__1">

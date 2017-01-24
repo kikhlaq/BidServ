@@ -157,6 +157,24 @@
     EntityAttrName="UserId"
     EntityUsage="User"
     AliasName="USER_ID"/>
+  <ViewAttribute
+    Name="Credits"
+    PrecisionRule="true"
+    EntityAttrName="Credits"
+    EntityUsage="User"
+    AliasName="credits"/>
+  <ViewAttribute
+    Name="Password"
+    PrecisionRule="true"
+    EntityAttrName="Password"
+    EntityUsage="User"
+    AliasName="password"/>
+  <ViewAttribute
+    Name="Salt"
+    PrecisionRule="true"
+    EntityAttrName="Salt"
+    EntityUsage="User"
+    AliasName="salt"/>
   <ViewCriteria
     Name="ByCompIdVC"
     ViewObjectName="com.bidServ.model.view.setup.UserVO"

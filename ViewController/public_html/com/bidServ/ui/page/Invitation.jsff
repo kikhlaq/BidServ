@@ -129,7 +129,7 @@
                         <af:panelTabbed position="above" id="pt1" styleClass="AFStretchWidth"
                                         >
                             <af:showDetailItem id="sdi1" disabled="true" styleClass="deadPadItem"/>
-                            <af:showDetailItem text="Invitation" id="sdi2" disclosed="true">
+                            <af:showDetailItem text="Administration" id="sdi2" disclosed="true">
                     <af:panelGroupLayout id="pgl3" layout="vertical">
                         <af:outputText value="Enter the email Id of  Invitee. You can enter multiple email Ids separated by comma." id="ot1"/>
                         <f:facet name="separator">
@@ -322,7 +322,25 @@
                         </af:panelHeader>
                     </af:panelGroupLayout>
                 </af:showDetailItem>
-                        </af:panelTabbed>
+                <af:showDetailItem text="BidServ Configuration" id="sdi3">
+                    <af:button text="Save" id="b2"/>
+                    <af:panelFormLayout id="pfl1" styleClass="AFStretchWidth">
+                        <f:facet name="footer"/>
+                        <af:panelLabelAndMessage label="Promotional Credits for New User" id="plam1">
+                            <af:inputText label="Label 1" id="it2" simple="true"
+                                          value="#{bindings.PromoCredit.inputValue}"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Credit cost for Post" id="plam2">
+                            <af:inputText label="Label 2" id="it3" simple="true"
+                                          value="#{bindings.PostCost.inputValue}"/>
+                        </af:panelLabelAndMessage>
+                        <af:panelLabelAndMessage label="Credit cost for Bid" id="plam3">
+                            <af:inputText label="Label 3" id="it4" simple="true"
+                                          value="#{bindings.BidCost.inputValue}"/>
+                        </af:panelLabelAndMessage>
+                    </af:panelFormLayout>
+                </af:showDetailItem>
+            </af:panelTabbed>
                         <af:panelTabbed position="above" id="pt13" inlineStyle="width:250px;">
                             <af:showDetailItem id="tab14" disclosed="true" displayIndex="-1" disabled="true"
                                                >

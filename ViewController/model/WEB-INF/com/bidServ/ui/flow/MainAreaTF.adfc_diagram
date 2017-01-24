@@ -72,7 +72,7 @@
       <property
          name="fromOutcome">success</property>
       <property
-         name="sdm:polyPoints">R50,-159.0,46.442383,79.34358,46.5459,L46</property>
+         name="sdm:polyPoints">R50,-158.0106,46.442383,74.12002,45.5565,L45</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -82,7 +82,7 @@
       <property
          name="fromOutcome">error</property>
       <property
-         name="sdm:polyPoints">L50,-241.0,46.442383,-296.5,47.643555,R50</property>
+         name="sdm:polyPoints">L50,-241.98936,46.442383,-295.51062,47.643547,R50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -92,7 +92,7 @@
       <property
          name="fromOutcome">initLoggedInUser</property>
       <property
-         name="sdm:polyPoints">T50,-202.55664,174.38477,-203.5,102.34008,B44</property>
+         name="sdm:polyPoints">T50,-202.55666,173.39539,-204.48936,103.86225,B43</property>
    </ControlFlowCase>
    <View
       id="View10">
@@ -119,7 +119,7 @@
       <property
          name="fromOutcome">profileToHome</property>
       <property
-         name="sdm:polyPoints">L42,316.86002,42.344727,162.5,46.5459,R46</property>
+         name="sdm:polyPoints">L40,315.11203,40.365982,163.48938,45.5565,R45</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -129,7 +129,7 @@
       <property
          name="fromOutcome">profile</property>
       <property
-         name="sdm:polyPoints">R54,162.59364,53.5459,316.9537,49.344727,L50</property>
+         name="sdm:polyPoints">R55,163.63965,54.53525,315.2624,49.344734,L50</property>
    </ControlFlowCase>
    <View
       id="View13">
@@ -156,7 +156,7 @@
       <property
          name="fromOutcome">home</property>
       <property
-         name="sdm:polyPoints">B50,124.5,-116.3923,118.0,-5.698991,T44</property>
+         name="sdm:polyPoints">B50,124.500015,-115.08876,117.01062,-7.2066274,T43</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -166,7 +166,7 @@
       <property
          name="fromOutcome">adminToProfile</property>
       <property
-         name="sdm:polyPoints">B61,131.5,-117.45996,319.5,35.344727,L34</property>
+         name="sdm:polyPoints">B65,133.47876,-116.470604,318.5106,31.38723,L29</property>
    </ControlFlowCase>
    <MethodCall
       id="MethodCall16">
@@ -189,7 +189,7 @@
       <property
          name="fromOutcome">adminToLogout</property>
       <property
-         name="sdm:polyPoints">L54,83.5,-167.95996,-65.0,-91.9082,T50</property>
+         name="sdm:polyPoints">L55,82.51064,-166.9706,-65.0,-92.897575,T50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -199,7 +199,7 @@
       <property
          name="fromOutcome">profileToLogout</property>
       <property
-         name="sdm:polyPoints">R50,401.5,49.344727,521.0,49.390625,L50</property>
+         name="sdm:polyPoints">R50,402.48935,49.34473,520.0106,49.39059,L50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -209,7 +209,7 @@
       <property
          name="fromOutcome">homeToLogout</property>
       <property
-         name="sdm:polyPoints">L38,80.5,39.5459,-24.0,-37.908203,R50</property>
+         name="sdm:polyPoints">L35,79.51063,36.577747,-23.010628,-37.908203,R50</property>
    </ControlFlowCase>
    <MethodCall
       id="MethodCall20">
@@ -245,7 +245,7 @@
       <property
          name="fromOutcome">admin</property>
       <property
-         name="sdm:polyPoints">T56,125.0,-3.9541016,319.0244,-164.80469,L54</property>
+         name="sdm:polyPoints">T57,125.98938,-4.943501,318.03506,-163.8153,L55</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -255,7 +255,7 @@
       <property
          name="fromOutcome">profileToAdmin</property>
       <property
-         name="sdm:polyPoints">T50,360.5,-4.6552734,360.0244,-114.30469,B50</property>
+         name="sdm:polyPoints">T50,360.49997,-5.644645,360.02444,-113.315315,B50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -265,7 +265,7 @@
       <property
          name="fromOutcome">loadAdminData</property>
       <property
-         name="sdm:polyPoints">L46,317.75836,-171.80469,165.5,-171.45996,R50</property>
+         name="sdm:polyPoints">L45,316.39905,-172.79407,166.4894,-171.45998,R50</property>
    </ControlFlowCase>
    <MethodCall
       id="MethodCall25">
@@ -288,7 +288,7 @@
       <property
          name="fromOutcome">admin</property>
       <property
-         name="sdm:polyPoints">T50,-200.0,-7.557617,-199.13867,-121.603516,B44</property>
+         name="sdm:polyPoints">T50,-199.99998,-8.54699,-200.12805,-119.77304,B43</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -298,7 +298,7 @@
       <property
          name="fromOutcome">loadAdminData</property>
       <property
-         name="sdm:polyPoints">R50,-154.63867,-175.60352,83.5,-174.95996,L46</property>
+         name="sdm:polyPoints">R50,-153.64929,-175.60353,81.44348,-175.94936,L45</property>
    </ControlFlowCase>
    <TaskFlowReturn
       id="TaskFlowReturn28">
@@ -323,7 +323,7 @@
       <property
          name="fromOutcome">logout</property>
       <property
-         name="sdm:polyPoints">T50,562.0,-4.609375,562.0,-54.4541,B50</property>
+         name="sdm:polyPoints">T50,562.0,-5.598784,562.0,-53.46471,B50</property>
    </ControlFlowCase>
    <TaskFlowReturn
       id="TaskFlowReturn30">
@@ -348,7 +348,7 @@
       <property
          name="fromOutcome">logout1</property>
       <property
-         name="sdm:polyPoints">L50,-106.0,-37.908203,-241.0,-38.155273,R50</property>
+         name="sdm:polyPoints">L50,-106.98937,-37.908203,-240.01062,-38.15528,R50</property>
    </ControlFlowCase>
    <WildcardControlFlowRule
       id="WildcardControlFlowRule32">
@@ -367,7 +367,7 @@
       <property
          name="fromOutcome">toHome</property>
       <property
-         name="sdm:polyPoints">R50,-318.0,227.79297,-243.55664,228.38477,L50</property>
+         name="sdm:polyPoints">R50,-317.01062,227.79297,-244.54604,228.38477,L50</property>
    </ControlFlowCase>
    <View
       id="View34">
@@ -394,7 +394,7 @@
       <property
          name="fromOutcome">invite</property>
       <property
-         name="sdm:polyPoints">B56,-196.5,100.44238,-80.0,177.94238,T21</property>
+         name="sdm:polyPoints">B57,-195.5106,101.431755,-84.94687,176.953,T13</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -404,7 +404,7 @@
       <property
          name="fromOutcome">inviteToLogout</property>
       <property
-         name="sdm:polyPoints">T44,-66.0,171.49507,-65.0,16.091797,B50</property>
+         name="sdm:polyPoints">T43,-66.98937,168.7665,-65.0,17.081173,B50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -414,7 +414,7 @@
       <property
          name="fromOutcome">inviteToAdmin</property>
       <property
-         name="sdm:polyPoints">T33,-73.0,175.39651,-192.13867,-121.603516,B56</property>
+         name="sdm:polyPoints">T28,-75.96812,173.74423,-191.14929,-120.61416,B57</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -424,7 +424,7 @@
       <property
          name="fromOutcome">inviteToHome</property>
       <property
-         name="sdm:polyPoints">T67,-52.0,174.9308,77.73265,53.5459,L54</property>
+         name="sdm:polyPoints">T72,-49.031868,173.13734,75.924095,54.53525,L55</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -434,7 +434,7 @@
       <property
          name="fromOutcome">inviteToProfile</property>
       <property
-         name="sdm:polyPoints">R54,-19.830044,235.44238,319.5,63.344727,L66</property>
+         name="sdm:polyPoints">R55,-18.38935,236.43176,318.5106,67.30224,L71</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -444,7 +444,7 @@
       <property
          name="fromOutcome">homtToInvite</property>
       <property
-         name="sdm:polyPoints">L62,80.5,60.5459,-45.0,177.94238,T79</property>
+         name="sdm:polyPoints">L65,79.51063,63.514004,-40.053116,176.953,T87</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -454,7 +454,7 @@
       <property
          name="fromOutcome">profileToInvite</property>
       <property
-         name="sdm:polyPoints">L58,317.83368,56.344727,-21.5,228.44238,R46</property>
+         name="sdm:polyPoints">L60,316.39526,58.323486,-20.51062,227.453,R45</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -464,6 +464,6 @@
       <property
          name="fromOutcome">adminToInvite</property>
       <property
-         name="sdm:polyPoints">B39,117.5,-117.45996,-59.0,172.47185,T56</property>
+         name="sdm:polyPoints">B35,115.52126,-116.470604,-58.01062,170.02258,T57</property>
    </ControlFlowCase>
 </SDM>

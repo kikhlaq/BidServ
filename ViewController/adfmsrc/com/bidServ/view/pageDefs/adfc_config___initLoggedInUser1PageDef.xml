@@ -9,6 +9,7 @@
                   InstanceName="data.BidServAMDataControl.dataProvider"
                   ReturnName="data.BidServAMDataControl.methodResults.initLoggedInUser_BidServAMDataControl_dataProvider_initLoggedInUser_result">
       <NamedData NDName="username" NDValue="#{requestScope.username}" NDType="java.lang.String"/>
+      <NamedData NDName="enteredPassword" NDValue="#{requestScope.password}" NDType="java.lang.String"/>
     </methodAction>
   </bindings>
 </pageDefinition>

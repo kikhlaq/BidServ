@@ -139,6 +139,21 @@
   <ViewUsage
     Name="DashBoard"
     ViewObjectName="com.bidServ.model.view.dashboard.DashBoardVO"/>
+  <ViewUsage
+    Name="PostAttachment"
+    ViewObjectName="com.bidServ.model.view.common.AttachmentVO"/>
+  <ViewUsage
+    Name="BidAttachment"
+    ViewObjectName="com.bidServ.model.view.common.AttachmentVO"/>
+  <ViewUsage
+    Name="Attachment"
+    ViewObjectName="com.bidServ.model.view.common.AttachmentVO"/>
+  <ViewUsage
+    Name="BidHistory"
+    ViewObjectName="com.bidServ.model.view.bid.BidHistory"/>
+  <ViewUsage
+    Name="Configuration"
+    ViewObjectName="com.bidServ.model.view.setup.ConfigurationVO"/>
   <ViewLinkUsage
     Name="PostToBidVL1"
     ViewLinkObjectName="com.bidServ.model.view.link.PostToBidVL"
@@ -156,6 +171,18 @@
     ViewLinkObjectName="com.bidServ.model.view.link.UserToCompanyVL"
     SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.User"
     DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.UserCompany"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="PostToAttachmentVL1"
+    ViewLinkObjectName="com.bidServ.model.view.link.PostToAttachmentVL"
+    SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.Post"
+    DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.PostAttachment"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="BidToAttachmentVL1"
+    ViewLinkObjectName="com.bidServ.model.view.link.BidToAttachmentVL"
+    SrcViewUsageName="com.bidServ.model.applicationModule.BidServAM.Bids"
+    DstViewUsageName="com.bidServ.model.applicationModule.BidServAM.BidAttachment"
     Reversed="false"/>
   <ClientInterface
     Name="__clientInterface">
@@ -791,6 +818,71 @@
         Type="int"/>
       <Parameter
         Name="outcome"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="createAttachment"
+      MethodName="createAttachment">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="type"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="id"
+        Type="int"/>
+      <Parameter
+        Name="url"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="name"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="setBidRow"
+      MethodName="setBidRow">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="bidId"
+        Type="java.math.BigDecimal"/>
+    </Method>
+    <Method
+      Name="editBid"
+      MethodName="editBid">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="desc"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="amt"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="initLoggedInUser2"
+      MethodName="initLoggedInUser">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.Long"/>
+      <Parameter
+        Name="username"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="enteredPassword"
+        Type="java.lang.String"/>
+    </Method>
+    <Method
+      Name="storePassword"
+      MethodName="storePassword">
+      <Return
+        Name="_return_type_"
+        Type="boolean"/>
+      <Parameter
+        Name="password"
         Type="java.lang.String"/>
     </Method>
   </ClientInterface>
